@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:mad3/frontend/pages/pages.dart'
-    show firebaseMessagingBackgroundHandler;
+// import 'package:mad3/frontend/pages/pages.dart'
+//     show firebaseMessagingBackgroundHandler;
 
 import 'backend/models.dart';
 
@@ -93,7 +93,7 @@ class AppInfo {
       provisional: false,
       sound: true,
     );
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       FlutterAppBadger.removeBadge();
