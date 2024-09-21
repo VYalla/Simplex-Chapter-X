@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:766507839697:android:3ea7faafd29d6f96e295f0",
         "android_client_info": {
-          "package_name": "com.ncfbla.app"
+          "package_name": "com.example.simplex_chapter_x"
         }
       },
       "oauth_client": [
@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "766507839697-ldejemje8l7iu8f88i3aodramioh1js2.apps.googleusercontent.com",
+              "client_id": "766507839697-5q0fdv0qbr1kf4qe62gk4ilob6n7se40.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.northcreekfbla.ncfbla"
+                "bundle_id": "com.example.simplexChapterx"
               }
             }
           ]
@@ -67,10 +67,46 @@
               "client_type": 3
             },
             {
-              "client_id": "766507839697-ldejemje8l7iu8f88i3aodramioh1js2.apps.googleusercontent.com",
+              "client_id": "766507839697-5q0fdv0qbr1kf4qe62gk4ilob6n7se40.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.northcreekfbla.ncfbla"
+                "bundle_id": "com.example.simplexChapterx"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766507839697:android:38664f9dcad9318fe295f0",
+        "android_client_info": {
+          "package_name": "simplex.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh-ScRBuzjyoxo6wlydizByk2UCxvYXzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "766507839697-5q0fdv0qbr1kf4qe62gk4ilob6n7se40.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.simplexChapterx"
               }
             }
           ]
