@@ -3,6 +3,13 @@ import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:simplex_chapter_x/app_info.dart';
+import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
+
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
 
@@ -15,6 +22,14 @@ class _LoginWidgetState extends State<LoginWidget> {
   bool viewPassword = false;
   late TextEditingController emailController;
   late TextEditingController passwordController;
+
+  // variables
+  String email = "";
+  String password = "";
+
+  bool isSigningIn = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -163,6 +178,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               24, 0, 24, 0),
                                       child: TextFormField(
                                         controller: emailController,
+                                        onChanged: (value) {
+                                          email = value;
+                                        },
                                         autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -239,6 +257,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               24, 0, 24, 0),
                                       child: TextFormField(
                                         controller: passwordController,
+                                        onChanged: (value) {
+                                          password = value;
+                                        },
                                         autofocus: false,
                                         obscureText: !viewPassword,
                                         decoration: InputDecoration(
@@ -344,8 +365,154 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   InkWell(
-                                    onTap: () {
-                                      // TAKE TO FORGOT PASSWORD
+                                    onTap: () async {
+                                      if (!isSigningIn) {
+                                        try {
+                                          await _auth.signInWithEmailAndPassword(
+                                            email: email,
+                                            password: password,
+                                          );
+
+                                          try {
+                                            setState(() {
+                                              isSigningIn = true;
+                                            });
+                                            await AppInfo.loadData();
+                                          } catch (e) {
+                                            // Navigator.pushAndRemoveUntil(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           const ErrorPage()),
+                                            //   (route) =>
+                                            //       false, // This condition removes all previous routes
+                                            // );
+                                            Fluttertoast.showToast(
+                                              msg:
+                                                  "Error",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0,
+                                            );
+                                          }
+
+                                          if (AppInfo.currentUser.email ==
+                                                  "mahiremran1@gmail.com" ||
+                                              AppInfo.currentUser.email ==
+                                                  "ibarnes@nsd.org" ||
+                                              AppInfo.currentUser.email ==
+                                                  "thuesch@nsd.org") {
+                                            AppInfo.isAdmin = true;
+                                          }
+
+                                          if (AppInfo.currentUser.approved &&
+                                              AppInfo.currentUser
+                                                  .openedAppSinceApproved) {
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ChapterSelectWidget()),
+                                              (route) =>
+                                                  false, // This condition removes all previous routes
+                                            );
+                                          } else if (AppInfo.currentUser.approved &&
+                                              !AppInfo.currentUser
+                                                  .openedAppSinceApproved) {
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ChapterSelectWidget()),
+                                              (route) =>
+                                                  false, // This condition removes all previous routes
+                                            );
+                                          } else {
+                                            // Navigator.pushAndRemoveUntil(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           ApprovalWaitPage(
+                                            //             uid: AppInfo.currentUser.id,
+                                            //           )),
+                                            //   (route) =>
+                                            //       false, // This condition removes all previous routes
+                                            // );
+                                            Fluttertoast.showToast(
+                                              msg:
+                                                  "Waiting for approval",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0,
+                                            );
+                                          }
+
+                                          // Successfully signed in
+                                        } catch (e) {
+                                          if (e is FirebaseAuthException) {
+                                            switch (e.code) {
+                                              case 'invalid-email':
+                                                // Handle invalid email address format
+                                                Fluttertoast.showToast(
+                                                  msg:
+                                                      "Error: Email is invalid. Did you make a typo?",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0,
+                                                );
+                                                break;
+                                              case 'user-not-found':
+                                                // Handle when the user does not exist
+                                                Fluttertoast.showToast(
+                                                  msg:
+                                                      "Error: User not found. Make a new account.",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0,
+                                                );
+                                                break;
+                                              case 'wrong-password':
+                                                Fluttertoast.showToast(
+                                                  msg: "Error: Incorrect password.",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0,
+                                                );
+
+                                                break;
+                                              case 'user-disabled':
+                                                Fluttertoast.showToast(
+                                                  msg:
+                                                      "Error: User account is disabled.",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0,
+                                                );
+
+                                                break;
+                                              default:
+                                                // Handle other Firebase Authentication errors
+
+                                                break;
+                                            }
+                                          } else {
+                                            Fluttertoast.showToast(
+                                              msg: "other error", 
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              textColor: Colors.white,
+                                              backgroundColor: Colors.red,
+                                              fontSize: 16
+                                            );
+                                            // Handle other non-authentication related errors
+                                          }
+                                        }
+                                      }
                                     },
                                     child: Expanded(
                                       child: Container(
