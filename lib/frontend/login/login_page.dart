@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
+import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -12,9 +14,34 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final AuthService _authService = AuthService();
   bool viewPassword = false;
   late TextEditingController emailController;
   late TextEditingController passwordController;
+
+  Future<void> _signInWithGoogle() async {
+    final userCredential = await _authService.signInWithGoogle();
+    if (userCredential != null) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) {
+          return const ChapterSelectWidget();
+        },
+      ));
+      print('Signed in with Google: ${userCredential.user!.email}');
+    }
+  }
+
+  Future<void> _signInWithApple() async {
+    final userCredential = await _authService.signInWithApple();
+    if (userCredential != null) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) {
+          return const ChapterSelectWidget();
+        },
+      ));
+      print('Signed in with Apple: ${userCredential.user!.email}');
+    }
+  }
 
   @override
   void initState() {
@@ -437,33 +464,37 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 20, 0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        // SIGN IN WITH GOOGLE
-                                      },
-                                      child: Container(
-                                        width: 144,
-                                        height: 54,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          border: Border.all(
-                                            color: const Color(0xFFE0E0E0),
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(0, 0),
-                                          child: ClipRRect(
+                                    child: Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          // SIGN IN WITH GOOGLE
+                                          _signInWithGoogle();
+                                        },
+                                        child: Container(
+                                          width: 144,
+                                          height: 54,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
                                             borderRadius:
-                                                BorderRadius.circular(0),
-                                            child: Image.asset(
-                                              'assets/images/google_logo.png',
-                                              width: 23,
-                                              height: 23,
-                                              fit: BoxFit.cover,
+                                                BorderRadius.circular(12),
+                                            border: Border.all(
+                                              color: const Color(0xFFE0E0E0),
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                          child: Align(
+                                            alignment:
+                                                const AlignmentDirectional(
+                                                    0, 0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                              child: Image.asset(
+                                                'assets/images/google_logo.png',
+                                                width: 23,
+                                                height: 23,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -473,6 +504,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   InkWell(
                                     onTap: () {
                                       // SIGN IN WITH APPLE
+                                      _signInWithApple();
                                     },
                                     child: Container(
                                       width: 144,

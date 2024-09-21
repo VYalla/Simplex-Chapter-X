@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "766507839697",
+    "project_id": "madx-33e96",
+    "storage_bucket": "madx-33e96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766507839697:android:3ea7faafd29d6f96e295f0",
+        "android_client_info": {
+          "package_name": "com.ncfbla.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh-ScRBuzjyoxo6wlydizByk2UCxvYXzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "766507839697-ldejemje8l7iu8f88i3aodramioh1js2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.northcreekfbla.ncfbla"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766507839697:android:131aab77cb403422e295f0",
+        "android_client_info": {
+          "package_name": "com.wesimplex.simplex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh-ScRBuzjyoxo6wlydizByk2UCxvYXzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "766507839697-ldejemje8l7iu8f88i3aodramioh1js2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.northcreekfbla.ncfbla"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
