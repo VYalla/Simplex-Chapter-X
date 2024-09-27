@@ -229,10 +229,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                   ),
                   // REPLACE WITH LIST OF GETTING USER'S CHAPTERS
                   const ChapterCard(
-<<<<<<< Updated upstream
                       clubName: "FBLA",
-=======
->>>>>>> Stashed changes
                       bgImg:
                           'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
                       school: 'North Creek High School',

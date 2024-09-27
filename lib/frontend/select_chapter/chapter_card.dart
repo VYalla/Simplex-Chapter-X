@@ -8,7 +8,6 @@ class ChapterCard extends StatelessWidget {
   final String clubImg;
   final String clubName;
 
-<<<<<<< Updated upstream
   const ChapterCard(
       {Key? key,
       required this.bgImg,
@@ -16,14 +15,6 @@ class ChapterCard extends StatelessWidget {
       required this.clubImg,
       required this.clubName})
       : super(key: key);
-=======
-  const ChapterCard({
-    super.key,
-    required this.bgImg,
-    required this.school,
-    required this.clubImg,
-  });
->>>>>>> Stashed changes
 
   @override
   Widget build(BuildContext context) {

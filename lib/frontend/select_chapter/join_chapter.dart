@@ -135,35 +135,6 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                 ],
               ),
             ),
-<<<<<<< Updated upstream
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Material(
-                    color: Colors.transparent,
-                    elevation: 3,
-                    shape: const CircleBorder(),
-                    child: InkWell(
-                      onTap: () {
-                        // handle when user submits pin
-                      },
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Align(
-                          alignment: AlignmentDirectional(0, 0),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: Color(0xFF3B58F4),
-                            size: 30,
-=======
             Column(
               children: [
                 Padding(
@@ -195,7 +166,6 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                                 size: 30,
                               ),
                             ),
->>>>>>> Stashed changes
                           ),
                         ),
                       ),
