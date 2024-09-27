@@ -37,6 +37,8 @@ class UserModel {
   /// whether or not the user is an exec officer
   final bool isExec;
 
+  final List<String> chapters;
+
   UserModel({
     required this.id,
     required this.email,
@@ -48,6 +50,7 @@ class UserModel {
     required this.isExec,
     required this.approved,
     required this.openedAppSinceApproved,
+    required this.chapters,
   });
 
   /// Utility constructor to easily make a [UserModel] from a [DocumentSnapshot]
@@ -63,6 +66,7 @@ class UserModel {
         grade = doc.get('grade') as int,
         isExec = doc.get('isExec') as bool,
         approved = doc.get('approved') as bool,
+        chapters = (doc.get('chapters') as List).cast<String>(),
         openedAppSinceApproved = doc.get('openedAppSinceApproved') as bool;
 
   /// Utility method to easily make a [Map] from [UserModel]
@@ -78,6 +82,7 @@ class UserModel {
       'grade': grade,
       'isExec': isExec,
       'approved': approved,
+      'chapters': chapters,
       'openedAppSinceApproved': openedAppSinceApproved,
     };
   }
@@ -87,6 +92,11 @@ class UserModel {
   /// All fields will be replaced!
   static Future<void> writeUser(UserModel user) async {
     AppInfo.database.collection('users').doc(user.id).set(user.toMap());
+  }
+
+  static Future<void> addChapter(UserModel user, String chapterID) async {
+    AppInfo.database.collection("users").doc(user.id).update({
+  'chapters': FieldValue.arrayUnion([chapterID])});
   }
 
   /// Updates the user specified by the provided [id] with the updates

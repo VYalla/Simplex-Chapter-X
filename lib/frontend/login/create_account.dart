@@ -2,6 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:simplex_chapter_x/app_info.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+
 class CreateAccountWidget extends StatefulWidget {
   const CreateAccountWidget({super.key});
 
@@ -11,6 +17,7 @@ class CreateAccountWidget extends StatefulWidget {
 
 class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final AuthService _authService = AuthService();
   late TextEditingController firstName;
   late TextEditingController lastName;
   late TextEditingController email;
@@ -991,23 +998,48 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: Container(
-                                      width: 100,
-                                      height: 46,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF3B58F4),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Align(
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Text(
-                                          'Done',
-                                          style: TextStyle(
-                                            fontFamily: 'Google Sans',
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
+                                    child: InkWell(
+                                      onTap: () {
+                                        if (password.text != confirmPassword.text) {
+                                          Fluttertoast.showToast(
+                                            msg:
+                                                "Passwords Do Not Match",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0,
+                                          );
+                                        } else {
+                                          if ([firstName.text, lastName.text, email.text, password.text].contains("")) {
+                                            Fluttertoast.showToast(
+                                              msg:
+                                                  "Please Fill Out All Fields",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0,
+                                            );
+                                          }
+                                        }
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 46,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF3B58F4),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        child: const Align(
+                                          alignment: AlignmentDirectional(0, 0),
+                                          child: Text(
+                                            'Done',
+                                            style: TextStyle(
+                                              fontFamily: 'Google Sans',
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                       ),

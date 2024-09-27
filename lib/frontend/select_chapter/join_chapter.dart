@@ -2,6 +2,15 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:simplex_chapter_x/app_info.dart';
+import 'package:simplex_chapter_x/backend/models.dart';
+
 class JoinChapterWidget extends StatefulWidget {
   const JoinChapterWidget({super.key});
 
@@ -12,6 +21,7 @@ class JoinChapterWidget extends StatefulWidget {
 class _JoinChapterWidgetState extends State<JoinChapterWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController pin;
+  String enteredPin = '';
 
   @override
   void initState() {
@@ -105,6 +115,10 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                         SizedBox(
                           width: 250,
                         child: PinCodeTextField(
+                          onChanged: (value) {
+                            enteredPin = value; // Update the variable with the new value
+                            // Perform any additional actions here, such as validation or updating UI
+                          },
                           pinTheme: PinTheme(
                             shape: PinCodeFieldShape.underline,
                             activeColor: Colors.white,
@@ -146,8 +160,44 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                     elevation: 3,
                     shape: const CircleBorder(),
                     child: InkWell(
-                      onTap: () {
-                        // handle when user submits pin
+                      onTap: () async {
+                        try {
+                          DocumentSnapshot codeDoc = await AppInfo.database.collection('codes').doc('codes').get();
+                          Map<String, String> codes = (codeDoc.get("codes") as Map).cast<String, String>();
+                          if (!codes.containsKey(enteredPin)) {
+                            Fluttertoast.showToast(
+                              msg:
+                                  "Code Does Not Exist",
+                              toastLength: Toast.LENGTH_SHORT,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          } else {
+                            String chapterID = codes[enteredPin] as String;
+                            ChapterModel.joinChapter(chapterID);
+
+                            await AppInfo.loadData();
+
+                            Fluttertoast.showToast(
+                              msg:
+                                  "Chapter Joined!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          }
+                        } catch (e) {
+                          Fluttertoast.showToast(
+                            msg:
+                                "Error",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        }
                       },
                       child: Container(
                         width: 58,
