@@ -49,6 +49,7 @@ dependencies:
   google_sign_in: ^6.2.1
   sign_in_with_apple: ^6.1.2
   crypto: ^3.0.5
+  fluttertoast: ^8.2.8
   web: ^1.1.0
   fluttertoast: ^8.2.8
   material_symbols_icons: ^4.2785.1

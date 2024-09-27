@@ -3,14 +3,13 @@ import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+import 'package:simplex_chapter_x/frontend/login/create_account.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simplex_chapter_x/app_info.dart';
-import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -26,7 +25,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
 
-
   // variables
   String email = "";
   String password = "";
@@ -39,11 +37,13 @@ class _LoginWidgetState extends State<LoginWidget> {
     final userCredential = await _authService.signInWithGoogle();
     if (userCredential != null) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) {
-          return const ChapterSelectWidget();
-        },
+        builder: (context) => const ChapterSelectWidget(),
       ));
       print('Signed in with Google: ${userCredential.user!.email}');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to sign in with Google')),
+      );
     }
   }
 
@@ -392,159 +392,163 @@ class _LoginWidgetState extends State<LoginWidget> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      if (!isSigningIn) {
-                                        try {
-                                          await _auth.signInWithEmailAndPassword(
-                                            email: email,
-                                            password: password,
-                                          );
-
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if (!isSigningIn) {
                                           try {
-                                            setState(() {
-                                              isSigningIn = true;
-                                            });
-                                            await AppInfo.loadData();
-                                          } catch (e) {
-                                            // Navigator.pushAndRemoveUntil(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //       builder: (context) =>
-                                            //           const ErrorPage()),
-                                            //   (route) =>
-                                            //       false, // This condition removes all previous routes
-                                            // );
-                                            Fluttertoast.showToast(
-                                              msg:
-                                                  "Error",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              backgroundColor: Colors.red,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0,
+                                            await _auth
+                                                .signInWithEmailAndPassword(
+                                              email: email,
+                                              password: password,
                                             );
-                                          }
 
-                                          if (AppInfo.currentUser.email ==
-                                                  "mahiremran1@gmail.com" ||
-                                              AppInfo.currentUser.email ==
-                                                  "ibarnes@nsd.org" ||
-                                              AppInfo.currentUser.email ==
-                                                  "thuesch@nsd.org") {
-                                            AppInfo.isAdmin = true;
-                                          }
-
-                                          if (AppInfo.currentUser.approved &&
-                                              AppInfo.currentUser
-                                                  .openedAppSinceApproved) {
-                                            Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ChapterSelectWidget()),
-                                              (route) =>
-                                                  false, // This condition removes all previous routes
-                                            );
-                                          } else if (AppInfo.currentUser.approved &&
-                                              !AppInfo.currentUser
-                                                  .openedAppSinceApproved) {
-                                            Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ChapterSelectWidget()),
-                                              (route) =>
-                                                  false, // This condition removes all previous routes
-                                            );
-                                          } else {
-                                            // Navigator.pushAndRemoveUntil(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //       builder: (context) =>
-                                            //           ApprovalWaitPage(
-                                            //             uid: AppInfo.currentUser.id,
-                                            //           )),
-                                            //   (route) =>
-                                            //       false, // This condition removes all previous routes
-                                            // );
-                                            Fluttertoast.showToast(
-                                              msg:
-                                                  "Waiting for approval",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              backgroundColor: Colors.red,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0,
-                                            );
-                                          }
-
-                                          // Successfully signed in
-                                        } catch (e) {
-                                          if (e is FirebaseAuthException) {
-                                            switch (e.code) {
-                                              case 'invalid-email':
-                                                // Handle invalid email address format
-                                                Fluttertoast.showToast(
-                                                  msg:
-                                                      "Error: Email is invalid. Did you make a typo?",
-                                                  toastLength: Toast.LENGTH_SHORT,
-                                                  backgroundColor: Colors.red,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0,
-                                                );
-                                                break;
-                                              case 'user-not-found':
-                                                // Handle when the user does not exist
-                                                Fluttertoast.showToast(
-                                                  msg:
-                                                      "Error: User not found. Make a new account.",
-                                                  toastLength: Toast.LENGTH_SHORT,
-                                                  backgroundColor: Colors.red,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0,
-                                                );
-                                                break;
-                                              case 'wrong-password':
-                                                Fluttertoast.showToast(
-                                                  msg: "Error: Incorrect password.",
-                                                  toastLength: Toast.LENGTH_SHORT,
-                                                  backgroundColor: Colors.red,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0,
-                                                );
-
-                                                break;
-                                              case 'user-disabled':
-                                                Fluttertoast.showToast(
-                                                  msg:
-                                                      "Error: User account is disabled.",
-                                                  toastLength: Toast.LENGTH_SHORT,
-                                                  backgroundColor: Colors.red,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0,
-                                                );
-
-                                                break;
-                                              default:
-                                                // Handle other Firebase Authentication errors
-
-                                                break;
+                                            try {
+                                              setState(() {
+                                                isSigningIn = true;
+                                              });
+                                              await AppInfo.loadData();
+                                            } catch (e) {
+                                              // Navigator.pushAndRemoveUntil(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           const ErrorPage()),
+                                              //   (route) =>
+                                              //       false, // This condition removes all previous routes
+                                              // );
+                                              Fluttertoast.showToast(
+                                                msg: "Error",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0,
+                                              );
                                             }
-                                          } else {
-                                            Fluttertoast.showToast(
-                                              msg: "other error", 
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              textColor: Colors.white,
-                                              backgroundColor: Colors.red,
-                                              fontSize: 16
-                                            );
-                                            // Handle other non-authentication related errors
+
+                                            if (AppInfo.currentUser.email ==
+                                                    "mahiremran1@gmail.com" ||
+                                                AppInfo.currentUser.email ==
+                                                    "ibarnes@nsd.org" ||
+                                                AppInfo.currentUser.email ==
+                                                    "thuesch@nsd.org") {
+                                              AppInfo.isAdmin = true;
+                                            }
+
+                                            if (AppInfo.currentUser.approved &&
+                                                AppInfo.currentUser
+                                                    .openedAppSinceApproved) {
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const ChapterSelectWidget()),
+                                                (route) =>
+                                                    false, // This condition removes all previous routes
+                                              );
+                                            } else if (AppInfo
+                                                    .currentUser.approved &&
+                                                !AppInfo.currentUser
+                                                    .openedAppSinceApproved) {
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const ChapterSelectWidget()),
+                                                (route) =>
+                                                    false, // This condition removes all previous routes
+                                              );
+                                            } else {
+                                              // Navigator.pushAndRemoveUntil(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           ApprovalWaitPage(
+                                              //             uid: AppInfo.currentUser.id,
+                                              //           )),
+                                              //   (route) =>
+                                              //       false, // This condition removes all previous routes
+                                              // );
+                                              Fluttertoast.showToast(
+                                                msg: "Waiting for approval",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0,
+                                              );
+                                            }
+
+                                            // Successfully signed in
+                                          } catch (e) {
+                                            if (e is FirebaseAuthException) {
+                                              switch (e.code) {
+                                                case 'invalid-email':
+                                                  // Handle invalid email address format
+                                                  Fluttertoast.showToast(
+                                                    msg:
+                                                        "Error: Email is invalid. Did you make a typo?",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    backgroundColor: Colors.red,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0,
+                                                  );
+                                                  break;
+                                                case 'user-not-found':
+                                                  // Handle when the user does not exist
+                                                  Fluttertoast.showToast(
+                                                    msg:
+                                                        "Error: User not found. Make a new account.",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    backgroundColor: Colors.red,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0,
+                                                  );
+                                                  break;
+                                                case 'wrong-password':
+                                                  Fluttertoast.showToast(
+                                                    msg:
+                                                        "Error: Incorrect password.",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    backgroundColor: Colors.red,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0,
+                                                  );
+
+                                                  break;
+                                                case 'user-disabled':
+                                                  Fluttertoast.showToast(
+                                                    msg:
+                                                        "Error: User account is disabled.",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    backgroundColor: Colors.red,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0,
+                                                  );
+
+                                                  break;
+                                                default:
+                                                  // Handle other Firebase Authentication errors
+
+                                                  break;
+                                              }
+                                            } else {
+                                              Fluttertoast.showToast(
+                                                  msg: "other error",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  textColor: Colors.white,
+                                                  backgroundColor: Colors.red,
+                                                  fontSize: 16);
+                                              // Handle other non-authentication related errors
+                                            }
                                           }
                                         }
-                                      }
-                                    },
-                                    child: Expanded(
+                                      },
                                       child: Container(
-                                        width: 100,
                                         height: 46,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFF3B58F4),
@@ -621,68 +625,27 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 20, 0),
-                                    child: Expanded(
-                                      child: InkWell(
-                                        onTap: () {
-                                          // SIGN IN WITH GOOGLE
-                                          _signInWithGoogle();
-                                        },
-                                        child: Container(
-                                          width: 144,
-                                          height: 54,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            border: Border.all(
-                                              color: const Color(0xFFE0E0E0),
-                                              width: 1.5,
-                                            ),
-                                          ),
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(
-                                                    0, 0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(0),
-                                              child: Image.asset(
-                                                'assets/images/google_logo.png',
-                                                width: 23,
-                                                height: 23,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 20, 0),
+                                  child: InkWell(
                                     onTap: () {
-                                      // SIGN IN WITH APPLE
-                                      _signInWithApple();
+                                      // SIGN IN WITH GOOGLE
+                                      _signInWithGoogle();
                                     },
                                     child: Container(
                                       width: 144,
                                       height: 54,
                                       decoration: BoxDecoration(
-                                        color: Colors.black,
+                                        color: Colors.white,
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
                                           color: const Color(0xFFE0E0E0),
-                                          width: 0,
+                                          width: 1.5,
                                         ),
                                       ),
                                       child: Align(
@@ -692,7 +655,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           borderRadius:
                                               BorderRadius.circular(0),
                                           child: Image.asset(
-                                            'assets/images/apple_logo.png',
+                                            'assets/images/google_logo.png',
                                             width: 23,
                                             height: 23,
                                             fit: BoxFit.cover,
@@ -701,8 +664,39 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    // SIGN IN WITH APPLE
+                                    _signInWithApple();
+                                  },
+                                  child: Container(
+                                    width: 144,
+                                    height: 54,
+                                    decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: const Color(0xFFE0E0E0),
+                                        width: 0,
+                                      ),
+                                    ),
+                                    child: Align(
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(0),
+                                        child: Image.asset(
+                                          'assets/images/apple_logo.png',
+                                          width: 23,
+                                          height: 23,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -728,7 +722,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              // TAKE TO CREATE ACC
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) {
+                                                  return const CreateAccountWidget();
+                                                },
+                                              ));
                                             },
                                         )
                                       ],
