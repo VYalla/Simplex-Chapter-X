@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/chats/chatroom_page.dart';
 import 'package:simplex_chapter_x/frontend/login/login_page.dart';
+import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ChatroomWidget(),
+      home: const Navigation(pIndex: 0),
     );
   }
 }
