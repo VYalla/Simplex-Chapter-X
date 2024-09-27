@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+import 'package:simplex_chapter_x/frontend/login/create_account.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,11 +37,13 @@ class _LoginWidgetState extends State<LoginWidget> {
     final userCredential = await _authService.signInWithGoogle();
     if (userCredential != null) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) {
-          return const ChapterSelectWidget();
-        },
+        builder: (context) => const ChapterSelectWidget(),
       ));
       print('Signed in with Google: ${userCredential.user!.email}');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to sign in with Google')),
+      );
     }
   }
 
@@ -719,7 +722,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              // TAKE TO CREATE ACC
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) {
+                                                  return const CreateAccountWidget();
+                                                },
+                                              ));
                                             },
                                         )
                                       ],

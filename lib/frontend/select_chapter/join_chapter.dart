@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:simplex_chapter_x/create_chapter.dart';
 
 class JoinChapterWidget extends StatefulWidget {
   const JoinChapterWidget({super.key});
@@ -16,7 +17,6 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
   @override
   void initState() {
     super.initState();
-
     pin = TextEditingController();
   }
 
@@ -135,6 +135,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                 ],
               ),
             ),
+<<<<<<< Updated upstream
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
               child: Row(
@@ -162,13 +163,72 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                             Icons.arrow_forward,
                             color: Color(0xFF3B58F4),
                             size: 30,
+=======
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 20),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Material(
+                        color: Colors.transparent,
+                        elevation: 3,
+                        shape: const CircleBorder(),
+                        child: InkWell(
+                          onTap: () {
+                            // handle when user submits pin
+                          },
+                          child: Container(
+                            width: 58,
+                            height: 58,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: Color(0xFF3B58F4),
+                                size: 30,
+                              ),
+                            ),
+>>>>>>> Stashed changes
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreateChapterPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    child: const Text(
+                      'Create a Chapter Instead',
+                      style: TextStyle(
+                        fontFamily: 'Google Sans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

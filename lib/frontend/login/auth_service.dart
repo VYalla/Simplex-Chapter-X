@@ -10,7 +10,12 @@ import 'dart:convert';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
 
   Future<void> _addUserToFirestore(User user) async {
     await _firestore.collection('users').doc(user.uid).set({
@@ -23,9 +28,14 @@ class AuthService {
 
   Future<UserCredential?> signInWithGoogle() async {
     try {
+      print("Starting Google Sign In process");
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return null;
+      if (googleUser == null) {
+        print('Google Sign In was aborted by the user');
+        return null;
+      }
 
+      print("Obtaining Google Auth details");
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -33,11 +43,17 @@ class AuthService {
         idToken: googleAuth.idToken,
       );
 
+      print("Signing in to Firebase");
       final userCredential = await _auth.signInWithCredential(credential);
+      print("Adding user to Firestore");
       await _addUserToFirestore(userCredential.user!);
+      print("Google Sign In successful");
       return userCredential;
+    } on FirebaseAuthException catch (e) {
+      print('FirebaseAuthException: ${e.code} - ${e.message}');
+      return null;
     } catch (e) {
-      print('Error signing in with Google: $e');
+      print('Unexpected error signing in with Google: $e');
       return null;
     }
   }
