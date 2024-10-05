@@ -70,6 +70,8 @@
 /// @TBD
 library models;
 
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import '../app_info.dart';

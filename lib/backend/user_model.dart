@@ -37,6 +37,8 @@ class UserModel {
   /// whether or not the user is an exec officer
   final bool isExec;
 
+  String currentChapter;
+
   UserModel({
     required this.id,
     required this.email,
@@ -48,6 +50,7 @@ class UserModel {
     required this.isExec,
     required this.approved,
     required this.openedAppSinceApproved,
+    required this.currentChapter,
   });
 
   /// Utility constructor to easily make a [UserModel] from a [DocumentSnapshot]
@@ -56,6 +59,7 @@ class UserModel {
   UserModel.fromDocumentSnapshot(DocumentSnapshot<Object?> doc)
       : id = doc.id,
         email = doc.get('email') as String,
+        currentChapter = doc.get('currentChapter') as String,
         profilePic = doc.get('profilePic') as String,
         name = doc.get('name') as String,
         pastEvents = (doc.get('pastEvents') as List).cast<String>(),
@@ -70,6 +74,7 @@ class UserModel {
   /// Invoke [toMap] when writing a [UserModel] object to a user's Firebase Document
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'email': email,
       'profilePic': profilePic,
       'name': name,
@@ -79,7 +84,24 @@ class UserModel {
       'isExec': isExec,
       'approved': approved,
       'openedAppSinceApproved': openedAppSinceApproved,
+      'currentChapter': currentChapter,
     };
+  }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'],
+      email: map['email'],
+      profilePic: map['profilePic'],
+      name: map['name'],
+      pastEvents: map['pastEvents'],
+      compEvents: map['compEvents'],
+      grade: map['grade'],
+      isExec: map['isExec'],
+      approved: map['approved'],
+      openedAppSinceApproved: map['openedAppSinceApproved'],
+      currentChapter: map['currentChapter'],
+    );
   }
 
   /// Writes [UserModel] object to the database

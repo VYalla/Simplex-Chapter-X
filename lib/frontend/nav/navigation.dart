@@ -45,8 +45,8 @@ class _NavigationState extends State<Navigation> {
     }
 
     List<Widget> pages = [
-      HomeWidget(),
-      ChatsWidget(),
+      const HomeWidget(),
+      const ChatsWidget(),
       Container(),
       Container(),
     ];
@@ -64,7 +64,7 @@ class _NavigationState extends State<Navigation> {
         child: Icon(
           Symbols.home,
           fill: pI == 0 ? 1.0 : 0.0,
-          color: pI == 0 ? Color(0xFF333333) : Color(0xFFDFDFDF),
+          color: pI == 0 ? const Color(0xFF333333) : const Color(0xFFDFDFDF),
           size: iconSize,
         ),
       ),
@@ -78,7 +78,7 @@ class _NavigationState extends State<Navigation> {
         child: Icon(
           Symbols.chat_bubble,
           fill: pI == 1 ? 1.0 : 0.0,
-          color: pI == 1 ? Color(0xFF333333) : Color(0xFFDFDFDF),
+          color: pI == 1 ? const Color(0xFF333333) : const Color(0xFFDFDFDF),
           size: iconSize,
         ),
       ),
@@ -92,7 +92,7 @@ class _NavigationState extends State<Navigation> {
         child: Icon(
           Symbols.widgets,
           fill: pI == 2 ? 1.0 : 0.0,
-          color: pI == 2 ? Color(0xFF333333) : Color(0xFFDFDFDF),
+          color: pI == 2 ? const Color(0xFF333333) : const Color(0xFFDFDFDF),
           size: iconSize,
         ),
       ),
@@ -106,7 +106,7 @@ class _NavigationState extends State<Navigation> {
         child: Icon(
           Symbols.settings,
           fill: pI == 3 ? 1.0 : 0.0,
-          color: pI == 3 ? Color(0xFF333333) : Color(0xFFDFDFDF),
+          color: pI == 3 ? const Color(0xFF333333) : const Color(0xFFDFDFDF),
           size: iconSize,
         ),
       ),
@@ -128,22 +128,23 @@ class _NavigationState extends State<Navigation> {
         child: Stack(
           children: [
             Align(
-              alignment: AlignmentDirectional(0, 1),
+              alignment: const AlignmentDirectional(0, 1),
               child: Container(
                 width: MediaQuery.sizeOf(context).width,
                 height: 75 + addHeight,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 38, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 38, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -153,7 +154,8 @@ class _NavigationState extends State<Navigation> {
                       ),
                       Flexible(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(38, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(38, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -167,7 +169,7 @@ class _NavigationState extends State<Navigation> {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0, 1),
+              alignment: const AlignmentDirectional(0, 1),
               child: Padding(
                 padding:
                     EdgeInsetsDirectional.fromSTEB(0, 0, 0, 38 + addHeight),
@@ -177,7 +179,7 @@ class _NavigationState extends State<Navigation> {
                     width: 76,
                     height: 61,
                     decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
+                      color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(40),
                       // border: Border.all(
                       //   color: Colors.white,
@@ -189,7 +191,7 @@ class _NavigationState extends State<Navigation> {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0, 1),
+              alignment: const AlignmentDirectional(0, 1),
               child: Padding(
                 padding:
                     EdgeInsetsDirectional.fromSTEB(0, 0, 0, 41 + addHeight),
@@ -201,14 +203,14 @@ class _NavigationState extends State<Navigation> {
                     width: 66,
                     height: 51,
                     decoration: BoxDecoration(
-                      color: Color(0xFF3B58F4),
+                      color: const Color(0xFF3B58F4),
                       borderRadius: BorderRadius.circular(45),
                       // border: Border.all(
                       //   color: Colors.white,
                       //   width: 5,
                       // ),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: AlignmentDirectional(0, 0),
                       child: Icon(
                         Icons.add_rounded,

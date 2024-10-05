@@ -51,7 +51,6 @@ dependencies:
   crypto: ^3.0.5
   fluttertoast: ^8.2.8
   web: ^1.1.0
-  fluttertoast: ^8.2.8
   material_symbols_icons: ^4.2785.1
 
 dev_dependencies:

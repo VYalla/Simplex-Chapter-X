@@ -20,7 +20,7 @@ class AuthService {
   Future<void> _addUserToFirestore(User user) async {
     await _firestore.collection('users').doc(user.uid).set({
       'email': user.email,
-      'displayName': user.displayName,
+      'name': user.displayName,
       'photoURL': user.photoURL,
       'createdAt': FieldValue.serverTimestamp(),
     });

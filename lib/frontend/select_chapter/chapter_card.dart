@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:simplex_chapter_x/frontend/chapter/chapter_landing_page.dart';
+import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
 
 class ChapterCard extends StatelessWidget {
   final String bgImg;
   final String school;
   final String clubImg;
   final String clubName;
+  final void Function(String chapterId) onTap;
 
   const ChapterCard(
       {Key? key,
       required this.bgImg,
       required this.school,
       required this.clubImg,
-      required this.clubName})
+      required this.clubName,
+      required this.onTap})
       : super(key: key);
 
   @override
@@ -26,13 +28,11 @@ class ChapterCard extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {
+                onTap('iI3uDj6BjSa0tKOPOUvT'); //CHANGE THIS HARDCODE
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChapterLandingPage(
-                      chapterName: clubName,
-                    ),
-                  ),
+                      builder: (context) => const Navigation(pIndex: 0)),
                 );
               },
               child: Container(

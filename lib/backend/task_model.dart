@@ -10,13 +10,13 @@ class TaskModel {
   final String id;
 
   /// the name of this task
-  final String name;
+  final String title;
 
   /// the description of this task
-  final String details;
+  final String description;
 
   /// date the task is due, stored in a YYYY-MM-DD format
-  final String dateDue;
+  final DateTime dueDate;
 
   /// the time the task is due, stored in an HH:MM PM format
   /// Ex: '3:41 PM'
@@ -44,17 +44,23 @@ class TaskModel {
   /// notes that show up on the tasks overview panel (details show up in the task menu itself)
   final String notes;
 
+  final String chapterId;
+
+  final bool isCompleted;
+
   TaskModel({
     required this.id,
-    required this.name,
-    required this.details,
-    required this.dateDue,
+    required this.chapterId,
+    required this.title,
+    required this.description,
+    required this.dueDate,
     required this.timeDue,
     required this.submissions,
     required this.links,
     required this.image,
     required this.usersSubmitted,
     required this.notes,
+    this.isCompleted = false,
   });
 
   /// Utility constructor to easily make a [TaskModel] from a [DocumentSnapshot]
@@ -62,10 +68,12 @@ class TaskModel {
   /// Queries the [DocumentSnapshot] for each field and instantiates [TaskModel] accordingly
   TaskModel.fromDocumentSnapshot(DocumentSnapshot<Object?> doc)
       : id = doc.id,
-        name = doc.get('name') as String,
-        details = doc.get('details') as String,
-        dateDue = doc.get('dateDue') as String,
+        title = doc.get('title') as String,
+        description = doc.get('description') as String,
+        dueDate = (doc.get('dueDate') as Timestamp).toDate(),
         timeDue = doc.get('timeDue') as String,
+        chapterId = doc.get('chapterId') as String,
+        isCompleted = doc.get('isCompleted') as bool,
         submissions = (doc.get('submissions') as List<dynamic>)
             .map((submission) => Map<String, String>.from(submission))
             .toList(),
@@ -81,9 +89,12 @@ class TaskModel {
   /// Invoke [toMap] when writing a [TaskModel] object to a task document in the database
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'details': details,
-      'dateDue': dateDue,
+      'id': id,
+      'chapterId': chapterId,
+      'title': title,
+      'description': description,
+      'dueDate': dueDate,
+      'isCompleted': isCompleted,
       'timeDue': timeDue,
       'submissions': submissions,
       'usersSubmitted': usersSubmitted,
@@ -93,67 +104,122 @@ class TaskModel {
     };
   }
 
+  factory TaskModel.fromMap(Map<String, dynamic> map) {
+    return TaskModel(
+      id: map['id'],
+      chapterId: map['chapterId'],
+      title: map['title'],
+      description: map['description'],
+      dueDate: (map['dueDate'] as Timestamp).toDate(),
+      isCompleted: map['isCompleted'],
+      timeDue: map['timeDue'],
+      submissions: (map['submissions'] as List<dynamic>)
+          .map((submission) => Map<String, String>.from(submission))
+          .toList(),
+      usersSubmitted: (map['usersSubmitted'] as List).cast<String>(),
+      links: (map['links'] as List<dynamic>)
+          .map((link) => Map<String, String>.from(link))
+          .toList(),
+      image: map['image'],
+      notes: map['notes'],
+    );
+  }
+
   /// Writes the provided [TaskModel] object to the database
   ///
   ///
   static Future<void> writeTask(TaskModel task) async {
-    AppInfo.database.collection('tasks').doc(task.id).set(task.toMap());
+    final chapterRef =
+        AppInfo.database.collection('chapters').doc(task.chapterId);
+
+    await chapterRef.update({
+      'tasks': FieldValue.arrayUnion([task.toMap()])
+    });
   }
 
   /// Updates the specified task via [id] with the provided updates
   ///
   /// Firebase will attempt to merge the target data with the incoming data
   static Future<void> updateTaskById(
-      String id, Map<String, dynamic> updates) async {
-    AppInfo.database.collection('tasks').doc(id).update(updates);
+      String chapterId, String taskId, Map<String, dynamic> updates) async {
+    final chapterRef = AppInfo.database.collection('chapters').doc(chapterId);
+
+    final chapterDoc = await chapterRef.get();
+    final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
+
+    final taskIndex = tasks.indexWhere((task) => task['id'] == taskId);
+    if (taskIndex != -1) {
+      tasks[taskIndex].addAll(updates);
+      await chapterRef.update({'tasks': tasks});
+    }
   }
 
   /// Deletes the specified task via [id] from the database
   ///
   ///
-  static void deleteTaskById(String id) {
-    FirebaseFirestore.instance.collection('tasks').doc(id).delete();
+  static Future<void> deleteTaskById(String chapterId, String taskId) async {
+    final chapterRef = AppInfo.database.collection('chapters').doc(chapterId);
+
+    final chapterDoc = await chapterRef.get();
+    final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
+
+    tasks.removeWhere((task) => task['id'] == taskId);
+    await chapterRef.update({'tasks': tasks});
   }
 
   /// Gets the specified task via [id] as a [TaskModel] object
   ///
   ///
-  static Future<TaskModel> getTaskById(String id) async {
-    DocumentSnapshot taskQuery =
-        await AppInfo.database.collection('tasks').doc(id).get();
-    return TaskModel.fromDocumentSnapshot(taskQuery);
+  static Future<TaskModel?> getTaskById(String chapterId, String taskId) async {
+    final chapterDoc =
+        await AppInfo.database.collection('chapters').doc(chapterId).get();
+    final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
+
+    final taskMap =
+        tasks.firstWhere((task) => task['id'] == taskId, orElse: () => {});
+    if (taskMap.isNotEmpty) {
+      return TaskModel.fromMap(taskMap);
+    }
+    return null;
   }
 
   /// Gets the current tasks as a [List] of [TaskModel] objects
   ///
   ///
   static Future<List<TaskModel>> getCurrentTasks() async {
-    DateTime currentDate = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    final chaptersQuery = await AppInfo.database.collection('chapters').get();
+    final currentDate = DateTime.now();
 
-    QuerySnapshot taskQuery = await AppInfo.database
-        .collection('tasks')
-        .where('dateDue', isGreaterThanOrEqualTo: formattedDate)
-        .get();
+    List<TaskModel> currentTasks = [];
 
-    return taskQuery.docs
-        .map((snapshot) => TaskModel.fromDocumentSnapshot(snapshot))
-        .toList();
+    for (var chapterDoc in chaptersQuery.docs) {
+      final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
+      currentTasks.addAll(tasks
+          .where((task) => DateTime.parse(task['dueDate']).isAfter(currentDate))
+          .map((task) => TaskModel.fromMap(task)));
+    }
+
+    return currentTasks;
   }
 
   /// Gets the past tasks as a [List] of [TaskModel] objects
   ///
   ///
   static Future<List<TaskModel>> getPastTasks() async {
-    DateTime currentDate = DateTime.now().subtract(const Duration(days: 1));
-    String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
-    QuerySnapshot taskQuery = await AppInfo.database
-        .collection('tasks')
-        .where('dateDue', isLessThanOrEqualTo: formattedDate)
-        .get();
-    return taskQuery.docs
-        .map((snapshot) => TaskModel.fromDocumentSnapshot(snapshot))
-        .toList();
+    final chaptersQuery = await AppInfo.database.collection('chapters').get();
+    final currentDate = DateTime.now().subtract(const Duration(days: 1));
+
+    List<TaskModel> pastTasks = [];
+
+    for (var chapterDoc in chaptersQuery.docs) {
+      final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
+      pastTasks.addAll(tasks
+          .where(
+              (task) => DateTime.parse(task['dueDate']).isBefore(currentDate))
+          .map((task) => TaskModel.fromMap(task)));
+    }
+
+    return pastTasks;
   }
 
   /// Updates the provided [task] with the provided submission details
@@ -166,17 +232,33 @@ class TaskModel {
       String pdf,
       String timestamp,
       String username) async {
-    AppInfo.database.collection('tasks').doc(task.id).update({
-      'usersSubmitted': FieldValue.arrayUnion([username]),
-      'submissions': FieldValue.arrayUnion([
-        {
-          "pdfURL": pdf,
-          'imageURL': submissionImage,
-          "text": submissionText,
-          "timestamp": timestamp,
-          "user": username
-        }
-      ]),
+    final chapterRef =
+        FirebaseFirestore.instance.collection('chapters').doc(task.chapterId);
+
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+      final chapterDoc = await transaction.get(chapterRef);
+      final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
+
+      final taskIndex = tasks.indexWhere((t) => t['id'] == task.id);
+      if (taskIndex != -1) {
+        final updatedTask = Map<String, dynamic>.from(tasks[taskIndex]);
+        updatedTask['usersSubmitted'] = (updatedTask['usersSubmitted'] as List)
+            .cast<String>()
+          ..add(username);
+        updatedTask['submissions'] =
+            (updatedTask['submissions'] as List<dynamic>)
+              ..add({
+                "pdfURL": pdf,
+                'imageURL': submissionImage,
+                "text": submissionText,
+                "timestamp": timestamp,
+                "user": username
+              });
+
+        tasks[taskIndex] = updatedTask;
+
+        transaction.update(chapterRef, {'tasks': tasks});
+      }
     });
   }
 }
