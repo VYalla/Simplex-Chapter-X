@@ -3,6 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:simplex_chapter_x/create_chapter.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:simplex_chapter_x/app_info.dart';
+import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
+
 class JoinChapterWidget extends StatefulWidget {
   const JoinChapterWidget({super.key});
 
@@ -13,6 +23,8 @@ class JoinChapterWidget extends StatefulWidget {
 class _JoinChapterWidgetState extends State<JoinChapterWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController pin;
+  String enteredPin = '';
+  bool joined = false;
 
   @override
   void initState() {
@@ -53,7 +65,18 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      if (!joined) {
+                        Navigator.pop(context);
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ChapterSelectWidget()),
+                          (route) =>
+                              false, // This condition removes all previous routes
+                        );
+                      }
                     },
                     child: Container(
                       width: 37,
@@ -104,21 +127,25 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                       children: [
                         SizedBox(
                           width: 250,
-                          child: PinCodeTextField(
-                            pinTheme: PinTheme(
-                              shape: PinCodeFieldShape.underline,
-                              activeColor: Colors.white,
-                              inactiveColor:
-                                  const Color.fromARGB(102, 255, 255, 255),
-                              fieldWidth: 38,
-                              borderWidth: 1,
-                            ),
-                            textStyle: const TextStyle(
-                              fontFamily: 'Google Sans',
-                              color: Colors.white,
-                              fontSize: 44,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w700,
+                        child: PinCodeTextField(
+                          onChanged: (value) {
+                            enteredPin = value; // Update the variable with the new value
+                            // Perform any additional actions here, such as validation or updating UI
+                          },
+                          pinTheme: PinTheme(
+                            shape: PinCodeFieldShape.underline,
+                            activeColor: Colors.white,
+                            inactiveColor:
+                                const Color.fromARGB(102, 255, 255, 255),
+                            fieldWidth: 38,
+                            borderWidth: 1,
+                          ),
+                          textStyle: TextStyle(
+                            fontFamily: 'Google Sans',
+                            color: Colors.white,
+                            fontSize: 44,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w700,
                             ),
                             controller: pin,
                             cursorWidth: 1.5,
@@ -135,37 +162,71 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                 ],
               ),
             ),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 20),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Material(
-                        color: Colors.transparent,
-                        elevation: 3,
-                        shape: const CircleBorder(),
-                        child: InkWell(
-                          onTap: () {
-                            // handle when user submits pin
-                          },
-                          child: Container(
-                            width: 58,
-                            height: 58,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Icon(
-                                Icons.arrow_forward,
-                                color: Color(0xFF3B58F4),
-                                size: 30,
-                              ),
-                            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    elevation: 3,
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      onTap: () async {
+                        try {
+                          DocumentSnapshot codeDoc = await AppInfo.database.collection('codes').doc('codes').get();
+                          Map<String, String> codes = (codeDoc.get("codes") as Map).cast<String, String>();
+                          if (!codes.containsKey(enteredPin)) {
+                            Fluttertoast.showToast(
+                              msg:
+                                  "Code Does Not Exist",
+                              toastLength: Toast.LENGTH_SHORT,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          } else {
+                            String chapterID = codes[enteredPin] as String;
+                            ChapterModel.joinChapter(chapterID);
+
+                            await AppInfo.loadData();
+
+                            Fluttertoast.showToast(
+                              msg:
+                                  "Chapter Joined!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+
+                            joined = true;
+                          }
+                        } catch (e) {
+                          Fluttertoast.showToast(
+                            msg:
+                                "Error",
+                            toastLength: Toast.LENGTH_SHORT,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: 58,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Icon(
+                            Icons.arrow_forward,
+                            color: Color(0xFF3B58F4),
+                            size: 30,
                           ),
                         ),
                       ),

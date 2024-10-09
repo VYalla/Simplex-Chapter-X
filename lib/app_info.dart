@@ -24,6 +24,9 @@ class AppInfo {
   static late UserModel currentUser;
 
   ///
+  static late ChapterModel currentChapter;
+
+  ///
   static late List<EventModel> currentEvents;
 
   ///

@@ -714,6 +714,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           text: 'Don\'t have an account? ',
                                           style: TextStyle(),
                                         ),
+                                        
                                         TextSpan(
                                           text: 'Register',
                                           style: const TextStyle(
@@ -722,12 +723,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              Navigator.of(context)
-                                                  .push(MaterialPageRoute(
-                                                builder: (context) {
-                                                  return const CreateAccountWidget();
-                                                },
-                                              ));
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const CreateAccountWidget()),
+                                                (route) =>
+                                                    false, // This condition removes all previous routes
+                                              );
                                             },
                                         )
                                       ],

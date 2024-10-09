@@ -84,3 +84,4 @@ part 'announcement_model.dart';
 part 'task_model.dart';
 part 'packet_model.dart';
 part 'chatroom_model.dart';
+part 'chapter_model.dart';
