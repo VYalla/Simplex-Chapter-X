@@ -145,12 +145,12 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                       width: 1,
                                     ),
                                   ),
-                                  child: const Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                  child: Align(
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Text(
                                       // REPLACE WITH USER INITIALS
                                       firstLast[0][0] + firstLast[1][0],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontFamily: 'Google Sans',
                                         color: Colors.white,
                                         fontSize: 15,
@@ -186,7 +186,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                         ),
                       ],
                     ),
-                    const Column(
+                    Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Row(
@@ -197,7 +197,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                 // Replace w/ user name
                                 'Hello ' + AppInfo.currentUser.name + ',',
                                 maxLines: 1,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Google Sans',
                                   color: Colors.black,
                                   fontSize: 35,
@@ -208,7 +208,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                             ),
                           ],
                         ),
-                        Row(
+                        const Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
@@ -228,53 +228,46 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [...[
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        const Text(
-                          'YOUR GROUPS',
-                          style: TextStyle(
-                            fontFamily: 'Google Sans',
-                            color: Colors.black,
-                            fontSize: 20,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                          child: Container(
-                            width: 6,
-                            height: 6,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFD90000),
-                              shape: BoxShape.circle,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [...[
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          const Text(
+                            'YOUR GROUPS',
+                            style: TextStyle(
+                              fontFamily: 'Google Sans',
+                              color: Colors.black,
+                              fontSize: 20,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding:
+                                const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                            child: Container(
+                              width: 6,
+                              height: 6,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFD90000),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  // REPLACE WITH LIST OF GETTING USER'S CHAPTERS
-                  ChapterCard(
-                      onTap: _selectChapter,
-                      clubName: "FBLA",
-                      bgImg:
-                          'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
-                      school: 'North Creek High School',
-                      clubImg:
-                          'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2'),
-                ],
+                    // REPLACE WITH LIST OF GETTING USER'S CHAPTERS
+                    ...chapterCards,
+                  ], ],
+                ),
               ),
-            ),
           ],
         ),
       ),

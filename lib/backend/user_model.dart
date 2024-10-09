@@ -105,6 +105,7 @@ class UserModel {
       approved: map['approved'],
       openedAppSinceApproved: map['openedAppSinceApproved'],
       currentChapter: map['currentChapter'],
+      chapters: map['chapters'],
     );
   }
 
