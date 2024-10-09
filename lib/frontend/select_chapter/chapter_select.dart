@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_card.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/join_chapter.dart';
 
+import 'package:simplex_chapter_x/app_info.dart';
+
 class ChapterSelectWidget extends StatefulWidget {
   const ChapterSelectWidget({super.key});
 
@@ -12,16 +14,29 @@ class ChapterSelectWidget extends StatefulWidget {
 }
 
 class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
+  List<ChapterCard> chapterCards = [];
+  bool cardsLoaded = false;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<String> firstLast = AppInfo.currentUser.name.split(' ');
 
   @override
   void initState() {
+    loadCards();
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> loadCards() async {
+    chapterCards = await ChapterCard.getCards();
+
+    setState(() {
+      cardsLoaded = true;
+    });
   }
 
   @override
@@ -118,7 +133,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                     alignment: AlignmentDirectional(0, 0),
                                     child: Text(
                                       // REPLACE WITH USER INITIALS
-                                      'AK',
+                                      firstLast[0][0] + firstLast[1][0],
                                       style: TextStyle(
                                         fontFamily: 'Google Sans',
                                         color: Colors.white,
@@ -164,7 +179,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                             Flexible(
                               child: AutoSizeText(
                                 // Replace w/ user name
-                                'Hello Archini,',
+                                'Hello ' + AppInfo.currentUser.name + ',',
                                 maxLines: 1,
                                 style: TextStyle(
                                   fontFamily: 'Google Sans',
@@ -201,7 +216,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
-                children: [
+                children: [...[
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                     child: Row(
@@ -232,13 +247,15 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                     ),
                   ),
                   // REPLACE WITH LIST OF GETTING USER'S CHAPTERS
-                  ChapterCard(
-                      bgImg:
-                          'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
-                      school: 'North Creek High School',
-                      clubImg:
-                          'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2'),
-                ],
+                  // ChapterCard(
+                  //     bgImg:
+                  //         'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
+                  //     name: 'North Creek High School',
+                  //     clubImg:
+                  //         'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2',
+                  //     clubID:
+                  //         "OTXS7Z",),
+                ], ...chapterCards],
               ),
             ),
           ],

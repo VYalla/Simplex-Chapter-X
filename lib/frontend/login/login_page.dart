@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+import 'package:simplex_chapter_x/frontend/login/create_account.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -720,6 +721,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           text: 'Don\'t have an account? ',
                                           style: TextStyle(),
                                         ),
+                                        
                                         TextSpan(
                                           text: 'Register',
                                           style: const TextStyle(
@@ -728,7 +730,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              // TAKE TO CREATE ACC
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const CreateAccountWidget()),
+                                                (route) =>
+                                                    false, // This condition removes all previous routes
+                                              );
                                             },
                                         )
                                       ],

@@ -6,7 +6,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+import 'package:simplex_chapter_x/frontend/login/login_page.dart';
+import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
+
+import 'package:simplex_chapter_x/frontend/toast.dart';
 
 class CreateAccountWidget extends StatefulWidget {
   const CreateAccountWidget({super.key});
@@ -27,6 +32,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   bool agreedPrivacy = false;
   bool showPassword = false;
   bool showConfirmPassword = false;
+  final _auth = FirebaseAuth.instance;
+  final emailRegExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
 
   @override
   void initState() {
@@ -143,25 +150,35 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            const Padding(
+                            Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(18, 0, 24, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(18, 0, 24, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Opacity(
                                     opacity: 0.4,
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 1),
-                                      child: Icon(
-                                        Icons.chevron_left_sharp,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.chevron_left_sharp,
                                         color: Color(0xFF454545),
-                                        size: 22,
+                                        size: 22),
+                                        onPressed: () {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const LoginWidget()),
+                                            (route) =>
+                                                false, // This condition removes all previous routes
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
-                                  Opacity(
+                                  const Opacity(
                                     opacity: 0.4,
                                     child: Text(
                                       'Back',
@@ -883,19 +900,27 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     width: 17,
                                     height: 17,
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFF3B58F4),
+                                      color: agreedTOS ? const Color(0xFF3B58F4) : Colors.white,
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                         color: const Color(0xFF8B8B8B),
                                         width: 1.5,
                                       ),
                                     ),
-                                    child: const Align(
+                                    child: Align(
                                       alignment: AlignmentDirectional(0, 0),
-                                      child: Icon(
-                                        Icons.check,
-                                        color: Colors.white,
-                                        size: 12,
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.check,
+                                          color: Colors.white,
+                                          size: agreedTOS ? 12 : 0,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            agreedTOS = !agreedTOS;
+                                          });
+                                        },
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                       ),
                                     ),
                                   ),
@@ -946,11 +971,27 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     width: 17,
                                     height: 17,
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: agreedPrivacy ? const Color(0xFF3B58F4) : Colors.white,
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                         color: const Color(0xFF8B8B8B),
                                         width: 1.5,
+                                      ),
+                                    ),
+                                    child: Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.check,
+                                          color: Colors.white,
+                                          size: agreedPrivacy ? 12 : 0,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            agreedPrivacy = !agreedPrivacy;
+                                          });
+                                        },
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                       ),
                                     ),
                                   ),
@@ -999,26 +1040,50 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 children: [
                                   Expanded(
                                     child: InkWell(
-                                      onTap: () {
+                                      onTap: () async {
                                         if (password.text != confirmPassword.text) {
-                                          Fluttertoast.showToast(
-                                            msg:
-                                                "Passwords Do Not Match",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            backgroundColor: Colors.red,
-                                            textColor: Colors.white,
-                                            fontSize: 16.0,
-                                          );
+                                          toasts.toast("Passwords Do Not Match", true);
+                                        } else if ([firstName.text, lastName.text, email.text, password.text].contains("")) {
+                                          toasts.toast("Please Fill Out All Fields", true);
+                                        } else if (!emailRegExp.hasMatch(email.text)) {
+                                          toasts.toast("Email Invalid", true);
+                                        } else if (!agreedPrivacy || !agreedTOS) {
+                                          toasts.toast("Please Agree to the TOS and Privacy Policy", true);
+                                        } else if (password.text.length < 6) {
+                                          toasts.toast("Password should be at least 6 characters", true);
                                         } else {
-                                          if ([firstName.text, lastName.text, email.text, password.text].contains("")) {
-                                            Fluttertoast.showToast(
-                                              msg:
-                                                  "Please Fill Out All Fields",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              backgroundColor: Colors.red,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0,
+                                          try {
+                                            await _auth.createUserWithEmailAndPassword(
+                                              email: email.text,
+                                              password: password.text);
+
+                                            await _auth.signInWithEmailAndPassword(
+                                              email: email.text, 
+                                              password: password.text);
+
+                                            String id = _auth.currentUser!.uid;
+                                            UserModel user = UserModel(id: id, email: email.text, profilePic: "", name: firstName.text + " " + lastName.text, pastEvents: [], compEvents: [], grade: 12, isExec: false, approved: true, openedAppSinceApproved: false, chapters: []);
+
+                                            UserModel.writeUser(user);
+
+                                            AppInfo.loadData();
+
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ChapterSelectWidget()),
+                                              (route) =>
+                                                  false, // This condition removes all previous routes
                                             );
+                                          } on FirebaseAuthException catch (e) {
+                                            if (e.code == 'email-already-in-use') {
+                                              toasts.toast('The email address is already in use.', true);
+                                            } else if (e.code == 'invalid-email') {
+                                              toasts.toast('Invalid email format.', true);
+                                            } else {
+                                              toasts.toast('Unexpected error: ${e.code}', true);
+                                            }
                                           }
                                         }
                                       },

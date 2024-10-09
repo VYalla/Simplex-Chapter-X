@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 class JoinChapterWidget extends StatefulWidget {
   const JoinChapterWidget({super.key});
@@ -22,6 +23,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController pin;
   String enteredPin = '';
+  bool joined = false;
 
   @override
   void initState() {
@@ -63,7 +65,18 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      if (!joined) {
+                        Navigator.pop(context);
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ChapterSelectWidget()),
+                          (route) =>
+                              false, // This condition removes all previous routes
+                        );
+                      }
                     },
                     child: Container(
                       width: 37,
@@ -187,6 +200,8 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                               textColor: Colors.white,
                               fontSize: 16.0,
                             );
+
+                            joined = true;
                           }
                         } catch (e) {
                           Fluttertoast.showToast(
