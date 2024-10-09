@@ -2,19 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:simplex_chapter_x/frontend/chapter/chapter_landing_page.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:simplex_chapter_x/app_info.dart';
+
 class ChapterCard extends StatelessWidget {
   final String bgImg;
-  final String school;
+  final String name;
   final String clubImg;
-  final String clubName;
+  final String clubID;
 
-  const ChapterCard(
-      {Key? key,
-      required this.bgImg,
-      required this.school,
-      required this.clubImg,
-      required this.clubName})
-      : super(key: key);
+  const ChapterCard({
+    Key? key,
+    required this.bgImg,
+    required this.name,
+    required this.clubImg,
+    required this.clubID,
+  }) : super(key: key);
+
+  ChapterCard.fromDocumentSnapshot(DocumentSnapshot<Object?> doc)
+      : clubID = doc.id,
+        name = doc.get("name") as String,
+        bgImg = 'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
+        clubImg = 'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2';
+
+  static Future<List<ChapterCard>> getCards() async {
+    List<String> ids = AppInfo.currentUser.chapters;
+
+    List<ChapterCard> cards = [];
+    DocumentSnapshot chapter;
+
+    for (String id in ids) {
+      print(id);
+      chapter = await AppInfo.database.collection("chapters").doc(id).get();
+      cards.add(ChapterCard.fromDocumentSnapshot(chapter));
+    } 
+
+    return cards;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +61,7 @@ class ChapterCard extends StatelessWidget {
               },
               child: Container(
                 height: 161,
+                width: 275,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
@@ -79,8 +104,8 @@ class ChapterCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            school,
-                            style: const TextStyle(
+                            name,
+                            style: TextStyle(
                               fontFamily: 'Google Sans',
                               color: Colors.white,
                               fontSize: 15,
