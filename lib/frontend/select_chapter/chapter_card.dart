@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:simplex_chapter_x/frontend/chapter/chapter_landing_page.dart';
+import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simplex_chapter_x/app_info.dart';
@@ -9,6 +9,7 @@ class ChapterCard extends StatelessWidget {
   final String bgImg;
   final String name;
   final String clubImg;
+  final void Function(String chapterId) onTap;
   final String clubID;
 
   const ChapterCard({
@@ -50,13 +51,11 @@ class ChapterCard extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {
+                onTap('iI3uDj6BjSa0tKOPOUvT'); //CHANGE THIS HARDCODE
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChapterLandingPage(
-                      chapterName: clubName,
-                    ),
-                  ),
+                      builder: (context) => const Navigation(pIndex: 0)),
                 );
               },
               child: Container(

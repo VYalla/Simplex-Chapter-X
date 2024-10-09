@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_card.dart';
@@ -18,12 +20,25 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
   bool cardsLoaded = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<String> firstLast = AppInfo.currentUser.name.split(' ');
 
   @override
   void initState() {
     loadCards();
     super.initState();
+  }
+
+  void _selectChapter(String chapterId) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String userId = user.uid;
+      await _firestore.collection('users').doc(userId).update({
+        'currentChapter': chapterId,
+      });
+    } else {
+      print("No user is currently logged in.");
+    }
   }
 
   @override
@@ -249,7 +264,8 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                     ),
                   ),
                   // REPLACE WITH LIST OF GETTING USER'S CHAPTERS
-                  const ChapterCard(
+                  ChapterCard(
+                      onTap: _selectChapter,
                       clubName: "FBLA",
                       bgImg:
                           'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
