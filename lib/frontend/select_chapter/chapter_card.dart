@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:simplex_chapter_x/frontend/chapter/chapter_landing_page.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simplex_chapter_x/app_info.dart';
@@ -42,15 +43,22 @@ class ChapterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          InkWell(
-            onTap: () {
-              // HANDLE JOINING CHAPTER
-            },
-            child: Expanded(
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChapterLandingPage(
+                      chapterName: clubName,
+                    ),
+                  ),
+                );
+              },
               child: Container(
                 height: 161,
                 width: 275,
@@ -60,7 +68,7 @@ class ChapterCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: CachedNetworkImageProvider(bgImg),
                   ),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 2,
                       color: Color(0x19000000),
@@ -70,13 +78,14 @@ class ChapterCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(25, 0, 20, 25),
+                  padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 20, 25),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [

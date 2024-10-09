@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
+import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simplex_chapter_x/app_info.dart';
@@ -35,6 +37,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   final _auth = FirebaseAuth.instance;
   final emailRegExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
 
+  final AuthService _authService = AuthService();
+
   @override
   void initState() {
     super.initState();
@@ -47,7 +51,46 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
 
   @override
   void dispose() {
+    firstName.dispose();
+    lastName.dispose();
+    email.dispose();
+    password.dispose();
+    confirmPassword.dispose();
     super.dispose();
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final userCredential = await _authService.signInWithGoogle();
+      if (userCredential != null) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ChapterSelectWidget(),
+        ));
+        print('Signed in with Google: ${userCredential.user?.displayName}');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to sign in with Google')),
+      );
+      print('Error signing in with Google: $e');
+    }
+  }
+
+  Future<void> _signInWithApple() async {
+    try {
+      final userCredential = await _authService.signInWithApple();
+      if (userCredential != null) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ChapterSelectWidget(),
+        ));
+        print('Signed in with Apple: ${userCredential.user?.displayName}');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to sign in with Google')),
+      );
+      print('Error signing in with Apple: $e');
+    }
   }
 
   @override
@@ -273,57 +316,61 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: Container(
-                                      width: 100,
-                                      height: 54,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                          color: const Color(0xFFE0E0E0),
-                                          width: 1.5,
+                                    child: GestureDetector(
+                                      onTap: _signInWithGoogle,
+                                      child: Container(
+                                        width: 100,
+                                        height: 54,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          border: Border.all(
+                                            color: const Color(0xFFE0E0E0),
+                                            width: 1.5,
+                                          ),
                                         ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(
-                                                    0, 0),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 10, 0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
-                                                child: Image.asset(
-                                                  'assets/images/google_logo.png',
-                                                  width: 23,
-                                                  height: 23,
-                                                  fit: BoxFit.cover,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Align(
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0, 0),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 10, 0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                  child: Image.asset(
+                                                    'assets/images/google_logo.png',
+                                                    width: 23,
+                                                    height: 23,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          const Align(
-                                            alignment:
-                                                AlignmentDirectional(0, 0),
-                                            child: Text(
-                                              'Sign in with Google',
-                                              style: TextStyle(
-                                                fontFamily: 'Google Sans',
-                                                color: Color(0xFF333333),
-                                                fontSize: 18,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
+                                            const Align(
+                                              alignment:
+                                                  AlignmentDirectional(0, 0),
+                                              child: Text(
+                                                'Sign in with Google',
+                                                style: TextStyle(
+                                                  fontFamily: 'Google Sans',
+                                                  color: Color(0xFF333333),
+                                                  fontSize: 18,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -337,57 +384,61 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: Container(
-                                      width: 100,
-                                      height: 54,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black,
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                          color: const Color(0xFFE0E0E0),
-                                          width: 0,
+                                    child: GestureDetector(
+                                      onTap: _signInWithApple,
+                                      child: Container(
+                                        width: 100,
+                                        height: 54,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          border: Border.all(
+                                            color: const Color(0xFFE0E0E0),
+                                            width: 0,
+                                          ),
                                         ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(
-                                                    0, 0),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 10, 3),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
-                                                child: Image.asset(
-                                                  'assets/images/apple_logo.png',
-                                                  width: 23,
-                                                  height: 23,
-                                                  fit: BoxFit.cover,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Align(
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0, 0),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0, 0, 10, 3),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                  child: Image.asset(
+                                                    'assets/images/apple_logo.png',
+                                                    width: 23,
+                                                    height: 23,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          const Align(
-                                            alignment:
-                                                AlignmentDirectional(0, 0),
-                                            child: Text(
-                                              'Sign in with Apple',
-                                              style: TextStyle(
-                                                fontFamily: 'Google Sans',
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
+                                            const Align(
+                                              alignment:
+                                                  AlignmentDirectional(0, 0),
+                                              child: Text(
+                                                'Sign in with Apple',
+                                                style: TextStyle(
+                                                  fontFamily: 'Google Sans',
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

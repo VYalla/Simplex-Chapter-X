@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:simplex_chapter_x/create_chapter.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +29,6 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
   @override
   void initState() {
     super.initState();
-
     pin = TextEditingController();
   }
 
@@ -58,7 +58,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -81,11 +81,11 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                     child: Container(
                       width: 37,
                       height: 37,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0x59000000),
                         shape: BoxShape.circle,
                       ),
-                      child: Align(
+                      child: const Align(
                         alignment: AlignmentDirectional(0, 0),
                         child: Icon(
                           Icons.close,
@@ -99,11 +99,11 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(40, 4, 40, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(40, 4, 40, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Row(
+                  const Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       AutoSizeText(
@@ -120,7 +120,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(right: 30),
+                    padding: const EdgeInsets.only(right: 30),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,15 +146,15 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                             fontSize: 44,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w700,
+                            ),
+                            controller: pin,
+                            cursorWidth: 1.5,
+                            cursorColor: Colors.white,
+                            showCursor: true,
+                            appContext: context,
+                            backgroundColor: Colors.transparent,
+                            length: 6,
                           ),
-                          controller: pin,
-                          cursorWidth: 1.5,
-                          cursorColor: Colors.white,
-                          showCursor: true,
-                          appContext: context,
-                          backgroundColor: Colors.transparent,
-                          length: 6,
-                        ),
                         ),
                       ],
                     ),
@@ -230,10 +230,36 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreateChapterPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    child: const Text(
+                      'Create a Chapter Instead',
+                      style: TextStyle(
+                        fontFamily: 'Google Sans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

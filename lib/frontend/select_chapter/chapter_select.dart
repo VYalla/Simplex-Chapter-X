@@ -27,6 +27,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
   }
 
   @override
+
   void dispose() {
     super.dispose();
   }
@@ -43,7 +44,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -51,9 +52,9 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
             MaterialPageRoute(builder: (context) => const JoinChapterWidget()),
           );
         },
-        backgroundColor: Color(0xFF3B58F4),
+        backgroundColor: const Color(0xFF3B58F4),
         elevation: 8,
-        child: Icon(
+        child: const Icon(
           Icons.add_rounded,
           color: Colors.white,
           size: 32,
@@ -66,7 +67,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
             Container(
               width: MediaQuery.sizeOf(context).width,
               height: 200,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0x14556EF4), Color(0x7EF5F6F7)],
                   stops: [0, 1],
@@ -75,7 +76,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,12 +92,12 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                             Container(
                               width: 19,
                               height: 19,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFFFF0000),
                                 shape: BoxShape.circle,
                               ),
                             ),
-                            Padding(
+                            const Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
                               child: Text(
@@ -117,19 +118,19 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                           child: Stack(
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(-1, -1),
+                                alignment: const AlignmentDirectional(-1, -1),
                                 child: Container(
                                   width: 43,
                                   height: 43,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF526BF4),
+                                    color: const Color(0xFF526BF4),
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: Color(0xFF051989),
+                                      color: const Color(0xFF051989),
                                       width: 1,
                                     ),
                                   ),
-                                  child: Align(
+                                  child: const Align(
                                     alignment: AlignmentDirectional(0, 0),
                                     child: Text(
                                       // REPLACE WITH USER INITIALS
@@ -147,15 +148,15 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                               ),
                               // HANDLE POPUP FOR SIGNING OUT
                               Align(
-                                alignment: AlignmentDirectional(1, 1),
+                                alignment: const AlignmentDirectional(1, 1),
                                 child: Container(
                                   width: 19,
                                   height: 19,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Color(0x99000000),
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Align(
+                                  child: const Align(
                                     alignment: AlignmentDirectional(0, 0),
                                     child: Icon(
                                       Icons.more_vert,
@@ -170,7 +171,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                         ),
                       ],
                     ),
-                    Column(
+                    const Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Row(
@@ -213,16 +214,16 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [...[
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
+                        const Text(
                           'YOUR GROUPS',
                           style: TextStyle(
                             fontFamily: 'Google Sans',
@@ -233,11 +234,12 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Container(
                             width: 6,
                             height: 6,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xFFD90000),
                               shape: BoxShape.circle,
                             ),
@@ -247,15 +249,14 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                     ),
                   ),
                   // REPLACE WITH LIST OF GETTING USER'S CHAPTERS
-                  // ChapterCard(
-                  //     bgImg:
-                  //         'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
-                  //     name: 'North Creek High School',
-                  //     clubImg:
-                  //         'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2',
-                  //     clubID:
-                  //         "OTXS7Z",),
-                ], ...chapterCards],
+                  const ChapterCard(
+                      clubName: "FBLA",
+                      bgImg:
+                          'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
+                      school: 'North Creek High School',
+                      clubImg:
+                          'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2'),
+                ],
               ),
             ),
           ],
