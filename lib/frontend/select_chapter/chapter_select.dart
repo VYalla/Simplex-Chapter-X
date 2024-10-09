@@ -2,10 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_card.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/join_chapter.dart';
-
 import 'package:simplex_chapter_x/app_info.dart';
 
 class ChapterSelectWidget extends StatefulWidget {
@@ -29,7 +28,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
     super.initState();
   }
 
-  void _selectChapter(String chapterId) async {
+  Future<void> _selectChapter(String chapterId) async {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String userId = user.uid;
@@ -42,14 +41,12 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
   }
 
   @override
-
   void dispose() {
     super.dispose();
   }
 
   Future<void> loadCards() async {
     chapterCards = await ChapterCard.getCards();
-
     setState(() {
       cardsLoaded = true;
     });
@@ -127,7 +124,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                             ),
                           ],
                         ),
-                        Container(
+                        SizedBox(
                           width: 46,
                           height: 46,
                           child: Stack(
@@ -148,7 +145,6 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                   child: Align(
                                     alignment: const AlignmentDirectional(0, 0),
                                     child: Text(
-                                      // REPLACE WITH USER INITIALS
                                       firstLast[0][0] + firstLast[1][0],
                                       style: const TextStyle(
                                         fontFamily: 'Google Sans',
@@ -194,8 +190,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                           children: [
                             Flexible(
                               child: AutoSizeText(
-                                // Replace w/ user name
-                                'Hello ' + AppInfo.currentUser.name + ',',
+                                'Hello  ${AppInfo.currentUser.name},',
                                 maxLines: 1,
                                 style: const TextStyle(
                                   fontFamily: 'Google Sans',
@@ -228,46 +223,101 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                 ),
               ),
             ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [...[
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const Text(
-                            'YOUR GROUPS',
-                            style: TextStyle(
-                              fontFamily: 'Google Sans',
-                              color: Colors.black,
-                              fontSize: 20,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                            child: Container(
-                              width: 6,
-                              height: 6,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFD90000),
-                                shape: BoxShape.circle,
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const Text(
+                                'YOUR GROUPS',
+                                style: TextStyle(
+                                  fontFamily: 'Google Sans',
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    12, 0, 0, 0),
+                                child: Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFD90000),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        if (cardsLoaded && chapterCards.isNotEmpty)
+                          ...chapterCards.map((card) => GestureDetector(
+                                onTap: () async {
+                                  await _selectChapter(card.clubID);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Navigation(pIndex: 0),
+                                    ),
+                                  );
+                                },
+                                child: card,
+                              ))
+                        else if (cardsLoaded && chapterCards.isEmpty)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 20, 0, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                const Text(
+                                  'You haven\'t joined any chapters yet.',
+                                  style: TextStyle(
+                                    fontFamily: 'Google Sans',
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    letterSpacing: 0.0,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const JoinChapterWidget()),
+                                    );
+                                  },
+                                  child: const Text('Join a Chapter'),
+                                ),
+                              ],
+                            ),
+                          )
+                        else
+                          const CircularProgressIndicator(),
+                      ],
                     ),
-                    // REPLACE WITH LIST OF GETTING USER'S CHAPTERS
-                    ...chapterCards,
-                  ], ],
-                ),
+                  ),
+                ],
               ),
+            ),
           ],
         ),
       ),

@@ -1,13 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:simplex_chapter_x/frontend/chats/chatroom_page.dart';
-import 'package:simplex_chapter_x/frontend/login/create_account.dart';
-import 'package:simplex_chapter_x/frontend/login/login_page.dart';
-import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
-import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
-import 'package:firebase_core/firebase_core.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -49,25 +41,20 @@ class MyApp extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return FutureBuilder<DocumentSnapshot>(
-              future: FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(snapshot.data!.uid)
-                  .get(),
-              builder: (context, userSnapshot) {
-                if (userSnapshot.connectionState == ConnectionState.waiting) {
+            return FutureBuilder<void>(
+              future: AppInfo.loadData(),
+              builder: (context, loadSnapshot) {
+                if (loadSnapshot.connectionState == ConnectionState.waiting) {
                   return const Scaffold(
                     body: Center(child: CircularProgressIndicator()),
                   );
                 }
-                if (userSnapshot.hasData && userSnapshot.data!.exists) {
-                  final userData =
-                      userSnapshot.data!.data() as Map<String, dynamic>;
-                  //need to check if fullname is valid when signing with google
-                  final String? fullName = userData['name'] as String?;
-                  return const ChapterSelectWidget();
+
+                if (loadSnapshot.hasError) {
+                  return const LoginWidget();
                 }
-                return const LoginWidget();
+
+                return const ChapterSelectWidget();
               },
             );
           }

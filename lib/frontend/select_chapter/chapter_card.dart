@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 
@@ -9,7 +8,6 @@ class ChapterCard extends StatelessWidget {
   final String bgImg;
   final String name;
   final String clubImg;
-  final void Function(String chapterId) onTap;
   final String clubID;
 
   const ChapterCard({
@@ -23,12 +21,18 @@ class ChapterCard extends StatelessWidget {
   ChapterCard.fromDocumentSnapshot(DocumentSnapshot<Object?> doc)
       : clubID = doc.id,
         name = doc.get("name") as String,
-        bgImg = 'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
-        clubImg = 'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2';
+        bgImg =
+            'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
+        clubImg =
+            'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2';
 
   static Future<List<ChapterCard>> getCards() async {
-    List<String> ids = AppInfo.currentUser.chapters;
+    if (AppInfo.currentUser.chapters == null) {
+      print('User has no chapters');
+      return [];
+    }
 
+    List<String> ids = AppInfo.currentUser.chapters;
     List<ChapterCard> cards = [];
     DocumentSnapshot chapter;
 
@@ -36,7 +40,7 @@ class ChapterCard extends StatelessWidget {
       print(id);
       chapter = await AppInfo.database.collection("chapters").doc(id).get();
       cards.add(ChapterCard.fromDocumentSnapshot(chapter));
-    } 
+    }
 
     return cards;
   }
@@ -49,72 +53,62 @@ class ChapterCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-            child: InkWell(
-              onTap: () {
-                onTap('iI3uDj6BjSa0tKOPOUvT'); //CHANGE THIS HARDCODE
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Navigation(pIndex: 0)),
-                );
-              },
-              child: Container(
-                height: 161,
-                width: 275,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(bgImg),
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 2,
-                      color: Color(0x19000000),
-                      offset: Offset(0, 1),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(15),
+            child: Container(
+              height: 161,
+              width: 275,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: CachedNetworkImageProvider(bgImg),
                 ),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 20, 25),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0),
-                              child: CachedNetworkImage(
-                                imageUrl: clubImg,
-                                height: 22,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
+                boxShadow: const [
+                  BoxShadow(
+                    blurRadius: 2,
+                    color: Color(0x19000000),
+                    offset: Offset(0, 1),
+                  )
+                ],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 20, 25),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                      child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            name,
-                            style: TextStyle(
-                              fontFamily: 'Google Sans',
-                              color: Colors.white,
-                              fontSize: 15,
-                              letterSpacing: 0.0,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(0),
+                            child: CachedNetworkImage(
+                              imageUrl: clubImg,
+                              height: 22,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          name,
+                          style: const TextStyle(
+                            fontFamily: 'Google Sans',
+                            color: Colors.white,
+                            fontSize: 15,
+                            letterSpacing: 0.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
