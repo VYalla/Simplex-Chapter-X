@@ -1,10 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:intl/intl.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TaskLandingPageWidget extends StatefulWidget {
-  const TaskLandingPageWidget({super.key});
+  final TaskModel task;
+  final String chapterId;
+
+  const TaskLandingPageWidget({
+    Key? key,
+    required this.task,
+    required this.chapterId,
+  }) : super(key: key);
 
   @override
   State<TaskLandingPageWidget> createState() => _TaskLandingPageWidgetState();
@@ -12,29 +20,35 @@ class TaskLandingPageWidget extends StatefulWidget {
 
 class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isTaskSubmitted = false;
 
   @override
   void initState() {
     super.initState();
+    checkIfTaskSubmitted();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  void checkIfTaskSubmitted() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        isTaskSubmitted = widget.task.usersSubmitted.contains(user.uid);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         constraints: BoxConstraints(
           minHeight: MediaQuery.sizeOf(context).height * 1,
         ),
         decoration: BoxDecoration(
-          color: Color(0xFFF5F6F7),
+          color: const Color(0xFFF5F6F7),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0),
             bottomRight: Radius.circular(0),
@@ -50,7 +64,8 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,21 +73,21 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.task_alt,
                               color: Color(0xFFC1AD83),
                               size: 20,
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  8, 0, 0, 0),
                               child: Text(
                                 'TASK',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Google Sans',
-                                      color: Color(0xFFC1AD83),
+                                      color: const Color(0xFFC1AD83),
                                       fontSize: 15,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -82,27 +97,32 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                             ),
                           ],
                         ),
-                        Icon(
-                          Icons.delete_forever_sharp,
-                          color: Color(0xFFD3D3D3),
-                          size: 26,
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete_forever_sharp,
+                            color: Color(0xFFD3D3D3),
+                            size: 26,
+                          ),
+                          onPressed: () {
+                            //IMPLEMENT THIS!!
+                          },
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 8, 22, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(22, 8, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Flexible(
                           child: Text(
-                            '[name]',
+                            widget.task.title,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 20,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
@@ -113,38 +133,39 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 10),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Container(
                           height: 40,
                           decoration: BoxDecoration(
-                            color: Color(0xFFECECED),
+                            color: const Color(0xFFECECED),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                15, 0, 15, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.edit_calendar,
                                   color: Color(0xFF999999),
                                   size: 22,
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8, 0, 0, 0),
                                   child: Text(
-                                    'Add reminder',
+                                    'Add reminder', //what is this for?
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF999999),
+                                          color: const Color(0xFF999999),
                                           fontSize: 15,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
@@ -159,12 +180,13 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1.5,
                     color: Color(0x33CFCFCF),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(25, 10, 0, 10),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(25, 10, 0, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -172,24 +194,25 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                           width: 44,
                           height: 44,
                           decoration: BoxDecoration(
-                            color: Color(0xFFE0ECFF),
+                            color: const Color(0xFFE0ECFF),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.calendar_today_outlined,
                             color: Color(0xFF226ADD),
                             size: 20,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '12.30 PM',
-                                style: TextStyle(
+                                widget.task.timeDue,
+                                style: const TextStyle(
                                   fontFamily: 'Google Sans',
                                   color: Color(0xFF333333),
                                   fontWeight: FontWeight.w500,
@@ -197,8 +220,9 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                                 ),
                               ),
                               Text(
-                                'Thursday, April 25th',
-                                style: TextStyle(
+                                DateFormat('EEEE, MMMM d')
+                                    .format(widget.task.dueDate),
+                                style: const TextStyle(
                                   fontFamily: 'Google Sans',
                                   color: Color(0xFF858585),
                                   fontSize: 15,
@@ -210,12 +234,13 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1.5,
                     color: Color(0x33CFCFCF),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -226,7 +251,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 17,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
@@ -238,18 +263,18 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 6, 22, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(22, 6, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Flexible(
                           child: Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                            widget.task.description,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 15,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -261,96 +286,8 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 20, 22, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'RESOURCES',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
-                                  fontSize: 17,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Divider(
-                          height: 0,
-                          thickness: 1.5,
-                          color: Color(0xFFEDEEEF),
-                        ),
-                        Container(
-                          width: MediaQuery.sizeOf(context).width,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF5F6F7),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    22, 15, 22, 15),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Welcome to FBLA',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Google Sans',
-                                            color: Color(0xFF333333),
-                                            fontSize: 15,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
-                                    Text(
-                                      'June 20, 2024',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Google Sans',
-                                            color: Color(0x4E333333),
-                                            fontSize: 12,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          height: 0,
-                          thickness: 1.5,
-                          color: Color(0xFFEDEEEF),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 20, 22, 0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(22, 20, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -361,7 +298,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 17,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
@@ -372,201 +309,166 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Divider(
-                          height: 0,
-                          thickness: 1.5,
-                          color: Color(0xFFEDEEEF),
-                        ),
-                        Container(
-                          width: MediaQuery.sizeOf(context).width,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF3F8FF),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    22, 15, 22, 15),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
+                  if (widget.task.submissions.isNotEmpty)
+                    ...widget.task.submissions.map((submission) {
+                      return Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            const Divider(
+                              height: 0,
+                              thickness: 1.5,
+                              color: Color(0xFFEDEEEF),
+                            ),
+                            Container(
+                              width: MediaQuery.sizeOf(context).width,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFF3F8FF),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            22, 15, 22, 15),
+                                    child: Row(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Icon(
-                                          Icons.download_done,
-                                          color: Color(0xFF4474B9),
-                                          size: 20,
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            const Icon(
+                                              Icons.attachment,
+                                              color: Color(0xFF4474B9),
+                                              size: 20,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(8, 0, 0, 0),
+                                              child: Text(
+                                                submission['text'] ??
+                                                    'Attachment',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Google Sans',
+                                                          color: const Color(
+                                                              0xFF4474B9),
+                                                          fontSize: 15,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: Text(
-                                            'Permission Form',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Google Sans',
-                                                  color: Color(0xFF4474B9),
-                                                  fontSize: 15,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts: false,
-                                                ),
+                                        if (!isTaskSubmitted)
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.delete_forever_sharp,
+                                              color: Color(0xFFAFC8ED),
+                                              size: 22,
+                                            ),
+                                            onPressed: () =>
+                                                _deleteAttachment(submission),
                                           ),
-                                        ),
                                       ],
                                     ),
-                                    Icon(
-                                      Icons.delete_forever_sharp,
-                                      color: Color(0xFFAFC8ED),
-                                      size: 22,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              height: 0,
+                              thickness: 1.5,
+                              color: Color(0xFFEDEEEF),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  if (!isTaskSubmitted)
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: _uploadFiles,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF226ADD),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 12),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.add, color: Colors.white),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      'Upload File',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                        Divider(
-                          height: 0,
-                          thickness: 1.5,
-                          color: Color(0xFFEDEEEF),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: Container(
-                            width: 100,
-                            height: 45,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF226ADD),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Text(
-                                    'Upload File',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Google Sans',
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            width: 100,
-                            height: 45,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Color(0xFFF6F6F6),
-                                width: 2,
+                          child: ElevatedButton(
+                            onPressed: isTaskSubmitted ? null : _markAsDone,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  isTaskSubmitted ? Colors.grey : Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                    color: isTaskSubmitted
+                                        ? Colors.grey
+                                        : const Color(0xFFF6F6F6),
+                                    width: 2),
                               ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Mark as done',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Google Sans',
-                                        color: Color(0xFF226ADD),
-                                        fontSize: 15,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
-                                      ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: Text(
+                                isTaskSubmitted ? 'Submitted' : 'Submit',
+                                style: TextStyle(
+                                  color: isTaskSubmitted
+                                      ? Colors.grey
+                                      : const Color(0xFF226ADD),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            width: 100,
-                            height: 45,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Color(0xFFF6F6F6),
-                                width: 2,
                               ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Unsubmit',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Google Sans',
-                                        color: Color(0xFF226ADD),
-                                        fontSize: 15,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ],
                             ),
                           ),
                         ),
@@ -580,5 +482,139 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
         ),
       ),
     );
+  }
+
+  Future<void> _uploadFiles() async {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController linkController = TextEditingController();
+    bool isNameEmpty = false;
+    bool isLinkEmpty = false;
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: const Text('Upload Attachment'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: "Enter attachment name",
+                    errorText: isNameEmpty ? "Name is required" : null,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      isNameEmpty = value.isEmpty;
+                    });
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: linkController,
+                  decoration: InputDecoration(
+                    hintText: "Enter attachment link",
+                    errorText: isLinkEmpty ? "Link is required" : null,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      isLinkEmpty = value.isEmpty;
+                    });
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Upload'),
+                onPressed: () async {
+                  setState(() {
+                    isNameEmpty = nameController.text.isEmpty;
+                    isLinkEmpty = linkController.text.isEmpty;
+                  });
+
+                  if (!isNameEmpty && !isLinkEmpty) {
+                    if (await _isValidUrl(linkController.text)) {
+                      await _addAttachment(
+                          nameController.text, linkController.text);
+                      Navigator.of(context).pop();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                'Invalid URL. Please enter a valid link.')),
+                      );
+                    }
+                  }
+                },
+              ),
+            ],
+          );
+        });
+      },
+    );
+  }
+
+  Future<bool> _isValidUrl(String url) async {
+    return url.startsWith('http://') || url.startsWith('https://');
+  }
+
+  Future<void> _addAttachment(String name, String link) async {
+    final newSubmission = {
+      'text': name,
+      'pdfURL': link,
+      'timestamp': DateTime.now().toIso8601String(),
+      'user': FirebaseAuth.instance.currentUser?.uid ?? '',
+    };
+
+    setState(() {
+      widget.task.submissions.add(newSubmission);
+    });
+
+    await TaskModel.updateTaskById(widget.chapterId, widget.task.id, {
+      'submissions': widget.task.submissions,
+    });
+  }
+
+  Future<void> _deleteAttachment(Map<String, String> submission) async {
+    setState(() {
+      widget.task.submissions.remove(submission);
+    });
+
+    await TaskModel.updateTaskById(widget.chapterId, widget.task.id, {
+      'submissions': widget.task.submissions,
+    });
+  }
+
+  Future<void> _markAsDone() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && widget.task.submissions.isNotEmpty) {
+      await TaskModel.completeTask(
+        widget.task,
+        '', // submissionText
+        '', // submissionImage
+        '', // pdf
+        DateTime.now().toIso8601String(),
+        user.uid,
+      );
+      setState(() {
+        isTaskSubmitted = true;
+      });
+    } else if (widget.task.submissions.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content:
+                Text('Please attach at least one file before submitting.')),
+      );
+    }
   }
 }
