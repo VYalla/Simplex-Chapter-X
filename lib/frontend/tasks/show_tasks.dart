@@ -5,6 +5,7 @@ import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/tasks/create_task_temp.dart';
 import 'package:simplex_chapter_x/frontend/tasks/task_details_temp.dart';
 import 'package:simplex_chapter_x/frontend/tasks/show_all_tasks.dart';
+import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
 class ShowTasks extends StatefulWidget {
@@ -135,26 +136,7 @@ class _ShowTasksState extends State<ShowTasks> {
                         ));
                       },
                       child: Text(
-                        'Show All Tasks',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Google Sans',
-                              color: const Color(0xFF3B58F4),
-                              fontSize: 12,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              CreateTaskWidget(chapterId: _currentChapter!),
-                        ));
-                      },
-                      child: Text(
-                        'Create',
+                        'See All',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
                               color: const Color(0xFF3B58F4),
@@ -193,7 +175,7 @@ class _ShowTasksState extends State<ShowTasks> {
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TaskDetailWidget(
+            builder: (context) => TaskLandingPageWidget(
               task: task,
               chapterId: _currentChapter!,
             ),
