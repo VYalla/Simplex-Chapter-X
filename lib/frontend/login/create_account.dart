@@ -37,8 +37,6 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   final _auth = FirebaseAuth.instance;
   final emailRegExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
 
-  final AuthService _authService = AuthService();
-
   @override
   void initState() {
     super.initState();
@@ -1113,7 +1111,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                               password: password.text);
 
                                             String id = _auth.currentUser!.uid;
-                                            UserModel user = UserModel(id: id, email: email.text, profilePic: "", name: firstName.text + " " + lastName.text, pastEvents: [], compEvents: [], grade: 12, isExec: false, approved: true, openedAppSinceApproved: false, chapters: []);
+                                            UserModel user = UserModel(id: id, email: email.text, profilePic: "", name: firstName.text + " " + lastName.text, pastEvents: [], compEvents: [], grade: 12, isExec: false, approved: true, openedAppSinceApproved: false, chapters: [], currentChapter: "");
 
                                             UserModel.writeUser(user);
 

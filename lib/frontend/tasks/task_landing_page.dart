@@ -49,7 +49,12 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
         ),
         decoration: BoxDecoration(
           color: const Color(0xFFF5F6F7),
-          borderRadius: BorderRadius.circular(0),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(0),
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
+          ),
         ),
         child: SingleChildScrollView(
           child: Column(

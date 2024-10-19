@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:simplex_chapter_x/app_info.dart';
+import 'package:simplex_chapter_x/frontend/create/create_event_sheet.dart';
+import 'package:simplex_chapter_x/frontend/create/create_task_sheet.dart';
+import 'package:simplex_chapter_x/frontend/tasks/create_task_temp.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 
@@ -18,7 +22,7 @@ class CreateSheet {
               topLeft: Radius.circular(1000.0),
               topRight: Radius.circular(1000.0)),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF5F6F7),
         context: context,
         builder: (context) {
           return Container(
@@ -75,43 +79,48 @@ class CreateSheet {
                   alignment: const AlignmentDirectional(-1, 1),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(34, 0, 0, 50 + add),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 66,
-                          height: 51,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEBEEFE),
-                            borderRadius: BorderRadius.circular(45),
-                          ),
-                          child: const Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Icon(
-                              Symbols.widgets,
-                              fill: 1.0,
-                              color: Color(0xFF617AFF),
-                              size: 24,
+                    child: InkWell(
+                      onTap: () {
+                        getCreatePageSheet("Widget", context);
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 66,
+                            height: 51,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFEBEEFE),
+                              borderRadius: BorderRadius.circular(45),
+                            ),
+                            child: const Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Icon(
+                                Symbols.widgets,
+                                fill: 1.0,
+                                color: Color(0xFF617AFF),
+                                size: 24,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                          child: Text(
-                            'Widget',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Google Sans',
-                                  color: const Color(0xFF617AFF),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: false,
-                                ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 5, 0, 0),
+                            child: Text(
+                              'Widget',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Google Sans',
+                                    color: const Color(0xFF617AFF),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -119,42 +128,47 @@ class CreateSheet {
                   alignment: const AlignmentDirectional(1, 1),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 34, 50 + add),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 66,
-                          height: 51,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEBEEFE),
-                            borderRadius: BorderRadius.circular(45),
-                          ),
-                          child: const Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Icon(
-                              Icons.check_box,
-                              color: Color(0xFF617AFF),
-                              size: 24,
+                    child: InkWell(
+                      onTap: () {
+                        getCreatePageSheet("Task", context);
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 66,
+                            height: 51,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFEBEEFE),
+                              borderRadius: BorderRadius.circular(45),
+                            ),
+                            child: const Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Icon(
+                                Icons.check_box,
+                                color: Color(0xFF617AFF),
+                                size: 24,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                          child: Text(
-                            'Task',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Google Sans',
-                                  color: const Color(0xFF617AFF),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: false,
-                                ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 5, 0, 0),
+                            child: Text(
+                              'Task',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Google Sans',
+                                    color: const Color(0xFF617AFF),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -163,42 +177,47 @@ class CreateSheet {
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                         0, 15 - 0.5 * add, 90, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 66,
-                          height: 51,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEBEEFE),
-                            borderRadius: BorderRadius.circular(45),
-                          ),
-                          child: const Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Icon(
-                              Icons.chat_bubble,
-                              color: Color(0xFF617AFF),
-                              size: 24,
+                    child: InkWell(
+                      onTap: () {
+                        getCreatePageSheet("Chat", context);
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 66,
+                            height: 51,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFEBEEFE),
+                              borderRadius: BorderRadius.circular(45),
+                            ),
+                            child: const Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Icon(
+                                Icons.chat_bubble,
+                                color: Color(0xFF617AFF),
+                                size: 24,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                          child: Text(
-                            'Chats',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Google Sans',
-                                  color: const Color(0xFF617AFF),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: false,
-                                ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 5, 0, 0),
+                            child: Text(
+                              'Chats',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Google Sans',
+                                    color: const Color(0xFF617AFF),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -207,42 +226,47 @@ class CreateSheet {
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                         90, 15 - 0.5 * add, 0, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 66,
-                          height: 51,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEBEEFE),
-                            borderRadius: BorderRadius.circular(45),
-                          ),
-                          child: const Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Icon(
-                              Icons.calendar_today,
-                              color: Color(0xFF617AFF),
-                              size: 24,
+                    child: InkWell(
+                      onTap: () {
+                        getCreatePageSheet("Event", context);
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 66,
+                            height: 51,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFEBEEFE),
+                              borderRadius: BorderRadius.circular(45),
+                            ),
+                            child: const Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Icon(
+                                Icons.calendar_today,
+                                color: Color(0xFF617AFF),
+                                size: 24,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                          child: Text(
-                            'Event',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Google Sans',
-                                  color: const Color(0xFF617AFF),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: false,
-                                ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 5, 0, 0),
+                            child: Text(
+                              'Event',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Google Sans',
+                                    color: const Color(0xFF617AFF),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -250,5 +274,39 @@ class CreateSheet {
             ),
           );
         });
+  }
+
+  static void getCreatePageSheet(String type, BuildContext context) {
+    Navigator.pop(context);
+    Widget page = Container();
+    switch (type) {
+      case "Event":
+        page = CreateEventWidget();
+        break;
+      case "Widget":
+        break;
+      case "Task":
+        page = CreateTaskSheet();
+        break;
+      case "Chat":
+        break;
+      default:
+        break;
+    }
+
+    if (page != null) {
+      showModalBottomSheet(
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0)),
+          ),
+          backgroundColor: Color(0xFFF5F6F7),
+          context: context,
+          builder: (context) {
+            return page;
+          });
+    }
   }
 }

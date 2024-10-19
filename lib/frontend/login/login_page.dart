@@ -34,16 +34,26 @@ class _LoginWidgetState extends State<LoginWidget> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> _signInWithGoogle() async {
-    final userCredential = await _authService.signInWithGoogle();
-    if (userCredential != null) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const ChapterSelectWidget(),
-      ));
-      print('Signed in with Google: ${userCredential.user!.email}');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign in with Google')),
-      );
+    try {
+      final userCredential = await _authService.signInWithGoogle();
+      if (userCredential != null && mounted) {
+        await AppInfo.loadData();
+        if (mounted) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const ChapterSelectWidget(),
+          ));
+        }
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to sign in with Google')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error signing in with Google: $e')),
+        );
+      }
     }
   }
 
@@ -417,6 +427,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               //   (route) =>
                                               //       false, // This condition removes all previous routes
                                               // );
+                                              print(e.toString());
                                               Fluttertoast.showToast(
                                                 msg: "Error",
                                                 toastLength: Toast.LENGTH_SHORT,
@@ -714,7 +725,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           text: 'Don\'t have an account? ',
                                           style: TextStyle(),
                                         ),
-                                        
                                         TextSpan(
                                           text: 'Register',
                                           style: const TextStyle(

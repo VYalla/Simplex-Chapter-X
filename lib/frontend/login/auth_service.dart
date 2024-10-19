@@ -21,21 +21,19 @@ class AuthService {
     await _firestore.collection('users').doc(user.uid).set({
       'email': user.email,
       'name': user.displayName,
-      'photoURL': user.photoURL,
+      'profilePic': user.photoURL,
       'createdAt': FieldValue.serverTimestamp(),
+      'chapters': [],
     });
   }
 
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      print("Starting Google Sign In process");
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        print('Google Sign In was aborted by the user');
         return null;
       }
 
-      print("Obtaining Google Auth details");
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -43,11 +41,8 @@ class AuthService {
         idToken: googleAuth.idToken,
       );
 
-      print("Signing in to Firebase");
       final userCredential = await _auth.signInWithCredential(credential);
-      print("Adding user to Firestore");
       await _addUserToFirestore(userCredential.user!);
-      print("Google Sign In successful");
       return userCredential;
     } on FirebaseAuthException catch (e) {
       print('FirebaseAuthException: ${e.code} - ${e.message}');
