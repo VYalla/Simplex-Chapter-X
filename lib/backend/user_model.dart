@@ -150,6 +150,7 @@ class UserModel {
   ///
   ///
   static Future<UserModel> getUserById(String id) async {
+    print(id);
     DocumentSnapshot userInfo =
         await AppInfo.database.collection('users').doc(id).get();
     return UserModel.fromDocumentSnapshot(userInfo);

@@ -427,6 +427,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               //   (route) =>
                                               //       false, // This condition removes all previous routes
                                               // );
+                                              print(e.toString());
                                               Fluttertoast.showToast(
                                                 msg: "Error",
                                                 toastLength: Toast.LENGTH_SHORT,
