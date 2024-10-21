@@ -80,7 +80,11 @@ class EventModel {
   ///
   /// Every field will be overwritten!
   static Future<void> writeEvent(EventModel event) async {
-    AppInfo.database.collection('events').doc(event.id).set(event.toMap());
+    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('events').doc(event.id).set(event.toMap());
+  }
+
+  static Future<void> createEvent(EventModel event) async {
+    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('events').add(event.toMap());
   }
 
   /// Updates the event specified by the provided [id] with [updates]
@@ -88,13 +92,13 @@ class EventModel {
   /// Firebase will merge the target data with the provided data
   static Future<void> updateEventById(
       String id, Map<String, dynamic> updates) async {
-    AppInfo.database.collection('events').doc(id).update(updates);
+    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('events').doc(id).update(updates);
   }
 
   /// Deletes the event specified by the provided [id]
   ///
   static void removeEventById(String id) {
-    AppInfo.database.collection('events').doc(id).delete();
+    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('events').doc(id).delete();
   }
 
   /// Gets an event with the given [id]
@@ -102,7 +106,7 @@ class EventModel {
   ///
   static Future<EventModel> getEventById(String id) async {
     DocumentSnapshot eventInfo =
-        await AppInfo.database.collection('events').doc(id).get();
+        await AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('events').doc(id).get();
     return EventModel.fromDocumentSnapshot(eventInfo);
   }
 
@@ -112,8 +116,11 @@ class EventModel {
   static Future<List<EventModel>> getCurrentEvents() async {
     DateTime currentDate = DateTime.now().subtract(const Duration(days: 1));
     String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    String currentChapter = AppInfo.currentUser.currentChapter;
 
     QuerySnapshot eventQuery = await AppInfo.database
+        .collection("chapters")
+        .doc(currentChapter)
         .collection('events')
         .where('date', isGreaterThan: formattedDate)
         .orderBy('date')
@@ -124,14 +131,25 @@ class EventModel {
         .toList();
   }
 
+  static Future<void> updateEvents() async {
+    await EventModel.getCurrentEvents().then(
+      (value) {
+        AppInfo.currentEvents = value;
+      },
+    );
+  }
+
   /// Gets a [List] of all past events as [EventModel] objects
   ///
   ///
   static Future<List<EventModel>> getPastEvents() async {
     DateTime currentDate = DateTime.now().subtract(const Duration(days: 1));
     String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    String currentChapter = AppInfo.currentUser.currentChapter;
 
     QuerySnapshot eventQuery = await AppInfo.database
+        .collection("chapters")
+        .doc(currentChapter)
         .collection('events')
         .where('date', isLessThanOrEqualTo: formattedDate)
         .orderBy('date')
@@ -147,7 +165,7 @@ class EventModel {
   ///
   static Future<void> recordUserAttendance(
       EventModel event, String name) async {
-    AppInfo.database.collection('events').doc(event.id).update({
+    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('events').doc(event.id).update({
       'usersAttended': FieldValue.arrayUnion([name]),
     });
   }

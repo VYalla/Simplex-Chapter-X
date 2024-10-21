@@ -1,3 +1,6 @@
+import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:simplex_chapter_x/frontend/toast.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -67,16 +70,40 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             ),
                       ),
                     ),
-                    Text(
-                      'Add',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Google Sans',
-                            color: Color(0xFF3B58F4),
-                            fontSize: 15,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                            useGoogleFonts: false,
-                          ),
+                    InkWell(
+                      //TODO Finish implementing rest of event generation
+                      onTap: () {
+                        EventModel event = new EventModel(
+                          id: "",
+                          name: name.text,
+                          description: desc.text,
+                          date: "",
+                          qrCode: "",
+                          time: "",
+                          location: loc.text,
+                          usersAttended: [],
+                          image: "");
+
+                          try {
+                            EventModel.createEvent(event);
+                            toasts.toast("Event Created!", false);
+                            EventModel.updateEvents();
+                            getCreateSheet();
+                          } catch (e) {
+                            toasts.toast("Error", true);
+                          }
+                      },
+                      child: Text(
+                        'Add',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Google Sans',
+                              color: Color(0xFF3B58F4),
+                              fontSize: 15,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                              useGoogleFonts: false,
+                            ),
+                      ),
                     ),
                   ],
                 ),

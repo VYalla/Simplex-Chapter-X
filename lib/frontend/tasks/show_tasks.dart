@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/tasks/create_task_temp.dart';
 import 'package:simplex_chapter_x/frontend/tasks/task_details_temp.dart';
@@ -23,16 +24,19 @@ class _ShowTasksState extends State<ShowTasks> {
   }
 
   void _loadCurrentChapter() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-      setState(() {
-        _currentChapter = userDoc.data()?['currentChapter'];
-      });
-    }
+    // final user = FirebaseAuth.instance.currentUser;
+    // if (user != null) {
+    //   final userDoc = await FirebaseFirestore.instance
+    //       .collection('users')
+    //       .doc(user.uid)
+    //       .get();
+    //   setState(() {
+    //     _currentChapter = userDoc.data()?['currentChapter'];
+    //   });
+    // }
+    setState(() {
+      _currentChapter = AppInfo.currentUser.currentChapter;
+    });
   }
 
   List<TaskModel> _getTasksToDisplay(List<TaskModel> allTasks) {
