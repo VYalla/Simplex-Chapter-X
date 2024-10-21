@@ -7,6 +7,8 @@ import 'package:simplex_chapter_x/frontend/select_chapter/chapter_card.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/join_chapter.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 
+import '../../backend/models.dart';
+
 class ChapterSelectWidget extends StatefulWidget {
   const ChapterSelectWidget({super.key});
 
@@ -25,6 +27,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
   @override
   void initState() {
     loadCards();
+    AnnouncementModel.configureFirebaseMessaging();
     super.initState();
   }
 

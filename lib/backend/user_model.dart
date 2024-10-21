@@ -25,6 +25,9 @@ class UserModel {
   /// list of names of current competitive events user is in
   final List<String> compEvents;
 
+  // list of topics user has subscribed to (for notifs)
+  List<String> topicsSubscribed;
+
   /// grade of the user
   final int grade;
 
@@ -53,6 +56,7 @@ class UserModel {
     required this.openedAppSinceApproved,
     required this.currentChapter,
     required this.chapters,
+    required this.topicsSubscribed,
   });
 
   /// Utility constructor to easily make a [UserModel] from a [DocumentSnapshot]
@@ -70,6 +74,7 @@ class UserModel {
         isExec = doc.get('isExec') as bool,
         approved = doc.get('approved') as bool,
         chapters = (doc.get('chapters') as List).cast<String>(),
+        topicsSubscribed = (doc.get('topicsSubscribed') as List).cast<String>(),
         openedAppSinceApproved = doc.get('openedAppSinceApproved') as bool;
 
   /// Utility method to easily make a [Map] from [UserModel]
@@ -89,6 +94,7 @@ class UserModel {
       'chapters': chapters,
       'openedAppSinceApproved': openedAppSinceApproved,
       'currentChapter': currentChapter,
+      'topicsSubscribed': topicsSubscribed,
     };
   }
 
@@ -106,6 +112,7 @@ class UserModel {
       openedAppSinceApproved: map['openedAppSinceApproved'],
       currentChapter: map['currentChapter'],
       chapters: map['chapters'],
+      topicsSubscribed: map['topicsSubscribed'],
     );
   }
 
@@ -118,7 +125,22 @@ class UserModel {
 
   static Future<void> addChapter(UserModel user, String chapterID) async {
     AppInfo.database.collection("users").doc(user.id).update({
-  'chapters': FieldValue.arrayUnion([chapterID])});
+      'chapters': FieldValue.arrayUnion([chapterID])
+    });
+  }
+
+  Future<void> addSubscribedTopic(String topicID) async {
+    AppInfo.currentUser.topicsSubscribed.add(topicID);
+    AppInfo.database.collection("users").doc(AppInfo.currentUser.id).update({
+      'topicsSubscribed': FieldValue.arrayUnion([topicID])
+    });
+  }
+
+  Future<void> removeSubscribedTopic(String topicID) async {
+    AppInfo.currentUser.topicsSubscribed.remove(topicID);
+    AppInfo.database.collection("users").doc(AppInfo.currentUser.id).update({
+      'topicsSubscribed': FieldValue.arrayRemove([topicID]),
+    });
   }
 
   /// Updates the user specified by the provided [id] with the updates

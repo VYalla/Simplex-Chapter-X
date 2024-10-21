@@ -71,11 +71,17 @@
 library models;
 
 import 'dart:ffi';
+import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import '../app_info.dart';
 import 'dart:async';
+
+import '../main.dart';
 
 part 'user_model.dart';
 part 'event_model.dart';

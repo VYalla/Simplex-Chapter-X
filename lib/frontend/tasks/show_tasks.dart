@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
-import 'package:simplex_chapter_x/frontend/tasks/create_task_temp.dart';
-import 'package:simplex_chapter_x/frontend/tasks/task_details_temp.dart';
 import 'package:simplex_chapter_x/frontend/tasks/show_all_tasks.dart';
 import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';

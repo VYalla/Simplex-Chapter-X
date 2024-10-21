@@ -35,7 +35,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   bool showPassword = false;
   bool showConfirmPassword = false;
   final _auth = FirebaseAuth.instance;
-  final emailRegExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+  final emailRegExp =
+      RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
 
   @override
   void initState() {
@@ -192,20 +193,22 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(18, 0, 24, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  18, 0, 24, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Opacity(
                                     opacity: 0.4,
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 1),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 0, 0, 1),
                                       child: IconButton(
-                                        icon: const Icon(Icons.chevron_left_sharp,
-                                        color: Color(0xFF454545),
-                                        size: 22),
+                                        icon: const Icon(
+                                            Icons.chevron_left_sharp,
+                                            color: Color(0xFF454545),
+                                            size: 22),
                                         onPressed: () {
                                           Navigator.pushAndRemoveUntil(
                                             context,
@@ -949,7 +952,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     width: 17,
                                     height: 17,
                                     decoration: BoxDecoration(
-                                      color: agreedTOS ? const Color(0xFF3B58F4) : Colors.white,
+                                      color: agreedTOS
+                                          ? const Color(0xFF3B58F4)
+                                          : Colors.white,
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                         color: const Color(0xFF8B8B8B),
@@ -969,7 +974,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                             agreedTOS = !agreedTOS;
                                           });
                                         },
-                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                       ),
                                     ),
                                   ),
@@ -1020,7 +1026,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     width: 17,
                                     height: 17,
                                     decoration: BoxDecoration(
-                                      color: agreedPrivacy ? const Color(0xFF3B58F4) : Colors.white,
+                                      color: agreedPrivacy
+                                          ? const Color(0xFF3B58F4)
+                                          : Colors.white,
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                         color: const Color(0xFF8B8B8B),
@@ -1040,7 +1048,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                             agreedPrivacy = !agreedPrivacy;
                                           });
                                         },
-                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 0, 0, 0),
                                       ),
                                     ),
                                   ),
@@ -1090,28 +1099,60 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   Expanded(
                                     child: InkWell(
                                       onTap: () async {
-                                        if (password.text != confirmPassword.text) {
-                                          toasts.toast("Passwords Do Not Match", true);
-                                        } else if ([firstName.text, lastName.text, email.text, password.text].contains("")) {
-                                          toasts.toast("Please Fill Out All Fields", true);
-                                        } else if (!emailRegExp.hasMatch(email.text)) {
+                                        if (password.text !=
+                                            confirmPassword.text) {
+                                          toasts.toast(
+                                              "Passwords Do Not Match", true);
+                                        } else if ([
+                                          firstName.text,
+                                          lastName.text,
+                                          email.text,
+                                          password.text
+                                        ].contains("")) {
+                                          toasts.toast(
+                                              "Please Fill Out All Fields",
+                                              true);
+                                        } else if (!emailRegExp
+                                            .hasMatch(email.text)) {
                                           toasts.toast("Email Invalid", true);
-                                        } else if (!agreedPrivacy || !agreedTOS) {
-                                          toasts.toast("Please Agree to the TOS and Privacy Policy", true);
+                                        } else if (!agreedPrivacy ||
+                                            !agreedTOS) {
+                                          toasts.toast(
+                                              "Please Agree to the TOS and Privacy Policy",
+                                              true);
                                         } else if (password.text.length < 6) {
-                                          toasts.toast("Password should be at least 6 characters", true);
+                                          toasts.toast(
+                                              "Password should be at least 6 characters",
+                                              true);
                                         } else {
                                           try {
-                                            await _auth.createUserWithEmailAndPassword(
-                                              email: email.text,
-                                              password: password.text);
+                                            await _auth
+                                                .createUserWithEmailAndPassword(
+                                                    email: email.text,
+                                                    password: password.text);
 
-                                            await _auth.signInWithEmailAndPassword(
-                                              email: email.text, 
-                                              password: password.text);
+                                            await _auth
+                                                .signInWithEmailAndPassword(
+                                                    email: email.text,
+                                                    password: password.text);
 
                                             String id = _auth.currentUser!.uid;
-                                            UserModel user = UserModel(id: id, email: email.text, profilePic: "", name: firstName.text + " " + lastName.text, pastEvents: [], compEvents: [], grade: 12, isExec: false, approved: true, openedAppSinceApproved: false, chapters: [], currentChapter: "");
+                                            UserModel user = UserModel(
+                                                id: id,
+                                                email: email.text,
+                                                profilePic: "",
+                                                name: firstName.text +
+                                                    " " +
+                                                    lastName.text,
+                                                pastEvents: [],
+                                                compEvents: [],
+                                                grade: 12,
+                                                isExec: false,
+                                                approved: true,
+                                                openedAppSinceApproved: false,
+                                                chapters: [],
+                                                currentChapter: "",
+                                                topicsSubscribed: []);
 
                                             UserModel.writeUser(user);
 
@@ -1126,12 +1167,20 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                   false, // This condition removes all previous routes
                                             );
                                           } on FirebaseAuthException catch (e) {
-                                            if (e.code == 'email-already-in-use') {
-                                              toasts.toast('The email address is already in use.', true);
-                                            } else if (e.code == 'invalid-email') {
-                                              toasts.toast('Invalid email format.', true);
+                                            if (e.code ==
+                                                'email-already-in-use') {
+                                              toasts.toast(
+                                                  'The email address is already in use.',
+                                                  true);
+                                            } else if (e.code ==
+                                                'invalid-email') {
+                                              toasts.toast(
+                                                  'Invalid email format.',
+                                                  true);
                                             } else {
-                                              toasts.toast('Unexpected error: ${e.code}', true);
+                                              toasts.toast(
+                                                  'Unexpected error: ${e.code}',
+                                                  true);
                                             }
                                           }
                                         }
@@ -1141,7 +1190,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                         height: 46,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFF3B58F4),
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
                                         child: const Align(
                                           alignment: AlignmentDirectional(0, 0),
