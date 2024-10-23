@@ -204,6 +204,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                             joined = true;
                           }
                         } catch (e) {
+                          print(e);
                           Fluttertoast.showToast(
                             msg:
                                 "Error",
@@ -243,7 +244,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 50),
+                        minimumSize: const Size(50, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),

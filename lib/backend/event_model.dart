@@ -16,14 +16,13 @@ class EventModel {
   final String description;
 
   /// the date of the event stored in a 'YYYY-MM-DD' format
-  final String date;
+  final DateTime startDate;
+
+  final DateTime endDate;
 
   /// **⚠️ UNDER CONSTRUCTION ⚠️**
   /// How is this used??
   final String qrCode;
-
-  /// the time of the event stored in a 'HH:MM AM' format
-  final String time;
 
   /// the name of the location of the event
   final String location;
@@ -34,16 +33,19 @@ class EventModel {
   /// a link to an image to be displayed on the event card in the app
   final String image;
 
+  final bool allDay;
+
   EventModel({
     required this.id,
     required this.name,
     required this.description,
-    required this.date,
+    required this.startDate,
+    required this.endDate,
     required this.qrCode,
-    required this.time,
     required this.location,
     required this.usersAttended,
     required this.image,
+    required this.allDay,
   });
 
   /// Utility constructor to easily make an [EventModel] from a [DocumentSnapshot]
@@ -53,12 +55,13 @@ class EventModel {
       : id = doc.id,
         name = doc.get('name') as String,
         description = doc.get('description') as String,
-        date = doc.get('date') as String,
+        startDate = (doc.get('startDate') as Timestamp).toDate(),
+        endDate = (doc.get('endDate') as Timestamp).toDate(),
         qrCode = doc.get('qrCode') as String,
-        time = doc.get('time') as String,
         location = doc.get('location') as String,
         usersAttended = (doc.get('usersAttended') as List).cast<String>(),
-        image = doc.get('image') as String;
+        image = doc.get('image') as String,
+        allDay = doc.get('allDay') as bool;
 
   /// Utility method to easily make a [Map] from [EventModel]
   ///
@@ -67,13 +70,29 @@ class EventModel {
     return {
       'name': name,
       'description': description,
-      'date': date,
+      'startDate': startDate,
+      'endDate': endDate,
       'qrCode': qrCode,
-      'time': time,
       'location': location,
       'usersAttended': usersAttended,
       'image': image,
+      'allDay': allDay
     };
+  }
+
+  factory EventModel.fromMap(Map<String, dynamic> map) {
+    return EventModel(
+      name: map['name'],
+      description: map['description'],
+      startDate: (map['startDate'] as Timestamp).toDate(),
+      endDate: (map['endDate'] as Timestamp).toDate(),
+      qrCode: map['qrcode'],
+      location: map['location'],
+      usersAttended: (map['usersAttended'] as List).cast<String>(),
+      id: map['id'],
+      image: map['image'],
+      allDay: (map['allDay'] as bool)
+    );
   }
 
   /// Writes the provided [EventModel] object to the database

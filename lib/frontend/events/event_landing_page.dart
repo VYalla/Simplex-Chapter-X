@@ -1,9 +1,18 @@
+import 'package:simplex_chapter_x/backend/models.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
 
 class EventLandingPageWidget extends StatefulWidget {
-  const EventLandingPageWidget({super.key});
+  final EventModel event;
+  final String chapterId;
+
+  const EventLandingPageWidget({
+    required this.event,
+    required this.chapterId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<EventLandingPageWidget> createState() => _EventLandingPageWidgetState();
@@ -66,7 +75,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                               child: Text(
-                                'FBLA THURSDAY',
+                                'Event',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -96,7 +105,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                       children: [
                         Flexible(
                           child: Text(
-                            '[name]',
+                            widget.event.name,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -234,7 +243,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Room 3104',
+                                  widget.event.location,
                                   style: TextStyle(
                                     fontFamily: 'Google Sans',
                                     color: Color(0xFF333333),
@@ -291,7 +300,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                       children: [
                         Flexible(
                           child: Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, ',
+                            widget.event.description,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
