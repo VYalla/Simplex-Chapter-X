@@ -73,10 +73,11 @@ class _ShowEventsState extends State<ShowEvents> {
         .where((event) => dateRangesOverlap(event.startDate, event.endDate, startDate, endDate))
         .toList();
 
-    if (filteredEvents.length >= 2) {
-      // Return the three soonest events
-      return filteredEvents.take(3).toList();
-    } else if (filteredEvents.isNotEmpty) {
+    // if (filteredEvents.length >= 2) {
+    //   // Return the three soonest events
+    //   return filteredEvents.take(3).toList();
+    // } else 
+    if (filteredEvents.isNotEmpty) {
       // Return all events in that range
       return filteredEvents;
     } else {
@@ -146,30 +147,6 @@ class _ShowEventsState extends State<ShowEvents> {
                           ),
                         ),
                       ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          // TODO Show all events
-                          builder: (context) =>
-                              ShowAllTasksWidget(chapterId: _currentChapter!),
-                        ));
-                      },
-                      child: Text(
-                        'See All',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Google Sans',
-                              color: const Color(0xFF3B58F4),
-                              fontSize: 12,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
                   ],
                 ),
               ],
@@ -289,6 +266,26 @@ class _ShowEventsState extends State<ShowEvents> {
                                       useGoogleFonts: false,
                                     ),
                               ),
+                              const SizedBox(height: 3),
+                              Visibility(
+                                visible: !event.allDay,
+                                child: Text(
+                                  '${_formatDate(event.startDate, event.endDate)}',
+                                  style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Google Sans',
+                                    // TODO color changes?
+                                    color: true
+                                        ? const Color.fromARGB(255, 21, 0, 138)
+                                        : const Color(0xFF666666),
+                                    fontSize: 12,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    useGoogleFonts: false,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -307,5 +304,9 @@ class _ShowEventsState extends State<ShowEvents> {
         ),
       ),
     );
+  }
+
+  String _formatDate(DateTime startDate, DateTime endDate) {
+    return '${startDate.hour.toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} - ${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')}';
   }
 }

@@ -19,7 +19,17 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     setState(() {
-      
+      startDate = DateTime(
+        startDate.year,
+        startDate.month,
+        startDate.day
+      );
+
+      endDate = DateTime(
+        endDate.year,
+        endDate.month,
+        endDate.day
+      );
     });
     
     super.initState();
@@ -803,114 +813,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            ShowEvents(
-                                              startDate: startDate,
-                                              endDate: endDate
-                                            )
-                                          ]
-                                          /*
-                                          children: [
-                                            Row(
-                                              mainAxisSize:
-                                                  MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'EVENT',
-                                                  style: FlutterFlowTheme
-                                                          .of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Google Sans',
-                                                        color: const Color(
-                                                            0xFF3B58F4),
-                                                        fontSize: 12,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        useGoogleFonts:
-                                                            false,
-                                                      ),
-                                                ),
-                                                Opacity(
-                                                  opacity: 0.4,
-                                                  child: Text(
-                                                    '7.00 PM',
-                                                    style:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Google Sans',
-                                                              color: const Color(
-                                                                  0xFF3B58F4),
-                                                              fontSize: 13,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 6, 0, 0),
-                                              child: Row(
-                                                mainAxisSize:
-                                                    MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              0, 0, 8, 0),
-                                                      child: Text(
-                                                        'Intro to Economics Workshop',
-                                                        maxLines: 1,
-                                                        overflow:
-                                                            TextOverflow
-                                                                .ellipsis,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Google Sans',
-                                                              color: const Color(
-                                                                  0xFF333333),
-                                                              fontSize: 15,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                          */
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              ShowEvents(
+                                                startDate: startDate,
+                                                endDate: endDate
+                                              )
+                                            ]
+                                          ),
                                         ),
                                       ),
                                     ],

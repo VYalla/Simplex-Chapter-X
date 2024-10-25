@@ -703,7 +703,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
       _endDate.month,
       _endDate.day,
       _isAllDay ? 0 : _endTime.hour,
-      _isAllDay ? 0 : _endTime.minute);
+      _isAllDay ? 1 : _endTime.minute);
     
     if (name.text.isEmpty || desc.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
