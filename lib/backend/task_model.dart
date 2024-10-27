@@ -196,7 +196,7 @@ class TaskModel {
       final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
       // TODO fix
       currentTasks.addAll(tasks
-          .where((task) => DateTime.parse(task['dueDate']).isAfter(currentDate))
+          .where((task) => task['dueDate'].toDate().isAfter(currentDate))
           .map((task) => TaskModel.fromMap(task)));
     }
 

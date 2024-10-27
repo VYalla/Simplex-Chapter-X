@@ -231,11 +231,7 @@ class _ShowEventsState extends State<ShowEvents> {
                             children: [
                               Text(
                                 // TODO event type names
-                                true
-                                    ? 'Event'
-                                    : false
-                                        ? 'OVERDUE'
-                                        : 'PENDING',
+                                event.eventType,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

@@ -33,6 +33,8 @@ class EventModel {
   /// a link to an image to be displayed on the event card in the app
   final String image;
 
+  final String eventType;
+
   final bool allDay;
 
   EventModel({
@@ -46,6 +48,7 @@ class EventModel {
     required this.usersAttended,
     required this.image,
     required this.allDay,
+    required this.eventType,
   });
 
   /// Utility constructor to easily make an [EventModel] from a [DocumentSnapshot]
@@ -61,7 +64,8 @@ class EventModel {
         location = doc.get('location') as String,
         usersAttended = (doc.get('usersAttended') as List).cast<String>(),
         image = doc.get('image') as String,
-        allDay = doc.get('allDay') as bool;
+        allDay = doc.get('allDay') as bool,
+        eventType = doc.get('eventType') as String;
 
   /// Utility method to easily make a [Map] from [EventModel]
   ///
@@ -76,7 +80,8 @@ class EventModel {
       'location': location,
       'usersAttended': usersAttended,
       'image': image,
-      'allDay': allDay
+      'allDay': allDay,
+      'eventType': eventType
     };
   }
 
@@ -91,7 +96,8 @@ class EventModel {
       usersAttended: (map['usersAttended'] as List).cast<String>(),
       id: map['id'],
       image: map['image'],
-      allDay: (map['allDay'] as bool)
+      allDay: (map['allDay'] as bool),
+      eventType: map['eventType']
     );
   }
 
