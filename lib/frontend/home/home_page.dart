@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:simplex_chapter_x/frontend/events/show_events.dart';
 import 'package:simplex_chapter_x/frontend/tasks/show_tasks.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
@@ -11,9 +13,25 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(Duration(days : 3));
 
   @override
   void initState() {
+    setState(() {
+      startDate = DateTime(
+        startDate.year,
+        startDate.month,
+        startDate.day
+      );
+
+      endDate = DateTime(
+        endDate.year,
+        endDate.month,
+        endDate.day
+      );
+    });
+    
     super.initState();
   }
 
@@ -687,18 +705,26 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Padding(
+                                        Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 0, 8, 0),
-                                          child: Icon(
-                                            Icons.arrow_back_ios_new,
-                                            color: Color(0xFF333333),
-                                            size: 15,
+                                          child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                startDate = startDate.subtract(Duration(days : 4));
+                                                endDate = endDate.subtract(Duration(days : 4));
+                                              });
+                                            },
+                                            child: Icon(
+                                              Icons.arrow_back_ios,
+                                              color: Color(0xFF333333),
+                                              size: 15,
+                                            ),
                                           ),
                                         ),
                                         Text(
-                                          'Nov. 30 - 31',
+                                          DateFormat('MMM d').format(startDate) + ' - ' + DateFormat('MMM d').format(endDate),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -710,14 +736,22 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 useGoogleFonts: false,
                                               ),
                                         ),
-                                        const Padding(
+                                        Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   8, 0, 0, 0),
-                                          child: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF333333),
-                                            size: 15,
+                                          child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                startDate = startDate.add(Duration(days : 4));
+                                                endDate = endDate.add(Duration(days : 4));
+                                              });
+                                            },
+                                            child: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Color(0xFF333333),
+                                              size: 15,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -779,116 +813,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                       ),
                                       Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFFD0D6F6),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(20, 15, 20, 15),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'EVENT',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: const Color(
-                                                                0xFF3B58F4),
-                                                            fontSize: 12,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                    Opacity(
-                                                      opacity: 0.4,
-                                                      child: Text(
-                                                        '7.00 PM',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFF3B58F4),
-                                                                  fontSize: 13,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 6, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                  0, 0, 8, 0),
-                                                          child: Text(
-                                                            'Intro to Economics Workshop',
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFF333333),
-                                                                  fontSize: 15,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              ShowEvents(
+                                                startDate: startDate,
+                                                endDate: endDate
+                                              )
+                                            ]
                                           ),
                                         ),
                                       ),
@@ -947,120 +880,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFFF3ECDD),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(20, 15, 20, 15),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'TASK',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: const Color(
-                                                                0xFFC1AD83),
-                                                            fontSize: 12,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                    Opacity(
-                                                      opacity: 0.4,
-                                                      child: Text(
-                                                        '7.00 PM',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFFC1AD83),
-                                                                  fontSize: 13,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 6, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                  0, 0, 8, 0),
-                                                          child: Text(
-                                                            'Intro to Economics Workshop',
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFF333333),
-                                                                  fontSize: 15,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -1113,123 +932,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         ),
                                               ),
                                             ],
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFFDEF3DD),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(20, 15, 20, 15),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'TASK',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: const Color(
-                                                                0xFF8CBC89),
-                                                            fontSize: 12,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                    Opacity(
-                                                      opacity: 0.4,
-                                                      child: Text(
-                                                        '7.00 PM',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFF8CBC89),
-                                                                  fontSize: 13,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 6, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                  0, 0, 8, 0),
-                                                          child: Text(
-                                                            'Intro to Economics Workshop',
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFF8CBC89),
-                                                                  fontSize: 15,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .lineThrough,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
                                           ),
                                         ),
                                       ),
