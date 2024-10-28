@@ -47,8 +47,8 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
         constraints: BoxConstraints(
           minHeight: MediaQuery.sizeOf(context).height * 1,
         ),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF5F6F7),
+        decoration: const BoxDecoration(
+          color: Color(0xFFF5F6F7),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0),
             bottomRight: Radius.circular(0),
@@ -310,7 +310,11 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                     ),
                   ),
                   if (widget.task.submissions.isNotEmpty)
-                    ...widget.task.submissions.map((submission) {
+                    ...widget.task.submissions
+                        .where((submission) =>
+                            submission['user'] ==
+                            FirebaseAuth.instance.currentUser?.uid)
+                        .map((submission) {
                       return Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
@@ -396,7 +400,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                           ],
                         ),
                       );
-                    }).toList(),
+                    }),
                   if (!isTaskSubmitted)
                     Padding(
                       padding:
