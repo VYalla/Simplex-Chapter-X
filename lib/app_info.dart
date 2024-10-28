@@ -27,7 +27,7 @@ class AppInfo {
   static late ChapterModel currentChapter;
 
   ///
-  static late List<EventModel> currentEvents;
+  static late List<EventModel>? currentEvents;
 
   ///
   static late List<TaskModel> currentTasks;
@@ -63,11 +63,14 @@ class AppInfo {
         AppInfo.currentUser = value;
       },
     );
-    await EventModel.getCurrentEvents().then(
-      (value) {
-        AppInfo.currentEvents = value;
-      },
-    );
+
+    if (currentUser.currentChapter != "") {
+      await EventModel.getCurrentEvents().then(
+        (value) {
+          AppInfo.currentEvents = value;
+        },
+      );
+    }
 
     await TaskModel.getCurrentTasks().then(
       (value) {
