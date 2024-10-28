@@ -198,6 +198,13 @@ class TaskModel {
       currentTasks.addAll(tasks
           .where((task) => DateTime.parse(task['dueDate']).isAfter(currentDate))
           .map((task) => TaskModel.fromMap(task)));
+=======
+
+      currentTasks.addAll(tasks.where((task) {
+        final dueDate = (task['dueDate'] as Timestamp).toDate();
+        return dueDate.isAfter(currentDate);
+      }).map((task) => TaskModel.fromMap(task)));
+>>>>>>> Stashed changes
     }
 
     return currentTasks;
