@@ -81,7 +81,7 @@ class Profile {
   // Maybe make this public in the future if needed
   static _signOut(BuildContext context) async {
     if (!isSigningOut) {
-
+      isSigningOut = true;
       try {
         await FirebaseAuth.instance.signOut();
         if (!kIsWeb) {
@@ -98,6 +98,7 @@ class Profile {
         ),
         (route) => false
       );
+      isSigningOut = false;
     }
 
   }
