@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
+import 'package:simplex_chapter_x/frontend/profile/profile_page.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_card.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/join_chapter.dart';
 import 'package:simplex_chapter_x/app_info.dart';
@@ -158,25 +159,29 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                   ),
                                 ),
                               ),
-                              // HANDLE POPUP FOR SIGNING OUT
                               Align(
                                 alignment: const AlignmentDirectional(1, 1),
-                                child: Container(
-                                  width: 19,
-                                  height: 19,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0x99000000),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Icon(
-                                      Icons.more_vert,
-                                      color: Colors.white,
-                                      size: 14,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Profile.showProfilePage(context);
+                                  },
+                                  child: Container(
+                                    width: 19,
+                                    height: 19,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0x99000000),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Icon(
+                                        Icons.more_vert,
+                                        color: Colors.white,
+                                        size: 14,
+                                      ),
                                     ),
                                   ),
-                                ),
+                                )
                               ),
                             ],
                           ),
