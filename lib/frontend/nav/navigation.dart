@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:simplex_chapter_x/frontend/chats/chats_page.dart';
+import 'package:simplex_chapter_x/frontend/gallery/gallery_page.dart';
 import 'package:simplex_chapter_x/frontend/home/home_page.dart';
 import 'package:simplex_chapter_x/frontend/nav/create_sheet.dart';
 
@@ -47,7 +48,7 @@ class _NavigationState extends State<Navigation> {
     List<Widget> pages = [
       const HomeWidget(),
       const ChatsWidget(),
-      Container(),
+      const GalleryPage(),
       Container(),
     ];
 

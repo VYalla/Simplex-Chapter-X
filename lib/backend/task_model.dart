@@ -194,10 +194,11 @@ class TaskModel {
 
     for (var chapterDoc in chaptersQuery.docs) {
       final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
-      // TODO fix
-      currentTasks.addAll(tasks
-          .where((task) => task['dueDate'].toDate().isAfter(currentDate))
-          .map((task) => TaskModel.fromMap(task)));
+
+      currentTasks.addAll(tasks.where((task) {
+        final dueDate = (task['dueDate'] as Timestamp).toDate();
+        return dueDate.isAfter(currentDate);
+      }).map((task) => TaskModel.fromMap(task)));
     }
 
     return currentTasks;
@@ -214,10 +215,11 @@ class TaskModel {
 
     for (var chapterDoc in chaptersQuery.docs) {
       final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('tasks'));
-      pastTasks.addAll(tasks
-          .where(
-              (task) => DateTime.parse(task['dueDate']).isBefore(currentDate))
-          .map((task) => TaskModel.fromMap(task)));
+
+      pastTasks.addAll(tasks.where((task) {
+        final dueDate = (task['dueDate'] as Timestamp).toDate();
+        return dueDate.isBefore(currentDate);
+      }).map((task) => TaskModel.fromMap(task)));
     }
 
     return pastTasks;

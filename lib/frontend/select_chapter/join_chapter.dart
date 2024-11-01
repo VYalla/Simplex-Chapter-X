@@ -34,7 +34,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
 
   @override
   void dispose() {
-    pin.dispose();
+    // pin.dispose();
     super.dispose();
   }
 
