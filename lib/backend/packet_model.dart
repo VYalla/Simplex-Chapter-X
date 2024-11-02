@@ -81,6 +81,10 @@ class PacketModel {
     return PacketModel.fromDocumentSnapshot(packetQuery);
   }
 
+  static void removePacketById(String id) {
+    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('packets').doc(id).delete();
+  }
+
   /// Gets a [List] of the current packets as [PacketModel] objects
   ///
   ///
