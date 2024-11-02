@@ -469,80 +469,85 @@ class _GalleryPageState extends State<GalleryPage> {
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(0, 0),
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.905,
-                                    height: 163,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color(0x004C3339),
-                                          Color(0xFF4C3339)
-                                        ],
-                                        stops: [0, 1],
-                                        begin: AlignmentDirectional(0, -1),
-                                        end: AlignmentDirectional(0, 1),
+                                   child: InkWell(
+                                    onTap: () {
+                                      print("tapped");
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.905,
+                                      height: 163,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0x004C3339),
+                                            Color(0xFF4C3339)
+                                          ],
+                                          stops: [0, 1],
+                                          begin: AlignmentDirectional(0, -1),
+                                          end: AlignmentDirectional(0, 1),
+                                        ),
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          width: 0,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        width: 0,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          22, 0, 0, 43),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Packets',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            22, 0, 0, 43),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'Packets',
+                                                  style:
+                                                      FlutterFlowTheme.of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Google Sans',
+                                                            color: Colors.white,
+                                                            fontSize: 28,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            useGoogleFonts: false,
+                                                          ),
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsetsDirectional.fromSTEB(
+                                                      0, 5, 0, 20),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'View resources available to you!',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               'Google Sans',
-                                                          color: Colors.white,
-                                                          fontSize: 28,
+                                                          color:
+                                                              Color(0xB3FFE7EC),
+                                                          fontSize: 15,
                                                           letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
                                                           useGoogleFonts: false,
                                                         ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 20),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'View resources available to you!',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Google Sans',
-                                                        color:
-                                                            Color(0xB3FFE7EC),
-                                                        fontSize: 15,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ],
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

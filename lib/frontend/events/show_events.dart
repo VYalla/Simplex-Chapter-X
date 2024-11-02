@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/events/event_landing_page.dart';
@@ -50,11 +51,11 @@ class _ShowEventsState extends State<ShowEvents> {
   bool dateRangesOverlap(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2) {
     bool overlap = false;
 
-    if (startDate1.compareTo(startDate2) > 0 && startDate1.compareTo(endDate2) < 0) {
+    if (startDate1.compareTo(startDate2) >= 0 && startDate1.compareTo(endDate2) <= 0) {
       overlap = true;
-    } else if (endDate1.compareTo(startDate2) > 0 && endDate1.compareTo(endDate2) < 0) {
+    } else if (endDate1.compareTo(startDate2) >= 0 && endDate1.compareTo(endDate2) <= 0) {
       overlap = true;
-    } else if (startDate1.compareTo(startDate2) < 0 && endDate1.compareTo(endDate2) > 0) {
+    } else if (startDate1.compareTo(startDate2) <= 0 && endDate1.compareTo(endDate2) >= 0) {
       overlap = true;
     }
 
@@ -109,7 +110,8 @@ class _ShowEventsState extends State<ShowEvents> {
         final docs = snapshot.data!.docs;
         
         final allEvents = (docs as List<dynamic>?)
-                ?.map((event) => EventModel.fromDocumentSnapshot(event))
+                ?.where((event) => (event.data() as Map<String, dynamic>).containsKey("name"))
+                .map((event) => EventModel.fromDocumentSnapshot(event))
                 .toList() ??
             [];
 
@@ -231,11 +233,7 @@ class _ShowEventsState extends State<ShowEvents> {
                             children: [
                               Text(
                                 // TODO event type names
-                                true
-                                    ? 'Event'
-                                    : false
-                                        ? 'OVERDUE'
-                                        : 'PENDING',
+                                event.eventType,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -270,7 +268,7 @@ class _ShowEventsState extends State<ShowEvents> {
                               Visibility(
                                 visible: !event.allDay,
                                 child: Text(
-                                  '${_formatDate(event.startDate, event.endDate)}',
+                                  '${_formatTime(event.startDate, event.endDate)}',
                                   style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -293,6 +291,21 @@ class _ShowEventsState extends State<ShowEvents> {
                     ],
                   ),
                 ),
+                Text(
+                  _formatDate(event.startDate),
+                  style: FlutterFlowTheme.of(
+                          context)
+                      .bodyMedium
+                      .override(
+                        fontFamily: 'Google Sans',
+                        color:
+                            const Color.fromARGB(255, 107, 107, 107),
+                        fontSize: 20,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        useGoogleFonts: false,
+                      ),
+                ),
                 const Icon(
                   Icons.arrow_forward_ios,
                   color: Color(0xFFC8C8C8),
@@ -306,7 +319,12 @@ class _ShowEventsState extends State<ShowEvents> {
     );
   }
 
-  String _formatDate(DateTime startDate, DateTime endDate) {
+  String _formatTime(DateTime startDate, DateTime endDate) {
     return '${startDate.hour.toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} - ${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')}';
+  }
+
+  String _formatDate(DateTime startDate) {
+    DateFormat formatter = DateFormat('MMM dd ');
+    return formatter.format(startDate);
   }
 }
