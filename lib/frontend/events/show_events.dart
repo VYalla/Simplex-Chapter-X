@@ -33,19 +33,16 @@ class _ShowEventsState extends State<ShowEvents> {
   }
 
   void _loadCurrentChapter() async {
-    // final user = FirebaseAuth.instance.currentUser;
-    // if (user != null) {
-    //   final userDoc = await FirebaseFirestore.instance
-    //       .collection('users')
-    //       .doc(user.uid)
-    //       .get();
-    //   setState(() {
-    //     _currentChapter = userDoc.data()?['currentChapter'];
-    //   });
-    // }
-    setState(() {
-      _currentChapter = AppInfo.currentUser.currentChapter;
-    });
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      setState(() {
+        _currentChapter = userDoc.data()?['currentChapter'];
+      });
+    }
   }
 
   bool dateRangesOverlap(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2) {

@@ -34,7 +34,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String userId = user.uid;
-      AppInfo.currentUser.currentChapter = chapterId;
+
       await _firestore.collection('users').doc(userId).update({
         'currentChapter': chapterId,
       });

@@ -1,3 +1,4 @@
+import 'package:simplex_chapter_x/frontend/gallery/packets_page.dart';
 import 'package:simplex_chapter_x/frontend/gallery/tasks_page.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -429,50 +430,55 @@ class _GalleryPageState extends State<GalleryPage> {
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.905,
-                            height: 163,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.905,
-                                    height: 163,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: Image.asset(
-                                          'assets/images/PacketsBG.png',
-                                        ).image,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 3,
-                                          color: Color(0x16000000),
-                                          offset: Offset(
-                                            0,
-                                            3,
-                                          ),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: Color(0xFF4C3339),
-                                        width: 1.5,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PacketsPage(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: MediaQuery.sizeOf(context).width * 0.905,
+                              height: 163,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.905,
+                                      height: 163,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: Image.asset(
+                                            'assets/images/PacketsBG.png',
+                                          ).image,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 3,
+                                            color: Color(0x16000000),
+                                            offset: Offset(
+                                              0,
+                                              3,
+                                            ),
+                                          )
+                                        ],
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: Color(0xFF4C3339),
+                                          width: 1.5,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                   child: InkWell(
-                                    onTap: () {
-                                      print("tapped");
-                                    },
+                                  Align(
+                                    alignment: AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
@@ -551,85 +557,85 @@ class _GalleryPageState extends State<GalleryPage> {
                                       ),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0, 1),
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.905,
-                                    height: 44,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x34FFFFFF),
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(12),
-                                        bottomRight: Radius.circular(12),
-                                        topLeft: Radius.circular(0),
-                                        topRight: Radius.circular(0),
+                                  Align(
+                                    alignment: AlignmentDirectional(0, 1),
+                                    child: Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.905,
+                                      height: 44,
+                                      decoration: BoxDecoration(
+                                        color: Color(0x34FFFFFF),
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(12),
+                                          bottomRight: Radius.circular(12),
+                                          topLeft: Radius.circular(0),
+                                          topRight: Radius.circular(0),
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          22, 0, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Container(
-                                            width: 80,
-                                            height: 16,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFFFE7EC),
-                                              borderRadius:
-                                                  BorderRadius.circular(36),
-                                            ),
-                                            child: Align(
-                                              alignment:
-                                                  AlignmentDirectional(0, 0),
-                                              child: Text(
-                                                'NEWEST PACKET',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Google Sans',
-                                                      color: Color(0xFF4D343A),
-                                                      fontSize: 8,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      useGoogleFonts: false,
-                                                    ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            22, 0, 0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Container(
+                                              width: 80,
+                                              height: 16,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFFFE7EC),
+                                                borderRadius:
+                                                    BorderRadius.circular(36),
+                                              ),
+                                              child: Align(
+                                                alignment:
+                                                    AlignmentDirectional(0, 0),
+                                                child: Text(
+                                                  'NEWEST PACKET',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Google Sans',
+                                                        color: Color(0xFF4D343A),
+                                                        fontSize: 8,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 0, 0),
-                                              child: Text(
-                                                'Economics Study Guide',
-                                                maxLines: 1,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: Colors.white,
-                                                          fontSize: 13,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
+                                            Flexible(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(12, 0, 0, 0),
+                                                child: Text(
+                                                  'Economics Study Guide',
+                                                  maxLines: 1,
+                                                  style:
+                                                      FlutterFlowTheme.of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Google Sans',
+                                                            color: Colors.white,
+                                                            fontSize: 13,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            useGoogleFonts: false,
+                                                          ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

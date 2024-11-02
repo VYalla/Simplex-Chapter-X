@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/frontend/create/create_event_sheet.dart';
+import 'package:simplex_chapter_x/frontend/create/create_packet.dart';
 import 'package:simplex_chapter_x/frontend/create/create_task_sheet.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -80,7 +81,7 @@ class CreateSheet {
                     padding: EdgeInsetsDirectional.fromSTEB(34, 0, 0, 50 + add),
                     child: InkWell(
                       onTap: () {
-                        getCreatePageSheet("Widget", context);
+                        getCreatePageSheet("Packet", context);
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -106,7 +107,7 @@ class CreateSheet {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 5, 0, 0),
                             child: Text(
-                              'Widget',
+                              'Packet',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -282,7 +283,8 @@ class CreateSheet {
       case "Event":
         page = const CreateEventWidget();
         break;
-      case "Widget":
+      case "Packet":
+        page = const CreatePacketWidget();
         break;
       case "Task":
         page = const CreateTaskSheet();
