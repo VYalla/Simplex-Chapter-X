@@ -51,11 +51,11 @@ class _ShowEventsState extends State<ShowEvents> {
   bool dateRangesOverlap(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2) {
     bool overlap = false;
 
-    if (startDate1.compareTo(startDate2) > 0 && startDate1.compareTo(endDate2) < 0) {
+    if (startDate1.compareTo(startDate2) >= 0 && startDate1.compareTo(endDate2) <= 0) {
       overlap = true;
-    } else if (endDate1.compareTo(startDate2) > 0 && endDate1.compareTo(endDate2) < 0) {
+    } else if (endDate1.compareTo(startDate2) >= 0 && endDate1.compareTo(endDate2) <= 0) {
       overlap = true;
-    } else if (startDate1.compareTo(startDate2) < 0 && endDate1.compareTo(endDate2) > 0) {
+    } else if (startDate1.compareTo(startDate2) <= 0 && endDate1.compareTo(endDate2) >= 0) {
       overlap = true;
     }
 

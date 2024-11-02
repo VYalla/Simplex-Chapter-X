@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/frontend/events/show_events.dart';
 import 'package:simplex_chapter_x/frontend/tasks/show_tasks.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -14,10 +15,12 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days : 3));
+  DateTime endDate = DateTime.now();
 
   @override
   void initState() {
+    // AppInfo.loadData();
+
     setState(() {
       startDate = DateTime(
         startDate.year,
@@ -25,10 +28,15 @@ class _HomeWidgetState extends State<HomeWidget> {
         startDate.day
       );
 
+      endDate = startDate.add(const Duration(days:3));
+
       endDate = DateTime(
         endDate.year,
         endDate.month,
-        endDate.day
+        endDate.day + 1,
+        23,
+        59,
+        59
       );
     });
     
