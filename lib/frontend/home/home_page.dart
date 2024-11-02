@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/frontend/events/show_events.dart';
 import 'package:simplex_chapter_x/frontend/tasks/show_tasks.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -14,10 +15,12 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days : 3));
+  DateTime endDate = DateTime.now();
 
   @override
   void initState() {
+    // AppInfo.loadData();
+
     setState(() {
       startDate = DateTime(
         startDate.year,
@@ -25,10 +28,15 @@ class _HomeWidgetState extends State<HomeWidget> {
         startDate.day
       );
 
+      endDate = startDate.add(const Duration(days:3));
+
       endDate = DateTime(
         endDate.year,
         endDate.month,
-        endDate.day
+        endDate.day + 1,
+        23,
+        59,
+        59
       );
     });
     
@@ -773,45 +781,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(12, 0, 18, 0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'MAR',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Google Sans',
-                                                    color:
-                                                        const Color(0xFF999999),
-                                                    fontSize: 12,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.bold,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                            ),
-                                            Text(
-                                              '26',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Google Sans',
-                                                    color:
-                                                        const Color(0xFF999999),
-                                                    fontSize: 26,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.bold,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                       Expanded(
                                         child: SingleChildScrollView(
                                           child: Column(
@@ -822,116 +791,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 endDate: endDate
                                               )
                                             ]
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 12),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Opacity(
-                                        opacity: 0,
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(12, 0, 18, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'MAR',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFF999999),
-                                                          fontSize: 12,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                              Text(
-                                                '26',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFF999999),
-                                                          fontSize: 26,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 12),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Opacity(
-                                        opacity: 0,
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(12, 0, 18, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'MAR',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFF999999),
-                                                          fontSize: 12,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                              Text(
-                                                '26',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFF999999),
-                                                          fontSize: 26,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ),
