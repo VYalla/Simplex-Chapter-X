@@ -9,6 +9,8 @@ import 'package:simplex_chapter_x/frontend/select_chapter/chapter_card.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/join_chapter.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 
+import '../../backend/models.dart';
+
 class ChapterSelectWidget extends StatefulWidget {
   const ChapterSelectWidget({super.key});
 
@@ -27,6 +29,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
   @override
   void initState() {
     loadCards();
+    AnnouncementModel.configureFirebaseMessaging();
     super.initState();
   }
 
@@ -38,7 +41,9 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
       await _firestore.collection('users').doc(userId).update({
         'currentChapter': chapterId,
       });
-      await AppInfo.loadData();
+
+      AppInfo.loadData();
+      AppInfo.currentUser.currentChapter = chapterId;
     } else {
       print("No user is currently logged in.");
     }
@@ -162,29 +167,28 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(1, 1),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Profile.showProfilePage(context);
-                                  },
-                                  child: Container(
-                                    width: 19,
-                                    height: 19,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0x99000000),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Icon(
-                                        Icons.more_vert,
-                                        color: Colors.white,
-                                        size: 14,
+                                  alignment: const AlignmentDirectional(1, 1),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Profile.showProfilePage(context);
+                                    },
+                                    child: Container(
+                                      width: 19,
+                                      height: 19,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0x99000000),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Icon(
+                                          Icons.more_vert,
+                                          color: Colors.white,
+                                          size: 14,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ),
+                                  )),
                             ],
                           ),
                         ),

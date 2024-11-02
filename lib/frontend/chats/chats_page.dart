@@ -1,6 +1,16 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:simplex_chapter_x/frontend/chats/chats_card.dart';
+
+import '../../app_info.dart';
+import '../../backend/models.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
+
+import 'chatroom_page.dart';
 
 class ChatsWidget extends StatefulWidget {
   const ChatsWidget({super.key});
@@ -12,18 +22,104 @@ class ChatsWidget extends StatefulWidget {
 class _ChatsWidgetState extends State<ChatsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  bool dataLoaded = false;
+  bool showUnsubscribed = false;
+  List<AnnouncementModel> groups = [];
+  StreamSubscription<DocumentSnapshot>? _streamSubscription;
+  List<Widget> subscribedChats = [];
+  List<Widget> unsubscribedChats = [];
+
+  _ChatsWidgetState() {
+    _setupMessageListener();
+  }
+
   @override
   void initState() {
     super.initState();
+    log(AppInfo.currentUser.isExec.toString());
+  }
+
+  void updateCards() {
+    setState(() {});
+  }
+
+  void _setupMessageListener() {
+    _streamSubscription = FirebaseFirestore.instance
+        .collection('chapters')
+        .doc(AppInfo.currentUser.currentChapter)
+        .snapshots()
+        .listen((documentSnapshot) {
+      if (documentSnapshot.exists) {
+        dataLoaded = false;
+        setState(() {});
+        AnnouncementModel.getAnnouncements(AppInfo.currentUser.currentChapter)
+            .then(
+          (value) {
+            groups = value;
+            groups.sort(
+              (a, b) {
+                if (a.msgs.isEmpty && b.msgs.isEmpty) {
+                  return a.name.compareTo(b.name);
+                } else if (a.msgs.isEmpty) {
+                  return 1;
+                } else if (b.msgs.isEmpty) {
+                  return -1;
+                } else {
+                  String timestamp1 = a.msgs.last['timestamp']!;
+                  String timestamp2 = b.msgs.last['timestamp']!;
+                  return DateTime.parse(timestamp2)
+                      .compareTo(DateTime.parse(timestamp1));
+                }
+              },
+            );
+            dataLoaded = true;
+            setState(() {});
+          },
+        );
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _streamSubscription!.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
+    subscribedChats = [];
+    unsubscribedChats = [];
+    for (AnnouncementModel a in groups) {
+      if (AppInfo.currentUser.topicsSubscribed.contains(a.id)) {
+        subscribedChats.add(ChatsCard(
+          a: a,
+          onPress: updateCards,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatroomWidget(a: a),
+              ),
+            );
+          },
+        ));
+      } else {
+        unsubscribedChats.add(ChatsCard(
+          a: a,
+          onPress: updateCards,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatroomWidget(a: a),
+              ),
+            );
+          },
+        ));
+      }
+    }
+    List<Widget> otherItems = showUnsubscribed ? unsubscribedChats : [];
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: const Color(0xFFF5F6F7),
@@ -131,467 +227,41 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF6677D1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 20, 0, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              18, 0, 25, 5),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 12, 0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'BROADCAST CHANNEL',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFFCED6FF),
-                                                          fontSize: 13,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0, 5, 0, 0),
-                                                    child: Text(
-                                                      'FBLA State Conference',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 10, 0, 0),
-                                            child: Container(
-                                              width: 29,
-                                              height: 29,
-                                              decoration: const BoxDecoration(
-                                                color: Color(0x4C000000),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: const Align(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
-                                                child: Icon(
-                                                  Icons.remove,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Divider(
-                                      thickness: 2,
-                                      color: Color(0x0EFFFFFF),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              18, 3, 30, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 12, 0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Container(
-                                                    width: 25,
-                                                    height: 25,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Color(0xFFD97FBF),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0, 0),
-                                                      child: Text(
-                                                        'AK',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFFF9F1FF),
-                                                                  fontSize: 11,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              8, 0, 0, 0),
-                                                      child: Text(
-                                                        'Good luck to all finalists!',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Google Sans',
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 15,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 19,
-                                            height: 19,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Align(
-                                              alignment:
-                                                  const AlignmentDirectional(
-                                                      0, 0),
-                                              child: Text(
-                                                '!',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFFCA0000),
-                                                          fontSize: 12,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF8252BE),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 20, 0, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              18, 0, 25, 5),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 12, 0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'BROADCAST CHANNEL',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFFD0B1F6),
-                                                          fontSize: 13,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0, 5, 0, 0),
-                                                    child: Text(
-                                                      'FBLA State Conference',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 10, 0, 0),
-                                            child: Container(
-                                              width: 29,
-                                              height: 29,
-                                              decoration: const BoxDecoration(
-                                                color: Color(0x4C000000),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: const Align(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
-                                                child: Icon(
-                                                  Icons.remove,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Divider(
-                                      thickness: 2,
-                                      color: Color(0x0EFFFFFF),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              18, 3, 30, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 12, 0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Container(
-                                                    width: 25,
-                                                    height: 25,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Color(0xFFD97FBF),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0, 0),
-                                                      child: Text(
-                                                        'AK',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFFF9F1FF),
-                                                                  fontSize: 11,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              8, 0, 0, 0),
-                                                      child: Text(
-                                                        'Good luck to all finalists!',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0x80FFFFFF),
-                                                                  fontSize: 15,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    children: subscribedChats,
+                  )),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(24, 10, 0, 12),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 7, 0),
-                      child: Icon(
-                        Icons.arrow_drop_down_circle,
-                        color: FlutterFlowTheme.of(context).alternate,
-                        size: 22,
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            showUnsubscribed = !showUnsubscribed;
+                          });
+                        },
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF999999),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Icon(
+                              !showUnsubscribed
+                                  ? Icons.arrow_right
+                                  : Icons.arrow_drop_down,
+                              color: Color(0xFFF5F6F7),
+                              size: 18,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     Text(
@@ -609,249 +279,11 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF6677D1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 20, 0, 12),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              18, 0, 25, 5),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 12, 0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'BROADCAST CHANNEL',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFFCED6FF),
-                                                          fontSize: 13,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0, 5, 0, 0),
-                                                    child: Text(
-                                                      'FBLA State Conference',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 10, 0, 0),
-                                            child: Container(
-                                              width: 29,
-                                              height: 29,
-                                              decoration: const BoxDecoration(
-                                                color: Color(0x4C000000),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: const Align(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
-                                                child: Icon(
-                                                  Icons.add,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Divider(
-                                      thickness: 2,
-                                      color: Color(0x0EFFFFFF),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              18, 3, 30, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 12, 0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Container(
-                                                    width: 25,
-                                                    height: 25,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Color(0xFFD97FBF),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0, 0),
-                                                      child: Text(
-                                                        'AK',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: const Color(
-                                                                      0xFFF9F1FF),
-                                                                  fontSize: 11,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Flexible(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              8, 0, 0, 0),
-                                                      child: Text(
-                                                        'Good luck to all finalists!',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Google Sans',
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 15,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 19,
-                                            height: 19,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Align(
-                                              alignment:
-                                                  const AlignmentDirectional(
-                                                      0, 0),
-                                              child: Text(
-                                                '!',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFFCA0000),
-                                                          fontSize: 12,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    children: otherItems,
+                  )),
+              SizedBox(height: 90),
             ],
           ),
         ),
