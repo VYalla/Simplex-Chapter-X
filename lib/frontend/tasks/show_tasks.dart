@@ -176,12 +176,17 @@ class _ShowTasksState extends State<ShowTasks> {
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TaskLandingPageWidget(
-              task: task,
-              chapterId: _currentChapter!,
-            ),
-          ));
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (context) => TaskLandingPageWidget(
+          //     task: task,
+          //     chapterId: _currentChapter!,
+          //   ),
+          // ));
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => TaskLandingPageWidget(task: task, chapterId: _currentChapter!)
+          );
         },
         child: Container(
           decoration: BoxDecoration(

@@ -36,7 +36,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
       await _firestore.collection('users').doc(userId).update({
         'currentChapter': chapterId,
       });
-      AppInfo.loadData();
+      await AppInfo.loadData();
     } else {
       print("No user is currently logged in.");
     }
