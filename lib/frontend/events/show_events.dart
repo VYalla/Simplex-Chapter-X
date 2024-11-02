@@ -317,7 +317,20 @@ class _ShowEventsState extends State<ShowEvents> {
   }
 
   String _formatTime(DateTime startDate, DateTime endDate) {
-    return '${startDate.hour.toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} - ${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')}';
+    String startTime;
+    if (startDate.hour > 12) {
+      startTime = '${(startDate.hour - 12).toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} PM';
+    } else {
+      startTime = '${(startDate.hour).toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} AM';
+    }
+
+    String endTime;
+    if (endDate.hour > 12) {
+      endTime = '${(endDate.hour - 12).toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')} PM';
+    } else {
+      endTime = '${(endDate.hour).toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')} AM';
+    }
+    return '${startTime} - ${endTime}';
   }
 
   String _formatDate(DateTime startDate) {
