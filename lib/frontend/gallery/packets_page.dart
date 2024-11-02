@@ -331,6 +331,16 @@ class _PacketsPageState extends State<PacketsPage> {
                         ),
                     )],
                   ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.delete_forever_sharp,
+                      color: Color(0xFFD3D3D3),
+                      size: 26,
+                    ),
+                    onPressed: () {
+                      PacketModel.removePacketById(packet.id);
+                    },
+                  ),
                 ],
               ),
             ),
