@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
+import 'package:simplex_chapter_x/frontend/toast.dart';
 
 class JoinChapterWidget extends StatefulWidget {
   const JoinChapterWidget({super.key});
@@ -174,46 +175,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                     shape: const CircleBorder(),
                     child: InkWell(
                       onTap: () async {
-                        try {
-                          DocumentSnapshot codeDoc = await AppInfo.database.collection('codes').doc('codes').get();
-                          Map<String, String> codes = (codeDoc.get("codes") as Map).cast<String, String>();
-                          if (!codes.containsKey(enteredPin)) {
-                            Fluttertoast.showToast(
-                              msg:
-                                  "Code Does Not Exist",
-                              toastLength: Toast.LENGTH_SHORT,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0,
-                            );
-                          } else {
-                            String chapterID = codes[enteredPin] as String;
-                            ChapterModel.joinChapter(chapterID);
-
-                            await AppInfo.loadData();
-
-                            Fluttertoast.showToast(
-                              msg:
-                                  "Chapter Joined!",
-                              toastLength: Toast.LENGTH_SHORT,
-                              backgroundColor: Colors.green,
-                              textColor: Colors.white,
-                              fontSize: 16.0,
-                            );
-
-                            joined = true;
-                          }
-                        } catch (e) {
-                          print(e);
-                          Fluttertoast.showToast(
-                            msg:
-                                "Error",
-                            toastLength: Toast.LENGTH_SHORT,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0,
-                          );
-                        }
+                        _joinChapter();
                       },
                       child: Container(
                         width: 58,
@@ -266,5 +228,55 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
         ),
       ),
     );
+  }
+
+  void _joinChapter() async {
+    try {
+      DocumentSnapshot codeDoc = await AppInfo.database.collection('codes').doc('codes').get();
+      Map<String, String> codes = (codeDoc.get("codes") as Map).cast<String, String>();
+      if (!codes.containsKey(enteredPin)) {
+        Fluttertoast.showToast(
+          msg:
+              "Code Does Not Exist",
+          toastLength: Toast.LENGTH_SHORT,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      } else {
+        String chapterID = codes[enteredPin] as String;
+
+        DocumentSnapshot chapter = await AppInfo.database.collection('chapters').doc(chapterID).get();
+        if ((chapter.get("users") as List<dynamic>).contains(AppInfo.currentUser.id)) {
+          toasts.toast("Already Member of Chapter", true);
+        } else {
+        
+          ChapterModel.joinChapter(chapterID);
+
+          await AppInfo.loadData();
+
+          Fluttertoast.showToast(
+            msg:
+                "Chapter Joined!",
+            toastLength: Toast.LENGTH_SHORT,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+
+          joined = true;
+        }
+      }
+    } catch (e) {
+      print("Error: " + e.toString());
+      Fluttertoast.showToast(
+        msg:
+            "Error",
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
   }
 }

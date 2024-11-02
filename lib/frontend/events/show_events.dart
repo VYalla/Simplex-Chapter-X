@@ -110,7 +110,8 @@ class _ShowEventsState extends State<ShowEvents> {
         final docs = snapshot.data!.docs;
         
         final allEvents = (docs as List<dynamic>?)
-                ?.map((event) => EventModel.fromDocumentSnapshot(event))
+                ?.where((event) => (event.data() as Map<String, dynamic>).containsKey("name"))
+                .map((event) => EventModel.fromDocumentSnapshot(event))
                 .toList() ??
             [];
 
