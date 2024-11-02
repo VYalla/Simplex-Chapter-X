@@ -1155,6 +1155,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                 topicsSubscribed: []);
 
                                             UserModel.writeUser(user);
+                                            AppInfo.currentUser = user;
 
                                             AppInfo.loadData();
 

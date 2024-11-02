@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:intl/intl.dart';
+import 'package:simplex_chapter_x/frontend/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app_info.dart';
@@ -10,6 +12,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../nav/navigation.dart';
+import '../select_chapter/chapter_card.dart';
 
 class ChatroomWidget extends StatefulWidget {
   AnnouncementModel a;
@@ -38,7 +41,6 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
     super.initState();
     text = TextEditingController();
     focus = FocusNode();
-    startTimer();
   }
 
   @override
@@ -46,16 +48,8 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
     super.dispose();
     _streamSubscription!.cancel();
     text.dispose();
-    timer!.cancel();
-    focus.dispose();
-  }
 
-  void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 10), (Timer timer) {
-      getMessages().then((value) {
-        setState(() {});
-      });
-    });
+    focus.dispose();
   }
 
   Future<void> getMessages() async {
@@ -553,11 +547,15 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                                             color: Color(0xFFA6A6A6),
                                             size: 20,
                                           ),
-                                          suffixIcon: const Icon(
-                                            Icons.photo_camera,
-                                            color: Color(0xFFA6A6A6),
-                                            size: 20,
-                                          ),
+                                          suffixIcon: InkWell(
+                                              onTap: () async {
+                                                await _sendMessage();
+                                              },
+                                              child: const Icon(
+                                                Icons.send,
+                                                color: Color(0xFFA6A6A6),
+                                                size: 20,
+                                              )),
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -587,5 +585,38 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
         ),
       ),
     );
+  }
+
+  Future<void> _sendMessage() async {
+    if (text.text.isEmpty) {
+      toasts.toast("Message text is empty.", true);
+    } else {
+      a.msgs.add({
+        'senderName': AppInfo.currentUser.name,
+        'timestamp': DateTime.now().toUtc().toString(),
+        'text': text.text,
+      });
+
+      await AnnouncementModel.updateAnnouncementById(a.chapterid, a.id, a.msgs);
+      DocumentSnapshot chapter =
+          await AppInfo.database.collection("chapters").doc(a.chapterid).get();
+      ChapterCard c = ChapterCard.fromDocumentSnapshot(chapter);
+      _sendNotification(text.text, "", a.id, c.name);
+
+      toasts.toast("Message sent!", false);
+      text.text = "";
+      setState(() {});
+    }
+  }
+
+  void _sendNotification(String msg, String img, String topic, String title) {
+    HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('sendNotif');
+    callable.call(<String, dynamic>{
+      'topic': topic,
+      'title': title,
+      'body': msg,
+      "image": img,
+    });
   }
 }

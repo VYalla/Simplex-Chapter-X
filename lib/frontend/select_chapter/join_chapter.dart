@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -127,25 +129,26 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                       children: [
                         SizedBox(
                           width: 250,
-                        child: PinCodeTextField(
-                          onChanged: (value) {
-                            enteredPin = value; // Update the variable with the new value
-                            // Perform any additional actions here, such as validation or updating UI
-                          },
-                          pinTheme: PinTheme(
-                            shape: PinCodeFieldShape.underline,
-                            activeColor: Colors.white,
-                            inactiveColor:
-                                const Color.fromARGB(102, 255, 255, 255),
-                            fieldWidth: 38,
-                            borderWidth: 1,
-                          ),
-                          textStyle: TextStyle(
-                            fontFamily: 'Google Sans',
-                            color: Colors.white,
-                            fontSize: 44,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w700,
+                          child: PinCodeTextField(
+                            onChanged: (value) {
+                              enteredPin =
+                                  value; // Update the variable with the new value
+                              // Perform any additional actions here, such as validation or updating UI
+                            },
+                            pinTheme: PinTheme(
+                              shape: PinCodeFieldShape.underline,
+                              activeColor: Colors.white,
+                              inactiveColor:
+                                  const Color.fromARGB(102, 255, 255, 255),
+                              fieldWidth: 38,
+                              borderWidth: 1,
+                            ),
+                            textStyle: TextStyle(
+                              fontFamily: 'Google Sans',
+                              color: Colors.white,
+                              fontSize: 44,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w700,
                             ),
                             controller: pin,
                             cursorWidth: 1.5,
@@ -175,12 +178,16 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                     child: InkWell(
                       onTap: () async {
                         try {
-                          DocumentSnapshot codeDoc = await AppInfo.database.collection('codes').doc('codes').get();
-                          Map<String, String> codes = (codeDoc.get("codes") as Map).cast<String, String>();
+                          DocumentSnapshot codeDoc = await AppInfo.database
+                              .collection('codes')
+                              .doc('codes')
+                              .get();
+                          Map<String, String> codes =
+                              (codeDoc.get("codes") as Map)
+                                  .cast<String, String>();
                           if (!codes.containsKey(enteredPin)) {
                             Fluttertoast.showToast(
-                              msg:
-                                  "Code Does Not Exist",
+                              msg: "Code Does Not Exist",
                               toastLength: Toast.LENGTH_SHORT,
                               backgroundColor: Colors.red,
                               textColor: Colors.white,
@@ -193,8 +200,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                             await AppInfo.loadData();
 
                             Fluttertoast.showToast(
-                              msg:
-                                  "Chapter Joined!",
+                              msg: "Chapter Joined!",
                               toastLength: Toast.LENGTH_SHORT,
                               backgroundColor: Colors.green,
                               textColor: Colors.white,
@@ -204,10 +210,9 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                             joined = true;
                           }
                         } catch (e) {
-                          print(e);
+                          log(e.toString());
                           Fluttertoast.showToast(
-                            msg:
-                                "Error",
+                            msg: "Error",
                             toastLength: Toast.LENGTH_SHORT,
                             backgroundColor: Colors.red,
                             textColor: Colors.white,
@@ -234,7 +239,8 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacement(

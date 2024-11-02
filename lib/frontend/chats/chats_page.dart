@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simplex_chapter_x/frontend/chats/chats_card.dart';
@@ -8,6 +9,8 @@ import '../../backend/models.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
+
+import 'chatroom_page.dart';
 
 class ChatsWidget extends StatefulWidget {
   const ChatsWidget({super.key});
@@ -33,6 +36,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
   @override
   void initState() {
     super.initState();
+    log(AppInfo.currentUser.isExec.toString());
   }
 
   void updateCards() {
@@ -84,13 +88,38 @@ class _ChatsWidgetState extends State<ChatsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    subscribedChats = [];
+    unsubscribedChats = [];
     for (AnnouncementModel a in groups) {
       if (AppInfo.currentUser.topicsSubscribed.contains(a.id)) {
-        subscribedChats.add(ChatsCard(a: a, onPress: updateCards));
+        subscribedChats.add(ChatsCard(
+          a: a,
+          onPress: updateCards,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatroomWidget(a: a),
+              ),
+            );
+          },
+        ));
       } else {
-        unsubscribedChats.add(ChatsCard(a: a, onPress: updateCards));
+        unsubscribedChats.add(ChatsCard(
+          a: a,
+          onPress: updateCards,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatroomWidget(a: a),
+              ),
+            );
+          },
+        ));
       }
     }
+    List<Widget> otherItems = showUnsubscribed ? unsubscribedChats : [];
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: const Color(0xFFF5F6F7),
@@ -197,7 +226,11 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                   ],
                 ),
               ),
-              for (Widget w in subscribedChats) (w),
+              Padding(
+                  padding: EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    children: subscribedChats,
+                  )),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(24, 10, 0, 12),
                 child: Row(
@@ -221,7 +254,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                           child: Align(
                             alignment: AlignmentDirectional(0, 0),
                             child: Icon(
-                              showUnsubscribed
+                              !showUnsubscribed
                                   ? Icons.arrow_right
                                   : Icons.arrow_drop_down,
                               color: Color(0xFFF5F6F7),
@@ -245,8 +278,11 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                   ],
                 ),
               ),
-              for (Widget w in unsubscribedChats)
-                (showUnsubscribed ? w : Container()),
+              Padding(
+                  padding: EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    children: otherItems,
+                  )),
               SizedBox(height: 90),
             ],
           ),

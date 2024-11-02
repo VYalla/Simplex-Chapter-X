@@ -69,8 +69,13 @@ class AnnouncementModel {
   ///
   /// Firebase will merge the target data with the incoming data
   static Future<void> updateAnnouncementById(
-      String chapterid, Map<String, dynamic> updates) async {
-    AppInfo.database.doc(chapterid).update({'announcements': updates});
+      String chapterid, String id, List<Map<String, dynamic>> updates) async {
+    AppInfo.database
+        .collection('chapters')
+        .doc(chapterid)
+        .collection('announcements')
+        .doc(id)
+        .update({'msgs': updates});
   }
 
   /// gets all of the sent announcements as a [List] of [AnnouncementModel]s
@@ -78,8 +83,11 @@ class AnnouncementModel {
   ///
   static Future<List<AnnouncementModel>> getAnnouncements(
       String chapterid) async {
-    QuerySnapshot announcementQuery =
-        await AppInfo.database.doc(chapterid).collection('announcements').get();
+    QuerySnapshot announcementQuery = await AppInfo.database
+        .collection('chapters')
+        .doc(chapterid)
+        .collection('announcements')
+        .get();
     return announcementQuery.docs
         .map((snapshot) =>
             AnnouncementModel.fromDocumentSnapshot(snapshot, chapterid))
