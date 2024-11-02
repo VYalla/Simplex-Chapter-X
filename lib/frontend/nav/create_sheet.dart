@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/frontend/create/create_event_sheet.dart';
+import 'package:simplex_chapter_x/frontend/create/create_packet.dart';
 import 'package:simplex_chapter_x/frontend/create/create_task_sheet.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -283,6 +284,7 @@ class CreateSheet {
         page = const CreateEventWidget();
         break;
       case "Packet":
+        page = const CreatePacketWidget();
         break;
       case "Task":
         page = const CreateTaskSheet();

@@ -18,11 +18,14 @@ class PacketModel {
   /// the url to be launched by the packet
   final String url;
 
+  final String color;
+
   PacketModel({
     required this.id,
     required this.title,
     required this.description,
     required this.url,
+    required this.color,
   });
 
   /// Utility constructor to easily make a [PacketModel] from a [DocumentSnapshot]
@@ -32,7 +35,8 @@ class PacketModel {
       : id = doc.id,
         title = doc.get('title') as String,
         description = doc.get('description') as String,
-        url = doc.get('url') as String;
+        url = doc.get('url') as String,
+        color = doc.get('color') as String;
 
   /// Utility method to easily make a [Map] from [PacketModel]
   ///
@@ -42,6 +46,7 @@ class PacketModel {
       'title': title,
       'description': description,
       'url': url,
+      'color': color
     };
   }
 
@@ -85,5 +90,9 @@ class PacketModel {
     return packetQuery.docs
         .map((snapshot) => PacketModel.fromDocumentSnapshot(snapshot))
         .toList();
+  }
+
+  static Future<void> createPacket(PacketModel packet) async {
+    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('packets').add(packet.toMap());
   }
 }
