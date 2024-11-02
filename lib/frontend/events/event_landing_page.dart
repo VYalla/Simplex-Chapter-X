@@ -1,4 +1,5 @@
 import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:simplex_chapter_x/frontend/home/home_page.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 
@@ -90,10 +91,24 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                             ),
                           ],
                         ),
-                        Icon(
-                          Icons.delete_forever_sharp,
-                          color: Color(0xFFD3D3D3),
-                          size: 26,
+                        IconButton(
+                          icon: Icon(
+                            Icons.delete_forever_sharp,
+                            color: Color(0xFFD3D3D3),
+                            size: 26,
+                          ),
+                          onPressed: () {
+                            EventModel.removeEventById(widget.event.id);
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HomeWidget()),
+                              (route) =>
+                                  false, // This condition removes all previous routes
+                            );
+                          },
                         ),
                       ],
                     ),

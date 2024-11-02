@@ -21,6 +21,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
   late TextEditingController name;
   late TextEditingController desc;
   late TextEditingController loc;
+  late TextEditingController type;
 
   bool _isAllDay = false;
   DateTime _startDate = DateTime.now();
@@ -37,6 +38,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
     name = TextEditingController();
     desc = TextEditingController();
     loc = TextEditingController();
+    type = TextEditingController();
   }
 
   @override
@@ -218,28 +220,92 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                 thickness: 1,
                                 color: Color(0xFFE7E7E7),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12, 12, 12, 12),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Event Type',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Google Sans',
-                                            color: Color(0xFF333333),
-                                            fontSize: 15,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: false,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 200,
+                                          child: TextFormField(
+                                            controller: type,
+                                            autofocus: false,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              hintText: 'Event Type',
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Google Sans',
+                                                        color: Color(0x7F999999),
+                                                        fontSize: 15,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color:
+                                                      FlutterFlowTheme.of(context)
+                                                          .error,
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color:
+                                                      FlutterFlowTheme.of(context)
+                                                          .error,
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              filled: true,
+                                              fillColor: Colors.transparent,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Google Sans',
+                                                  color: Color(0xFF333333),
+                                                  fontSize: 15,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: false,
+                                                ),
+                                            cursorColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
                                           ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                               Divider(
                                 height: 0,
@@ -729,7 +795,8 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
       location: loc.text,
       usersAttended: [],
       image: "",
-      allDay: _isAllDay);
+      allDay: _isAllDay,
+      eventType: type.text);
 
     try {
       EventModel.createEvent(event);
