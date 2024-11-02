@@ -11,29 +11,17 @@ class PacketModel {
   final String id;
 
   /// the name of the packet
-  final String name;
+  final String title;
 
-  ///  **⚠️ UNDER CONSTRUCTION ⚠️**
-  /// Not used at all...
-  final String startDate;
-
-  /// **⚠️ UNDER CONSTRUCTION ⚠️**
-  /// Not used at all...
-  final String endDate;
-
-  /// **⚠️ UNDER CONSTRUCTION ⚠️**
-  /// This needs to be changed to be used as a hex rather than a base 10...
-  final int color;
+  final String description;
 
   /// the url to be launched by the packet
   final String url;
 
   PacketModel({
     required this.id,
-    required this.name,
-    required this.startDate,
-    required this.endDate,
-    required this.color,
+    required this.title,
+    required this.description,
     required this.url,
   });
 
@@ -42,10 +30,8 @@ class PacketModel {
   /// Queries the [DocumentSnapshot] for each field and instantiates [PacketModel] accordingly
   PacketModel.fromDocumentSnapshot(DocumentSnapshot<Object?> doc)
       : id = doc.id,
-        name = doc.get('name') as String,
-        startDate = doc.get('startDate') as String,
-        endDate = doc.get('endDate') as String,
-        color = doc.get('color') as int,
+        title = doc.get('title') as String,
+        description = doc.get('description') as String,
         url = doc.get('url') as String;
 
   /// Utility method to easily make a [Map] from [PacketModel]
@@ -53,10 +39,8 @@ class PacketModel {
   /// Invoke [toMap] when writing a [PacketModel] object to an event's Firebase Document
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'startDate': startDate,
-      'endDate': endDate,
-      'color': color,
+      'title': title,
+      'description': description,
       'url': url,
     };
   }
