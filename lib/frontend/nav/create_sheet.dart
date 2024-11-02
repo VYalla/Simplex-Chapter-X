@@ -20,7 +20,7 @@ class CreateSheet {
               topLeft: Radius.circular(1000.0),
               topRight: Radius.circular(1000.0)),
         ),
-        backgroundColor: Color(0xFFF5F6F7),
+        backgroundColor: const Color(0xFFF5F6F7),
         context: context,
         builder: (context) {
           return Container(
@@ -279,12 +279,12 @@ class CreateSheet {
     Widget page = Container();
     switch (type) {
       case "Event":
-        page = CreateEventWidget();
+        page = const CreateEventWidget();
         break;
       case "Widget":
         break;
       case "Task":
-        page = CreateTaskSheet();
+        page = const CreateTaskSheet();
         break;
       case "Chat":
         break;
@@ -300,7 +300,7 @@ class CreateSheet {
                 topLeft: Radius.circular(25.0),
                 topRight: Radius.circular(25.0)),
           ),
-          backgroundColor: Color(0xFFF5F6F7),
+          backgroundColor: const Color(0xFFF5F6F7),
           context: context,
           builder: (context) {
             return page;

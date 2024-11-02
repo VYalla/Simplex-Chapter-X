@@ -3,16 +3,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:simplex_chapter_x/frontend/events/event_landing_page.dart';
 import 'package:simplex_chapter_x/frontend/tasks/show_all_tasks.dart';
 import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
-class ShowTasks extends StatefulWidget {
+class ShowEvents extends StatefulWidget {
+  DateTime startDate;
+  DateTime endDate;
+
+  ShowEvents({
+    required this.startDate,
+    required this.endDate,
+    Key? key
+  }) : super(key: key);
+
   @override
-  _ShowTasksState createState() => _ShowTasksState();
+  _ShowEventsState createState() => _ShowEventsState();
 }
 
-class _ShowTasksState extends State<ShowTasks> {
+class _ShowEventsState extends State<ShowEvents> {
   String? _currentChapter;
 
   @override
@@ -37,30 +47,41 @@ class _ShowTasksState extends State<ShowTasks> {
     });
   }
 
-  List<TaskModel> _getTasksToDisplay(List<TaskModel> allTasks) {
+  bool dateRangesOverlap(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2) {
+    bool overlap = false;
+
+    if (startDate1.compareTo(startDate2) > 0 && startDate1.compareTo(endDate2) < 0) {
+      overlap = true;
+    } else if (endDate1.compareTo(startDate2) > 0 && endDate1.compareTo(endDate2) < 0) {
+      overlap = true;
+    } else if (startDate1.compareTo(startDate2) < 0 && endDate1.compareTo(endDate2) > 0) {
+      overlap = true;
+    }
+
+    return overlap;
+  }
+
+  List<EventModel> _filterEvents(List<EventModel> allEvents, DateTime startDate, DateTime endDate) {
     final currentUserId = FirebaseAuth.instance.currentUser?.uid;
     final now = DateTime.now();
 
-    // Sort tasks by due date
-    allTasks.sort((a, b) => a.dueDate.compareTo(b.dueDate));
+    // Sort events by startt date
+    allEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
 
-    // Filter incomplete tasks
-    final incompleteTasks = allTasks
-        .where((task) => !task.usersSubmitted.contains(currentUserId))
+    // Filter events by range
+    final filteredEvents = allEvents
+        .where((event) => dateRangesOverlap(event.startDate, event.endDate, startDate, endDate))
         .toList();
 
-    if (incompleteTasks.length >= 2) {
-      // Return the two incomplete tasks with the soonest due dates
-      return incompleteTasks.take(2).toList();
-    } else if (incompleteTasks.isNotEmpty) {
-      // Return all incomplete tasks if there are less than 2
-      return incompleteTasks;
+    // if (filteredEvents.length >= 2) {
+    //   // Return the three soonest events
+    //   return filteredEvents.take(3).toList();
+    // } else 
+    if (filteredEvents.isNotEmpty) {
+      // Return all events in that range
+      return filteredEvents;
     } else {
-      // If all tasks are complete, return the two tasks with the closest due dates
-      return allTasks
-          .where((task) => task.dueDate.isAfter(now))
-          .take(2)
-          .toList();
+      return [];
     }
   }
 
@@ -70,10 +91,11 @@ class _ShowTasksState extends State<ShowTasks> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return StreamBuilder<DocumentSnapshot>(
+    return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('chapters')
           .doc(_currentChapter)
+          .collection('events')
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -84,15 +106,14 @@ class _ShowTasksState extends State<ShowTasks> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        final chapterData = snapshot.data!.data() as Map<String, dynamic>?;
-        final allTasks = (chapterData?['tasks'] as List<dynamic>?)
-                ?.map((task) => TaskModel.fromMap(task))
+        final docs = snapshot.data!.docs;
+        
+        final allEvents = (docs as List<dynamic>?)
+                ?.map((event) => EventModel.fromDocumentSnapshot(event))
                 .toList() ??
             [];
 
-        final tasksToDisplay = _getTasksToDisplay(allTasks);
-        final hasIncompleteTasks = allTasks.any((task) => !task.usersSubmitted
-            .contains(FirebaseAuth.instance.currentUser?.uid));
+        final eventsToDisplay = _filterEvents(allEvents, widget.startDate, widget.endDate);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +124,7 @@ class _ShowTasksState extends State<ShowTasks> {
                 Row(
                   children: [
                     Text(
-                      'TASKS',
+                      'EVENTS',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Google Sans',
                             color: const Color(0xFF333333),
@@ -113,7 +134,7 @@ class _ShowTasksState extends State<ShowTasks> {
                             useGoogleFonts: false,
                           ),
                     ),
-                    if (hasIncompleteTasks)
+                    if (eventsToDisplay.isNotEmpty)
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
@@ -128,37 +149,14 @@ class _ShowTasksState extends State<ShowTasks> {
                       ),
                   ],
                 ),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ShowAllTasksWidget(chapterId: _currentChapter!),
-                        ));
-                      },
-                      child: Text(
-                        'See All',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Google Sans',
-                              color: const Color(0xFF3B58F4),
-                              fontSize: 12,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
             const SizedBox(height: 10),
-            tasksToDisplay.isEmpty
-                ? const Center(child: Text('No tasks available'))
+            eventsToDisplay.isEmpty
+                ? const Center(child: Text('No events available'))
                 : Column(
-                    children: tasksToDisplay
-                        .map((task) => _buildTaskItem(task))
+                    children: eventsToDisplay
+                        .map((event) => _buildEventItem(event))
                         .toList(),
                   ),
           ],
@@ -167,27 +165,25 @@ class _ShowTasksState extends State<ShowTasks> {
     );
   }
 
-  Widget _buildTaskItem(TaskModel task) {
-    final isCompleted =
-        task.usersSubmitted.contains(FirebaseAuth.instance.currentUser?.uid);
-    final isOverdue = task.dueDate.isBefore(DateTime.now()) && !isCompleted;
-
+  Widget _buildEventItem(EventModel event) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TaskLandingPageWidget(
-              task: task,
+            //TODO Fix Event Landing Page Widget
+            builder: (context) => EventLandingPageWidget(
+              event: event,
               chapterId: _currentChapter!,
             ),
           ));
         },
         child: Container(
           decoration: BoxDecoration(
-            color: isCompleted
-                ? const Color(0xFFDEF3DD)
-                : isOverdue
+            // TODO Event types?
+            color: true
+                ? const Color.fromARGB(255, 208, 242, 255)
+                : false
                     ? const Color(0xFFFFE5E5)
                     : const Color(0xFFEEEFEF),
             borderRadius: BorderRadius.circular(12),
@@ -206,17 +202,19 @@ class _ShowTasksState extends State<ShowTasks> {
                         width: 39,
                         height: 39,
                         decoration: BoxDecoration(
-                          color: isCompleted
-                              ? const Color(0xFF8CBC89)
-                              : isOverdue
+                          // TODO Event colors
+                          color: true
+                              ? const Color.fromARGB(255, 0, 119, 255)
+                              : false
                                   ? const Color(0xFFFF6B6B)
                                   : const Color(0xFFC1AD83),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
-                          isCompleted
-                              ? Icons.check
-                              : isOverdue
+                          // Event icons
+                          true
+                              ? Icons.calendar_month
+                              : false
                                   ? Icons.warning
                                   : Icons.access_time,
                           color: Colors.white,
@@ -232,18 +230,20 @@ class _ShowTasksState extends State<ShowTasks> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                isCompleted
-                                    ? 'COMPLETED'
-                                    : isOverdue
+                                // TODO event type names
+                                true
+                                    ? 'Event'
+                                    : false
                                         ? 'OVERDUE'
                                         : 'PENDING',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Google Sans',
-                                      color: isCompleted
-                                          ? const Color(0xFF8CBC89)
-                                          : isOverdue
+                                      // TODO event colors
+                                      color: true
+                                          ? const Color.fromARGB(255, 5, 0, 77)
+                                          : false
                                               ? const Color(0xFFFF6B6B)
                                               : const Color(0xFFC1AD83),
                                       fontSize: 12,
@@ -254,7 +254,7 @@ class _ShowTasksState extends State<ShowTasks> {
                               ),
                               const SizedBox(height: 3),
                               Text(
-                                task.title,
+                                event.name,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -265,6 +265,26 @@ class _ShowTasksState extends State<ShowTasks> {
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: false,
                                     ),
+                              ),
+                              const SizedBox(height: 3),
+                              Visibility(
+                                visible: !event.allDay,
+                                child: Text(
+                                  '${_formatDate(event.startDate, event.endDate)}',
+                                  style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Google Sans',
+                                    // TODO color changes?
+                                    color: true
+                                        ? const Color.fromARGB(255, 21, 0, 138)
+                                        : const Color(0xFF666666),
+                                    fontSize: 12,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                    useGoogleFonts: false,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -284,5 +304,9 @@ class _ShowTasksState extends State<ShowTasks> {
         ),
       ),
     );
+  }
+
+  String _formatDate(DateTime startDate, DateTime endDate) {
+    return '${startDate.hour.toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} - ${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')}';
   }
 }
