@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:simplex_chapter_x/frontend/create/create_chat_sheet.dart';
 import 'package:simplex_chapter_x/frontend/create/create_event_sheet.dart';
 import 'package:simplex_chapter_x/frontend/create/create_packet.dart';
 import 'package:simplex_chapter_x/frontend/create/create_task_sheet.dart';
@@ -289,6 +290,7 @@ class CreateSheet {
         page = const CreateTaskSheet();
         break;
       case "Chat":
+        page = const CreateChatSheet();
         break;
       default:
         break;

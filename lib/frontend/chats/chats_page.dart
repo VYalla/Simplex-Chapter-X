@@ -20,6 +20,7 @@ class ChatsWidget extends StatefulWidget {
 }
 
 class _ChatsWidgetState extends State<ChatsWidget> {
+  List<String> firstLast = AppInfo.currentUser.name.split(' ');
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool dataLoaded = false;
@@ -169,24 +170,41 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                         useGoogleFonts: false,
                                       ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      15, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.help_outline,
-                                    color: Color(0xFF98989D),
-                                    size: 17,
-                                  ),
-                                ),
+                                // const Padding(
+                                //   padding: EdgeInsetsDirectional.fromSTEB(
+                                //       15, 0, 0, 0),
+                                //   child: Icon(
+                                //     Icons.help_outline,
+                                //     color: Color(0xFF98989D),
+                                //     size: 17,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
                           Container(
                             width: 33,
                             height: 33,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFFF0000),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF526BF4),
                               shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFF051989),
+                                width: 1,
+                              ),
+                            ),
+                            child: Align(
+                              alignment: const AlignmentDirectional(0, 0),
+                              child: Text(
+                                firstLast[0][0] + firstLast[1][0],
+                                style: const TextStyle(
+                                  fontFamily: 'Google Sans',
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -233,17 +251,17 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                   )),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(24, 10, 0, 12),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            showUnsubscribed = !showUnsubscribed;
-                          });
-                        },
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      showUnsubscribed = !showUnsubscribed;
+                    });
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
                         child: Container(
                           width: 20,
                           height: 20,
@@ -263,19 +281,19 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                           ),
                         ),
                       ),
-                    ),
-                    Text(
-                      'Unsubscribed',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Google Sans',
-                            color: FlutterFlowTheme.of(context).alternate,
-                            fontSize: 18,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                  ],
+                      Text(
+                        'Unsubscribed',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Google Sans',
+                              color: FlutterFlowTheme.of(context).alternate,
+                              fontSize: 18,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(

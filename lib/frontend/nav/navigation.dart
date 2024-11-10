@@ -8,6 +8,8 @@ import 'package:simplex_chapter_x/frontend/gallery/gallery_page.dart';
 import 'package:simplex_chapter_x/frontend/home/home_page.dart';
 import 'package:simplex_chapter_x/frontend/nav/create_sheet.dart';
 
+import '../../app_info.dart';
+
 class Navigation extends StatefulWidget {
   final int pIndex;
 
@@ -169,60 +171,64 @@ class _NavigationState extends State<Navigation> {
                 ),
               ),
             ),
-            Align(
-              alignment: const AlignmentDirectional(0, 1),
-              child: Padding(
-                padding:
-                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 38 + addHeight),
-                child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: 76,
-                    height: 61,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(40),
-                      // border: Border.all(
-                      //   color: Colors.white,
-                      //   width: 5,
-                      // ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const AlignmentDirectional(0, 1),
-              child: Padding(
-                padding:
-                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 41 + addHeight),
-                child: InkWell(
-                  onTap: () {
-                    CreateSheet.getCreateSheet(context);
-                  },
-                  child: Container(
-                    width: 66,
-                    height: 51,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF3B58F4),
-                      borderRadius: BorderRadius.circular(45),
-                      // border: Border.all(
-                      //   color: Colors.white,
-                      //   width: 5,
-                      // ),
-                    ),
-                    child: const Align(
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Icon(
-                        Icons.add_rounded,
-                        color: Colors.white,
-                        size: 28,
+            AppInfo.isExec
+                ? Align(
+                    alignment: const AlignmentDirectional(0, 1),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          0, 0, 0, 38 + addHeight),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: 76,
+                          height: 61,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFFFFF),
+                            borderRadius: BorderRadius.circular(40),
+                            // border: Border.all(
+                            //   color: Colors.white,
+                            //   width: 5,
+                            // ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : SizedBox(),
+            AppInfo.isExec
+                ? Align(
+                    alignment: const AlignmentDirectional(0, 1),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          0, 0, 0, 41 + addHeight),
+                      child: InkWell(
+                        onTap: () {
+                          CreateSheet.getCreateSheet(context);
+                        },
+                        child: Container(
+                          width: 66,
+                          height: 51,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF3B58F4),
+                            borderRadius: BorderRadius.circular(45),
+                            // border: Border.all(
+                            //   color: Colors.white,
+                            //   width: 5,
+                            // ),
+                          ),
+                          child: const Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Icon(
+                              Icons.add_rounded,
+                              color: Colors.white,
+                              size: 28,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
           ],
         ),
       ),

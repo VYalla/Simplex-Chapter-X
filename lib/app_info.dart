@@ -40,6 +40,7 @@ class AppInfo {
 
   ///
   static bool isAdmin = false;
+  static bool isExec = false;
 
   ///
   static bool darkMode = false;
@@ -70,6 +71,12 @@ class AppInfo {
           AppInfo.currentEvents = value;
         },
       );
+      DocumentSnapshot d = await AppInfo.database
+          .collection('chapters')
+          .doc(currentUser.currentChapter)
+          .get();
+      List<String> exec = (d.get('exec') as List).cast<String>();
+      AppInfo.isExec = exec.contains(currentUser.id);
     }
 
     await TaskModel.getCurrentTasks().then(

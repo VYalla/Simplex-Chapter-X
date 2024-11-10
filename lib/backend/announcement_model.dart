@@ -122,4 +122,12 @@ class AnnouncementModel {
   Future<void> unsubscribeNotif() async {
     await FirebaseMessaging.instance.unsubscribeFromTopic(id);
   }
+
+  static Future<void> createChat(AnnouncementModel a) async {
+    AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('announcements')
+        .add(a.toMap());
+  }
 }

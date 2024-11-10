@@ -41,9 +41,9 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
       await _firestore.collection('users').doc(userId).update({
         'currentChapter': chapterId,
       });
+      AppInfo.currentUser.currentChapter = chapterId;
 
       AppInfo.loadData();
-      AppInfo.currentUser.currentChapter = chapterId;
     } else {
       print("No user is currently logged in.");
     }
@@ -241,8 +241,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(24, 30, 24, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [

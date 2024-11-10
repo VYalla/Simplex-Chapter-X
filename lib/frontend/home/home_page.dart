@@ -13,6 +13,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
+  List<String> firstLast = AppInfo.currentUser.name.split(' ');
   final scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
@@ -22,24 +23,14 @@ class _HomeWidgetState extends State<HomeWidget> {
     // AppInfo.loadData();
 
     setState(() {
-      startDate = DateTime(
-        startDate.year,
-        startDate.month,
-        startDate.day
-      );
+      startDate = DateTime(startDate.year, startDate.month, startDate.day);
 
-      endDate = startDate.add(const Duration(days:3));
+      endDate = startDate.add(const Duration(days: 3));
 
-      endDate = DateTime(
-        endDate.year,
-        endDate.month,
-        endDate.day + 1,
-        23,
-        59,
-        59
-      );
+      endDate =
+          DateTime(endDate.year, endDate.month, endDate.day + 1, 23, 59, 59);
     });
-    
+
     super.initState();
   }
 
@@ -132,9 +123,26 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 Container(
                                   width: 33,
                                   height: 33,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFFF0000),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF526BF4),
                                     shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: const Color(0xFF051989),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Align(
+                                    alignment: const AlignmentDirectional(0, 0),
+                                    child: Text(
+                                      firstLast[0][0] + firstLast[1][0],
+                                      style: const TextStyle(
+                                        fontFamily: 'Google Sans',
+                                        color: Colors.white,
+                                        fontSize: 13,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -720,8 +728,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           child: InkWell(
                                             onTap: () {
                                               setState(() {
-                                                startDate = startDate.subtract(Duration(days : 4));
-                                                endDate = endDate.subtract(Duration(days : 4));
+                                                startDate = startDate.subtract(
+                                                    Duration(days: 4));
+                                                endDate = endDate.subtract(
+                                                    Duration(days: 4));
                                               });
                                             },
                                             child: Icon(
@@ -732,7 +742,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                         ),
                                         Text(
-                                          DateFormat('MMM d').format(startDate) + ' - ' + DateFormat('MMM d').format(endDate),
+                                          DateFormat('MMM d')
+                                                  .format(startDate) +
+                                              ' - ' +
+                                              DateFormat('MMM d')
+                                                  .format(endDate),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -751,8 +765,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           child: InkWell(
                                             onTap: () {
                                               setState(() {
-                                                startDate = startDate.add(Duration(days : 4));
-                                                endDate = endDate.add(Duration(days : 4));
+                                                startDate = startDate
+                                                    .add(Duration(days: 4));
+                                                endDate = endDate
+                                                    .add(Duration(days: 4));
                                               });
                                             },
                                             child: Icon(
@@ -784,14 +800,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       Expanded(
                                         child: SingleChildScrollView(
                                           child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              ShowEvents(
-                                                startDate: startDate,
-                                                endDate: endDate
-                                              )
-                                            ]
-                                          ),
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                ShowEvents(
+                                                    startDate: startDate,
+                                                    endDate: endDate)
+                                              ]),
                                         ),
                                       ),
                                     ],

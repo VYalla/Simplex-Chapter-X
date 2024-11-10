@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:flutter/gestures.dart';
 import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,6 +55,8 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
   }
 
   Future<void> getMessages() async {
+    bool todayFound = false;
+    bool yesterdayFound = false;
     items = [SizedBox(height: 25)];
     for (int i = 0; i < a.msgs.length; i++) {
       Map<String, String> m = a.msgs[i];
@@ -76,10 +80,13 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
       }
 
       // Check if timestamp is today, yesterday, or before
-      if (isSameDay(timestamp, now)) {
+      if (isSameDay(timestamp, now) && !todayFound) {
+        todayFound = true;
         // It's today
         items.add(buildDateLabel(context, 'Today'));
-      } else if (isSameDay(timestamp, now.subtract(Duration(days: 1)))) {
+      } else if (isSameDay(timestamp, now.subtract(Duration(days: 1))) &&
+          !yesterdayFound) {
+        yesterdayFound = true;
         // It's yesterday
         items.add(buildDateLabel(context, 'Yesterday'));
       }
@@ -108,9 +115,11 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
         if (token.startsWith('https://')) {
           bool canlaunch;
           try {
-            if (token.startsWith("https://")) {
-              canlaunch = await canLaunchUrl(
-                  Uri.parse(token.replaceAll(RegExp(r'\s+'), '')));
+            final Uri? uri = Uri.tryParse(token); // Attempt to parse the URL
+
+            if (uri != null &&
+                (uri.isScheme('https') || uri.isScheme('http'))) {
+              canlaunch = true;
             } else {
               canlaunch = false;
             }
@@ -129,6 +138,13 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                       color: Color.fromARGB(255, 41, 41, 255),
                       decoration: TextDecoration.underline,
                     ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () async {
+                    final uri = Uri.parse(token);
+                    try {
+                      await launchUrl(uri);
+                    } catch (e) {}
+                  },
               ),
             );
           } else {
@@ -218,7 +234,8 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                         Padding(
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                          child: RichText(text: TextSpan(children: msgText)),
+                          child:
+                              SelectableText.rich(TextSpan(children: msgText)),
                         ),
                       ],
                     ),
@@ -252,7 +269,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
         ),
       ));
     }
-    items.add(SizedBox(height: 80));
+    items.add(SizedBox(height: 100));
   }
 
   void _setupMessageListener() {
@@ -473,7 +490,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                                     ]
                                   : items,
                             ))),
-                    AppInfo.currentUser.isExec
+                    AppInfo.isExec
                         ? Align(
                             alignment: const AlignmentDirectional(0, 1),
                             child: Padding(
@@ -607,6 +624,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
       text.text = "";
       setState(() {});
     }
+    FocusScope.of(context).unfocus();
   }
 
   void _sendNotification(String msg, String img, String topic, String title) {

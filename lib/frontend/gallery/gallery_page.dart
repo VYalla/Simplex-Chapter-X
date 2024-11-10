@@ -1,6 +1,7 @@
 import 'package:simplex_chapter_x/frontend/gallery/packets_page.dart';
 import 'package:simplex_chapter_x/frontend/gallery/tasks_page.dart';
 
+import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class GalleryPage extends StatefulWidget {
 }
 
 class _GalleryPageState extends State<GalleryPage> {
+  List<String> firstLast = AppInfo.currentUser.name.split(' ');
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -74,15 +76,15 @@ class _GalleryPageState extends State<GalleryPage> {
                                         useGoogleFonts: false,
                                       ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      15, 0, 0, 0),
-                                  child: Icon(
-                                    Icons.help_outline,
-                                    color: Color(0xFF98989D),
-                                    size: 17,
-                                  ),
-                                ),
+                                // Padding(
+                                //   padding: EdgeInsetsDirectional.fromSTEB(
+                                //       15, 0, 0, 0),
+                                //   child: Icon(
+                                //     Icons.help_outline,
+                                //     color: Color(0xFF98989D),
+                                //     size: 17,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -90,8 +92,25 @@ class _GalleryPageState extends State<GalleryPage> {
                             width: 33,
                             height: 33,
                             decoration: BoxDecoration(
-                              color: Color(0xFFFF0000),
+                              color: const Color(0xFF526BF4),
                               shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFF051989),
+                                width: 1,
+                              ),
+                            ),
+                            child: Align(
+                              alignment: const AlignmentDirectional(0, 0),
+                              child: Text(
+                                firstLast[0][0] + firstLast[1][0],
+                                style: const TextStyle(
+                                  fontFamily: 'Google Sans',
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -434,8 +453,7 @@ class _GalleryPageState extends State<GalleryPage> {
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PacketsPage(),
+                                  builder: (context) => const PacketsPage(),
                                 ),
                               );
                             },
@@ -511,26 +529,25 @@ class _GalleryPageState extends State<GalleryPage> {
                                               children: [
                                                 Text(
                                                   'Packets',
-                                                  style:
-                                                      FlutterFlowTheme.of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: Colors.white,
-                                                            fontSize: 28,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts: false,
-                                                          ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Google Sans',
+                                                        color: Colors.white,
+                                                        fontSize: 28,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        useGoogleFonts: false,
+                                                      ),
                                                 ),
                                               ],
                                             ),
                                             Padding(
-                                              padding:
-                                                  EdgeInsetsDirectional.fromSTEB(
-                                                      0, 5, 0, 20),
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 5, 0, 20),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -595,8 +612,10 @@ class _GalleryPageState extends State<GalleryPage> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Google Sans',
-                                                        color: Color(0xFF4D343A),
+                                                        fontFamily:
+                                                            'Google Sans',
+                                                        color:
+                                                            Color(0xFF4D343A),
                                                         fontSize: 8,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -613,19 +632,19 @@ class _GalleryPageState extends State<GalleryPage> {
                                                 child: Text(
                                                   'Economics Study Guide',
                                                   maxLines: 1,
-                                                  style:
-                                                      FlutterFlowTheme.of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Google Sans',
-                                                            color: Colors.white,
-                                                            fontSize: 13,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            useGoogleFonts: false,
-                                                          ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Google Sans',
+                                                        color: Colors.white,
+                                                        fontSize: 13,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        useGoogleFonts: false,
+                                                      ),
                                                 ),
                                               ),
                                             ),
