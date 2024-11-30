@@ -35,7 +35,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   Future<void> _signInWithGoogle() async {
     try {
-      final userCredential = await _authService.signInWithGoogle();
+      final userCredential = await _authService.signInWithGoogle(context);
       if (userCredential != null && mounted) {
         await AppInfo.loadData();
         if (mounted) {
@@ -427,7 +427,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               //   (route) =>
                                               //       false, // This condition removes all previous routes
                                               // );
-                                              print("-------------------------------------------\n" + "Erorr: " + e.toString());
+                                              print(
+                                                  "-------------------------------------------\n" +
+                                                      "Erorr: " +
+                                                      e.toString());
                                               Fluttertoast.showToast(
                                                 msg: "Error",
                                                 toastLength: Toast.LENGTH_SHORT,
