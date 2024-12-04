@@ -207,7 +207,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                           children: [
                             Flexible(
                               child: AutoSizeText(
-                                'Hello  ${AppInfo.currentUser.name},',
+                                'Hello ${AppInfo.currentUser.name},',
                                 maxLines: 1,
                                 style: const TextStyle(
                                   fontFamily: 'Google Sans',
@@ -313,6 +313,9 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                 ),
                                 const SizedBox(height: 10),
                                 ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: Colors.black),
                                   onPressed: () {
                                     Navigator.push(
                                       context,

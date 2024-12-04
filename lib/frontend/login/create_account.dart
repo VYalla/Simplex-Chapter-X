@@ -60,7 +60,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
 
   Future<void> _signInWithGoogle() async {
     try {
-      final userCredential = await _authService.signInWithGoogle();
+      final userCredential = await _authService.signInWithGoogle(context);
       if (userCredential != null) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const ChapterSelectWidget(),

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
@@ -16,39 +17,20 @@ class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
 
   Future<void> _addUserToFirestore(User user) async {
-    // await _firestore.collection('users').doc(user.uid).set({
-    //   'email': user.email,
-    //   'name': user.displayName,
-    //   'profilePic': user.photoURL,
-    //   'createdAt': FieldValue.serverTimestamp(),
-    //   'chapters': [],
-    // });
-
-    UserModel user2 = UserModel(
-        id: user.uid,
-        email: user.email!,
-        profilePic: "",
-        name: user.displayName!,
-        pastEvents: [],
-        compEvents: [],
-        grade: 12,
-        isExec: false,
-        approved: true,
-        openedAppSinceApproved: false,
-        chapters: [],
-        currentChapter: "",
-        topicsSubscribed: []);
-
-    UserModel.writeUser(user2);
-    AppInfo.currentUser = user2;
+    await _firestore.collection('users').doc(user.uid).set({
+      'email': user.email,
+      'name': user.displayName,
+      'profilePic': user.photoURL,
+      'createdAt': FieldValue.serverTimestamp(),
+      'chapters': [],
+    });
   }
 
-  Future<UserCredential?> signInWithGoogle() async {
+  Future<UserCredential?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
@@ -62,16 +44,135 @@ class AuthService {
         idToken: googleAuth.idToken,
       );
 
+      final scaffoldContext = ScaffoldMessenger.of(context);
+      final navigatorState = Navigator.of(context);
+
       final userCredential = await _auth.signInWithCredential(credential);
-      await _addUserToFirestore(userCredential.user!);
+
+      DocumentSnapshot userDoc = await _firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+
+      print(userCredential);
+
+      String fullName;
+      if (userDoc.exists) {
+        fullName = userDoc.get('name') ?? '';
+      } else {
+        fullName =
+            await _getFullNameSafely(context, userCredential.user!) ?? '';
+
+        if (fullName.isNotEmpty) {
+          UserModel newUser = UserModel(
+            id: userCredential.user!.uid,
+            email: userCredential.user!.email ?? '',
+            profilePic: userCredential.user!.photoURL ?? '',
+            name: fullName,
+            pastEvents: [],
+            compEvents: [],
+            grade: 12,
+            isExec: false,
+            approved: true,
+            openedAppSinceApproved: false,
+            currentChapter: '',
+            chapters: [],
+            topicsSubscribed: [],
+          );
+
+          await UserModel.writeUser(newUser);
+        }
+      }
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
       print('FirebaseAuthException: ${e.code} - ${e.message}');
+
+      if (e.code == 'internal-error' &&
+          e.message?.contains('DUPLICATE_RAW_ID') == true) {
+        try {
+          final currentUser = _auth.currentUser;
+          if (currentUser != null) {
+            return await _auth
+                .signInWithCredential(GoogleAuthProvider.credential(
+              accessToken: await currentUser.getIdToken(),
+              idToken: await currentUser.getIdToken(),
+            ));
+          }
+        } catch (signInError) {
+          print('Error signing in with existing account: $signInError');
+        }
+      }
+
       return null;
     } catch (e) {
       print('Unexpected error signing in with Google: $e');
       return null;
     }
+  }
+
+  Future<String?> _getFullNameSafely(BuildContext context, User user) async {
+    if (user.displayName != null && user.displayName!.contains(' ')) {
+      return user.displayName;
+    }
+
+    return await showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        final firstNameController = TextEditingController();
+        final lastNameController = TextEditingController();
+
+        if (user.displayName != null) {
+          firstNameController.text = user.displayName!;
+        }
+
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text('Complete Your Profile'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: firstNameController,
+                decoration: InputDecoration(
+                  labelText: 'First Name',
+                  hintText: 'Enter your first name',
+                ),
+              ),
+              TextField(
+                controller: lastNameController,
+                decoration: InputDecoration(
+                  labelText: 'Last Name',
+                  hintText: 'Enter your last name',
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'Submit',
+                style: TextStyle(color: Colors.black),
+              ),
+              onPressed: () {
+                if (firstNameController.text.isNotEmpty &&
+                    lastNameController.text.isNotEmpty) {
+                  String fullName =
+                      '${firstNameController.text} ${lastNameController.text}';
+                  Navigator.of(dialogContext).pop(fullName);
+                } else {
+                  ScaffoldMessenger.of(dialogContext).showSnackBar(
+                    SnackBar(
+                        content: Text('Please enter both first and last name')),
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<UserCredential?> signInWithApple() async {

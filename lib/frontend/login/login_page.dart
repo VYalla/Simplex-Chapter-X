@@ -35,7 +35,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   Future<void> _signInWithGoogle() async {
     try {
-      final userCredential = await _authService.signInWithGoogle();
+      final userCredential = await _authService.signInWithGoogle(context);
       if (userCredential != null && mounted) {
         await AppInfo.loadData();
         if (mounted) {
