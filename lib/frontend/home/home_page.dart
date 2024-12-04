@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/frontend/events/show_events.dart';
 import 'package:simplex_chapter_x/frontend/tasks/show_tasks.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../select_chapter/chapter_select.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -15,6 +17,7 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   List<String> firstLast = AppInfo.currentUser.name.split(' ');
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
 
@@ -75,8 +78,22 @@ class _HomeWidgetState extends State<HomeWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
+                                  onTap: () async {
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ChapterSelectWidget()),
+                                      (route) =>
+                                          false, // This condition removes all previous routes
+                                    );
+                                    await _firestore
+                                        .collection('users')
+                                        .doc(AppInfo.currentUser.id)
+                                        .update({
+                                      'currentChapter': "",
+                                    });
+                                    AppInfo.currentUser.currentChapter = "";
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -211,457 +228,457 @@ class _HomeWidgetState extends State<HomeWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 25, 0, 10),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      'UPDATES',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Google Sans',
-                                            color: const Color(0xFF333333),
-                                            fontSize: 18,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              8, 0, 0, 0),
-                                      child: Container(
-                                        width: 6,
-                                        height: 6,
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xFFD90000),
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: Text(
-                                    'See All',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Google Sans',
-                                          color: const Color(0xFF3B58F4),
-                                          fontSize: 12,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 0, 10),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFEEEFEF),
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(17, 15, 18, 15),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Flexible(
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Container(
-                                                      width: 39,
-                                                      height: 39,
-                                                      child: Stack(
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                1, 1),
-                                                        children: [
-                                                          Align(
-                                                            alignment:
-                                                                const AlignmentDirectional(
-                                                                    0, 0),
-                                                            child: Container(
-                                                              width: 39,
-                                                              height: 39,
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                color: Color(
-                                                                    0xFF3952D3),
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                              child: const Icon(
-                                                                Icons.bolt,
-                                                                color: Colors
-                                                                    .white,
-                                                                size: 24,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                10, 0, 8, 0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                      0,
-                                                                      0,
-                                                                      0,
-                                                                      3),
-                                                              child: RichText(
-                                                                textScaler: MediaQuery.of(
-                                                                        context)
-                                                                    .textScaler,
-                                                                text: TextSpan(
-                                                                  children: const [
-                                                                    TextSpan(
-                                                                      text:
-                                                                          'OPPORTUNITY',
-                                                                      style:
-                                                                          TextStyle(),
-                                                                    )
-                                                                  ],
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Google Sans',
-                                                                        color: const Color(
-                                                                            0xFF3952D3),
-                                                                        fontSize:
-                                                                            12,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        useGoogleFonts:
-                                                                            false,
-                                                                      ),
-                                                                ),
-                                                                maxLines: 1,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              ),
-                                                            ),
-                                                            RichText(
-                                                              textScaler:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .textScaler,
-                                                              text:
-                                                                  const TextSpan(
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Calling all graphic designers!',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Color(
-                                                                          0xFF333333),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      fontSize:
-                                                                          15,
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: Color(
-                                                                      0xFF333333),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                              maxLines: 2,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const Icon(
-                                                Icons.arrow_forward_ios,
-                                                color: Color(0xFFC8C8C8),
-                                                size: 12,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 0, 0, 10),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFEEEFEF),
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(17, 15, 18, 15),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Flexible(
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Container(
-                                                      width: 39,
-                                                      height: 39,
-                                                      child: Stack(
-                                                        alignment:
-                                                            const AlignmentDirectional(
-                                                                1, 1),
-                                                        children: [
-                                                          Container(
-                                                            width: 39,
-                                                            height: 39,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color: Color(
-                                                                  0xFFFF0000),
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                    0, 0, 1, 0),
-                                                            child: Container(
-                                                              width: 14,
-                                                              height: 14,
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                color: Color(
-                                                                    0xFF2D9E6F),
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                              child:
-                                                                  const Align(
-                                                                alignment:
-                                                                    AlignmentDirectional(
-                                                                        0, 0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .chat_bubble_rounded,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  size: 7.5,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                10, 0, 8, 0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                      0,
-                                                                      0,
-                                                                      0,
-                                                                      3),
-                                                              child: RichText(
-                                                                textScaler: MediaQuery.of(
-                                                                        context)
-                                                                    .textScaler,
-                                                                text: TextSpan(
-                                                                  children: const [
-                                                                    TextSpan(
-                                                                      text:
-                                                                          'ANNOUNCEMENT | ',
-                                                                      style:
-                                                                          TextStyle(),
-                                                                    ),
-                                                                    TextSpan(
-                                                                      text:
-                                                                          'FBLA SBLC',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontFamily:
-                                                                            'Google Sans',
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        fontStyle:
-                                                                            FontStyle.italic,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Google Sans',
-                                                                        color: const Color(
-                                                                            0xFF2D9E6F),
-                                                                        fontSize:
-                                                                            12,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        useGoogleFonts:
-                                                                            false,
-                                                                      ),
-                                                                ),
-                                                                maxLines: 1,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              ),
-                                                            ),
-                                                            RichText(
-                                                              textScaler:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .textScaler,
-                                                              text:
-                                                                  const TextSpan(
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Koushik: ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Google Sans',
-                                                                      color: Color(
-                                                                          0xFF333333),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    text:
-                                                                        'Please turn in your NLC forms by tomorrow night!',
-                                                                    style:
-                                                                        TextStyle(),
-                                                                  )
-                                                                ],
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Google Sans',
-                                                                  color: Color(
-                                                                      0xFF333333),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                              maxLines: 2,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const Icon(
-                                                Icons.arrow_forward_ios,
-                                                color: Color(0xFFC8C8C8),
-                                                size: 12,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsetsDirectional.fromSTEB(
+                          //       0, 25, 0, 10),
+                          //   child: Row(
+                          //     mainAxisSize: MainAxisSize.max,
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Row(
+                          //         mainAxisSize: MainAxisSize.max,
+                          //         children: [
+                          //           Text(
+                          //             'UPDATES',
+                          //             style: FlutterFlowTheme.of(context)
+                          //                 .bodyMedium
+                          //                 .override(
+                          //                   fontFamily: 'Google Sans',
+                          //                   color: const Color(0xFF333333),
+                          //                   fontSize: 18,
+                          //                   letterSpacing: 0.0,
+                          //                   fontWeight: FontWeight.bold,
+                          //                   useGoogleFonts: false,
+                          //                 ),
+                          //           ),
+                          //           Padding(
+                          //             padding:
+                          //                 const EdgeInsetsDirectional.fromSTEB(
+                          //                     8, 0, 0, 0),
+                          //             child: Container(
+                          //               width: 6,
+                          //               height: 6,
+                          //               decoration: const BoxDecoration(
+                          //                 color: Color(0xFFD90000),
+                          //                 shape: BoxShape.circle,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       Padding(
+                          //         padding: const EdgeInsetsDirectional.fromSTEB(
+                          //             0, 0, 10, 0),
+                          //         child: Text(
+                          //           'See All',
+                          //           style: FlutterFlowTheme.of(context)
+                          //               .bodyMedium
+                          //               .override(
+                          //                 fontFamily: 'Google Sans',
+                          //                 color: const Color(0xFF3B58F4),
+                          //                 fontSize: 12,
+                          //                 letterSpacing: 0.0,
+                          //                 fontWeight: FontWeight.bold,
+                          //                 useGoogleFonts: false,
+                          //               ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // Column(
+                          //   mainAxisSize: MainAxisSize.max,
+                          //   children: [
+                          //     Padding(
+                          //       padding: const EdgeInsetsDirectional.fromSTEB(
+                          //           0, 0, 0, 10),
+                          //       child: Row(
+                          //         mainAxisSize: MainAxisSize.max,
+                          //         children: [
+                          //           Expanded(
+                          //             child: Container(
+                          //               decoration: BoxDecoration(
+                          //                 color: const Color(0xFFEEEFEF),
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(12),
+                          //               ),
+                          //               child: Padding(
+                          //                 padding: const EdgeInsetsDirectional
+                          //                     .fromSTEB(17, 15, 18, 15),
+                          //                 child: Row(
+                          //                   mainAxisSize: MainAxisSize.max,
+                          //                   mainAxisAlignment:
+                          //                       MainAxisAlignment.spaceBetween,
+                          //                   children: [
+                          //                     Flexible(
+                          //                       child: Row(
+                          //                         mainAxisSize:
+                          //                             MainAxisSize.max,
+                          //                         children: [
+                          //                           Container(
+                          //                             width: 39,
+                          //                             height: 39,
+                          //                             child: Stack(
+                          //                               alignment:
+                          //                                   const AlignmentDirectional(
+                          //                                       1, 1),
+                          //                               children: [
+                          //                                 Align(
+                          //                                   alignment:
+                          //                                       const AlignmentDirectional(
+                          //                                           0, 0),
+                          //                                   child: Container(
+                          //                                     width: 39,
+                          //                                     height: 39,
+                          //                                     decoration:
+                          //                                         const BoxDecoration(
+                          //                                       color: Color(
+                          //                                           0xFF3952D3),
+                          //                                       shape: BoxShape
+                          //                                           .circle,
+                          //                                     ),
+                          //                                     child: const Icon(
+                          //                                       Icons.bolt,
+                          //                                       color: Colors
+                          //                                           .white,
+                          //                                       size: 24,
+                          //                                     ),
+                          //                                   ),
+                          //                                 ),
+                          //                               ],
+                          //                             ),
+                          //                           ),
+                          //                           Expanded(
+                          //                             child: Padding(
+                          //                               padding:
+                          //                                   const EdgeInsetsDirectional
+                          //                                       .fromSTEB(
+                          //                                       10, 0, 8, 0),
+                          //                               child: Column(
+                          //                                 mainAxisSize:
+                          //                                     MainAxisSize.max,
+                          //                                 crossAxisAlignment:
+                          //                                     CrossAxisAlignment
+                          //                                         .start,
+                          //                                 children: [
+                          //                                   Padding(
+                          //                                     padding:
+                          //                                         const EdgeInsetsDirectional
+                          //                                             .fromSTEB(
+                          //                                             0,
+                          //                                             0,
+                          //                                             0,
+                          //                                             3),
+                          //                                     child: RichText(
+                          //                                       textScaler: MediaQuery.of(
+                          //                                               context)
+                          //                                           .textScaler,
+                          //                                       text: TextSpan(
+                          //                                         children: const [
+                          //                                           TextSpan(
+                          //                                             text:
+                          //                                                 'OPPORTUNITY',
+                          //                                             style:
+                          //                                                 TextStyle(),
+                          //                                           )
+                          //                                         ],
+                          //                                         style: FlutterFlowTheme.of(
+                          //                                                 context)
+                          //                                             .bodyMedium
+                          //                                             .override(
+                          //                                               fontFamily:
+                          //                                                   'Google Sans',
+                          //                                               color: const Color(
+                          //                                                   0xFF3952D3),
+                          //                                               fontSize:
+                          //                                                   12,
+                          //                                               letterSpacing:
+                          //                                                   0.0,
+                          //                                               fontWeight:
+                          //                                                   FontWeight.bold,
+                          //                                               useGoogleFonts:
+                          //                                                   false,
+                          //                                             ),
+                          //                                       ),
+                          //                                       maxLines: 1,
+                          //                                       overflow:
+                          //                                           TextOverflow
+                          //                                               .ellipsis,
+                          //                                     ),
+                          //                                   ),
+                          //                                   RichText(
+                          //                                     textScaler:
+                          //                                         MediaQuery.of(
+                          //                                                 context)
+                          //                                             .textScaler,
+                          //                                     text:
+                          //                                         const TextSpan(
+                          //                                       children: [
+                          //                                         TextSpan(
+                          //                                           text:
+                          //                                               'Calling all graphic designers!',
+                          //                                           style:
+                          //                                               TextStyle(
+                          //                                             color: Color(
+                          //                                                 0xFF333333),
+                          //                                             fontWeight:
+                          //                                                 FontWeight
+                          //                                                     .w500,
+                          //                                             fontSize:
+                          //                                                 15,
+                          //                                           ),
+                          //                                         )
+                          //                                       ],
+                          //                                       style:
+                          //                                           TextStyle(
+                          //                                         fontFamily:
+                          //                                             'Google Sans',
+                          //                                         color: Color(
+                          //                                             0xFF333333),
+                          //                                         fontWeight:
+                          //                                             FontWeight
+                          //                                                 .w500,
+                          //                                         fontSize: 14,
+                          //                                       ),
+                          //                                     ),
+                          //                                     maxLines: 2,
+                          //                                   ),
+                          //                                 ],
+                          //                               ),
+                          //                             ),
+                          //                           ),
+                          //                         ],
+                          //                       ),
+                          //                     ),
+                          //                     const Icon(
+                          //                       Icons.arrow_forward_ios,
+                          //                       color: Color(0xFFC8C8C8),
+                          //                       size: 12,
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     Padding(
+                          //       padding: const EdgeInsetsDirectional.fromSTEB(
+                          //           0, 0, 0, 10),
+                          //       child: Row(
+                          //         mainAxisSize: MainAxisSize.max,
+                          //         children: [
+                          //           Expanded(
+                          //             child: Container(
+                          //               decoration: BoxDecoration(
+                          //                 color: const Color(0xFFEEEFEF),
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(12),
+                          //               ),
+                          //               child: Padding(
+                          //                 padding: const EdgeInsetsDirectional
+                          //                     .fromSTEB(17, 15, 18, 15),
+                          //                 child: Row(
+                          //                   mainAxisSize: MainAxisSize.max,
+                          //                   mainAxisAlignment:
+                          //                       MainAxisAlignment.spaceBetween,
+                          //                   children: [
+                          //                     Flexible(
+                          //                       child: Row(
+                          //                         mainAxisSize:
+                          //                             MainAxisSize.max,
+                          //                         children: [
+                          //                           Container(
+                          //                             width: 39,
+                          //                             height: 39,
+                          //                             child: Stack(
+                          //                               alignment:
+                          //                                   const AlignmentDirectional(
+                          //                                       1, 1),
+                          //                               children: [
+                          //                                 Container(
+                          //                                   width: 39,
+                          //                                   height: 39,
+                          //                                   decoration:
+                          //                                       const BoxDecoration(
+                          //                                     color: Color(
+                          //                                         0xFFFF0000),
+                          //                                     shape: BoxShape
+                          //                                         .circle,
+                          //                                   ),
+                          //                                 ),
+                          //                                 Padding(
+                          //                                   padding:
+                          //                                       const EdgeInsetsDirectional
+                          //                                           .fromSTEB(
+                          //                                           0, 0, 1, 0),
+                          //                                   child: Container(
+                          //                                     width: 14,
+                          //                                     height: 14,
+                          //                                     decoration:
+                          //                                         const BoxDecoration(
+                          //                                       color: Color(
+                          //                                           0xFF2D9E6F),
+                          //                                       shape: BoxShape
+                          //                                           .circle,
+                          //                                     ),
+                          //                                     child:
+                          //                                         const Align(
+                          //                                       alignment:
+                          //                                           AlignmentDirectional(
+                          //                                               0, 0),
+                          //                                       child: Icon(
+                          //                                         Icons
+                          //                                             .chat_bubble_rounded,
+                          //                                         color: Colors
+                          //                                             .white,
+                          //                                         size: 7.5,
+                          //                                       ),
+                          //                                     ),
+                          //                                   ),
+                          //                                 ),
+                          //                               ],
+                          //                             ),
+                          //                           ),
+                          //                           Expanded(
+                          //                             child: Padding(
+                          //                               padding:
+                          //                                   const EdgeInsetsDirectional
+                          //                                       .fromSTEB(
+                          //                                       10, 0, 8, 0),
+                          //                               child: Column(
+                          //                                 mainAxisSize:
+                          //                                     MainAxisSize.max,
+                          //                                 crossAxisAlignment:
+                          //                                     CrossAxisAlignment
+                          //                                         .start,
+                          //                                 children: [
+                          //                                   Padding(
+                          //                                     padding:
+                          //                                         const EdgeInsetsDirectional
+                          //                                             .fromSTEB(
+                          //                                             0,
+                          //                                             0,
+                          //                                             0,
+                          //                                             3),
+                          //                                     child: RichText(
+                          //                                       textScaler: MediaQuery.of(
+                          //                                               context)
+                          //                                           .textScaler,
+                          //                                       text: TextSpan(
+                          //                                         children: const [
+                          //                                           TextSpan(
+                          //                                             text:
+                          //                                                 'ANNOUNCEMENT | ',
+                          //                                             style:
+                          //                                                 TextStyle(),
+                          //                                           ),
+                          //                                           TextSpan(
+                          //                                             text:
+                          //                                                 'FBLA SBLC',
+                          //                                             style:
+                          //                                                 TextStyle(
+                          //                                               fontFamily:
+                          //                                                   'Google Sans',
+                          //                                               fontWeight:
+                          //                                                   FontWeight.w500,
+                          //                                               fontStyle:
+                          //                                                   FontStyle.italic,
+                          //                                             ),
+                          //                                           )
+                          //                                         ],
+                          //                                         style: FlutterFlowTheme.of(
+                          //                                                 context)
+                          //                                             .bodyMedium
+                          //                                             .override(
+                          //                                               fontFamily:
+                          //                                                   'Google Sans',
+                          //                                               color: const Color(
+                          //                                                   0xFF2D9E6F),
+                          //                                               fontSize:
+                          //                                                   12,
+                          //                                               letterSpacing:
+                          //                                                   0.0,
+                          //                                               fontWeight:
+                          //                                                   FontWeight.bold,
+                          //                                               useGoogleFonts:
+                          //                                                   false,
+                          //                                             ),
+                          //                                       ),
+                          //                                       maxLines: 1,
+                          //                                       overflow:
+                          //                                           TextOverflow
+                          //                                               .ellipsis,
+                          //                                     ),
+                          //                                   ),
+                          //                                   RichText(
+                          //                                     textScaler:
+                          //                                         MediaQuery.of(
+                          //                                                 context)
+                          //                                             .textScaler,
+                          //                                     text:
+                          //                                         const TextSpan(
+                          //                                       children: [
+                          //                                         TextSpan(
+                          //                                           text:
+                          //                                               'Koushik: ',
+                          //                                           style:
+                          //                                               TextStyle(
+                          //                                             fontFamily:
+                          //                                                 'Google Sans',
+                          //                                             color: Color(
+                          //                                                 0xFF333333),
+                          //                                             fontWeight:
+                          //                                                 FontWeight
+                          //                                                     .bold,
+                          //                                             fontSize:
+                          //                                                 14,
+                          //                                           ),
+                          //                                         ),
+                          //                                         TextSpan(
+                          //                                           text:
+                          //                                               'Please turn in your NLC forms by tomorrow night!',
+                          //                                           style:
+                          //                                               TextStyle(),
+                          //                                         )
+                          //                                       ],
+                          //                                       style:
+                          //                                           TextStyle(
+                          //                                         fontFamily:
+                          //                                             'Google Sans',
+                          //                                         color: Color(
+                          //                                             0xFF333333),
+                          //                                         fontWeight:
+                          //                                             FontWeight
+                          //                                                 .w500,
+                          //                                         fontSize: 14,
+                          //                                       ),
+                          //                                     ),
+                          //                                     maxLines: 2,
+                          //                                   ),
+                          //                                 ],
+                          //                               ),
+                          //                             ),
+                          //                           ),
+                          //                         ],
+                          //                       ),
+                          //                     ),
+                          //                     const Icon(
+                          //                       Icons.arrow_forward_ios,
+                          //                       color: Color(0xFFC8C8C8),
+                          //                       size: 12,
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 25, 0, 0),
@@ -713,8 +730,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       0, 0, 15, 0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      color: Colors.transparent,
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,

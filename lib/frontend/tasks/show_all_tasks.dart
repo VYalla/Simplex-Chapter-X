@@ -61,12 +61,27 @@ class ShowAllTasksWidget extends StatelessWidget {
       padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TaskLandingPageWidget(
-              task: task,
-              chapterId: chapterId,
-            ),
-          ));
+          showModalBottomSheet(
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0)),
+              ),
+              backgroundColor: const Color(0xFFF5F6F7),
+              context: context,
+              builder: (context) {
+                return TaskLandingPageWidget(
+                  task: task,
+                  chapterId: chapterId,
+                );
+              });
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (context) => TaskLandingPageWidget(
+          //     task: task,
+          //     chapterId: chapterId,
+          //   ),
+          // ));
         },
         child: Container(
           decoration: BoxDecoration(

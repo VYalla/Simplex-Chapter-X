@@ -13,11 +13,8 @@ class ShowEvents extends StatefulWidget {
   DateTime startDate;
   DateTime endDate;
 
-  ShowEvents({
-    required this.startDate,
-    required this.endDate,
-    Key? key
-  }) : super(key: key);
+  ShowEvents({required this.startDate, required this.endDate, Key? key})
+      : super(key: key);
 
   @override
   _ShowEventsState createState() => _ShowEventsState();
@@ -45,21 +42,26 @@ class _ShowEventsState extends State<ShowEvents> {
     }
   }
 
-  bool dateRangesOverlap(DateTime startDate1, DateTime endDate1, DateTime startDate2, DateTime endDate2) {
+  bool dateRangesOverlap(DateTime startDate1, DateTime endDate1,
+      DateTime startDate2, DateTime endDate2) {
     bool overlap = false;
 
-    if (startDate1.compareTo(startDate2) >= 0 && startDate1.compareTo(endDate2) <= 0) {
+    if (startDate1.compareTo(startDate2) >= 0 &&
+        startDate1.compareTo(endDate2) <= 0) {
       overlap = true;
-    } else if (endDate1.compareTo(startDate2) >= 0 && endDate1.compareTo(endDate2) <= 0) {
+    } else if (endDate1.compareTo(startDate2) >= 0 &&
+        endDate1.compareTo(endDate2) <= 0) {
       overlap = true;
-    } else if (startDate1.compareTo(startDate2) <= 0 && endDate1.compareTo(endDate2) >= 0) {
+    } else if (startDate1.compareTo(startDate2) <= 0 &&
+        endDate1.compareTo(endDate2) >= 0) {
       overlap = true;
     }
 
     return overlap;
   }
 
-  List<EventModel> _filterEvents(List<EventModel> allEvents, DateTime startDate, DateTime endDate) {
+  List<EventModel> _filterEvents(
+      List<EventModel> allEvents, DateTime startDate, DateTime endDate) {
     final currentUserId = FirebaseAuth.instance.currentUser?.uid;
     final now = DateTime.now();
 
@@ -68,13 +70,14 @@ class _ShowEventsState extends State<ShowEvents> {
 
     // Filter events by range
     final filteredEvents = allEvents
-        .where((event) => dateRangesOverlap(event.startDate, event.endDate, startDate, endDate))
+        .where((event) => dateRangesOverlap(
+            event.startDate, event.endDate, startDate, endDate))
         .toList();
 
     // if (filteredEvents.length >= 2) {
     //   // Return the three soonest events
     //   return filteredEvents.take(3).toList();
-    // } else 
+    // } else
     if (filteredEvents.isNotEmpty) {
       // Return all events in that range
       return filteredEvents;
@@ -105,51 +108,20 @@ class _ShowEventsState extends State<ShowEvents> {
         }
 
         final docs = snapshot.data!.docs;
-        
+
         final allEvents = (docs as List<dynamic>?)
-                ?.where((event) => (event.data() as Map<String, dynamic>).containsKey("name"))
+                ?.where((event) =>
+                    (event.data() as Map<String, dynamic>).containsKey("name"))
                 .map((event) => EventModel.fromDocumentSnapshot(event))
                 .toList() ??
             [];
 
-        final eventsToDisplay = _filterEvents(allEvents, widget.startDate, widget.endDate);
+        final eventsToDisplay =
+            _filterEvents(allEvents, widget.startDate, widget.endDate);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'EVENTS',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Google Sans',
-                            color: const Color(0xFF333333),
-                            fontSize: 18,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                    if (eventsToDisplay.isNotEmpty)
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                        child: Container(
-                          width: 6,
-                          height: 6,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFD90000),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ],
-            ),
             const SizedBox(height: 10),
             eventsToDisplay.isEmpty
                 ? const Center(child: Text('No events available'))
@@ -267,18 +239,19 @@ class _ShowEventsState extends State<ShowEvents> {
                                 child: Text(
                                   '${_formatTime(event.startDate, event.endDate)}',
                                   style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Google Sans',
-                                    // TODO color changes?
-                                    color: true
-                                        ? const Color.fromARGB(255, 21, 0, 138)
-                                        : const Color(0xFF666666),
-                                    fontSize: 12,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                    useGoogleFonts: false,
-                                  ),
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Google Sans',
+                                        // TODO color changes?
+                                        color: true
+                                            ? const Color.fromARGB(
+                                                255, 21, 0, 138)
+                                            : const Color(0xFF666666),
+                                        fontSize: 12,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                        useGoogleFonts: false,
+                                      ),
                                 ),
                               ),
                             ],
@@ -290,13 +263,9 @@ class _ShowEventsState extends State<ShowEvents> {
                 ),
                 Text(
                   _formatDate(event.startDate),
-                  style: FlutterFlowTheme.of(
-                          context)
-                      .bodyMedium
-                      .override(
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Google Sans',
-                        color:
-                            const Color.fromARGB(255, 107, 107, 107),
+                        color: const Color.fromARGB(255, 107, 107, 107),
                         fontSize: 20,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,

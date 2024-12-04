@@ -111,13 +111,18 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                           children: [
                             // REPLACE WITH SIMPLEX CHAPTER LOGO
                             Container(
-                              width: 19,
-                              height: 19,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFFF0000),
+                              width: 24,
+                              height: 24,
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
+                              child: Image.asset(
+                                'assets/images/appicon.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
+
                             const Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),

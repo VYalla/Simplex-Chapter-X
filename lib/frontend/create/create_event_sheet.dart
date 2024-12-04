@@ -6,7 +6,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
 
-import '../nav/create_sheet.dart';
+import 'create_sheet.dart';
 
 class CreateEventWidget extends StatefulWidget {
   const CreateEventWidget({super.key});
@@ -28,7 +28,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
   TimeOfDay _startTime = TimeOfDay.now();
   DateTime _endDate = DateTime.now().add(Duration(hours: 1));
   TimeOfDay _endTime =
-  TimeOfDay.now().replacing(hour: (TimeOfDay.now().hour + 1) % 24);
+      TimeOfDay.now().replacing(hour: (TimeOfDay.now().hour + 1) % 24);
   final Color _blueColor = Color(0xFF3B58F4);
 
   @override
@@ -238,16 +238,16 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             decoration: InputDecoration(
                                               isDense: true,
                                               hintText: 'Event Type',
-                                              hintStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Google Sans',
-                                                        color: Color(0x7F999999),
-                                                        fontSize: 15,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
+                                              hintStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Google Sans',
+                                                    color: Color(0x7F999999),
+                                                    fontSize: 15,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
+                                                  ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0x00000000),
@@ -266,9 +266,9 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color:
-                                                      FlutterFlowTheme.of(context)
-                                                          .error,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
                                                   width: 1,
                                                 ),
                                                 borderRadius:
@@ -277,9 +277,9 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color:
-                                                      FlutterFlowTheme.of(context)
-                                                          .error,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
                                                   width: 1,
                                                 ),
                                                 borderRadius:
@@ -570,11 +570,9 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                           builder: (BuildContext context,
                                               Widget? child) {
                                             return Theme(
-                                              data:
-                                                  ThemeData.light().copyWith(
-                                                colorScheme:
-                                                    ColorScheme.light(
-                                                        primary: _blueColor),
+                                              data: ThemeData.light().copyWith(
+                                                colorScheme: ColorScheme.light(
+                                                    primary: _blueColor),
                                               ),
                                               child: child!,
                                             );
@@ -597,12 +595,11 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             builder: (BuildContext context,
                                                 Widget? child) {
                                               return Theme(
-                                                data: ThemeData.light()
-                                                    .copyWith(
+                                                data:
+                                                    ThemeData.light().copyWith(
                                                   colorScheme:
                                                       ColorScheme.light(
-                                                          primary:
-                                                              _blueColor),
+                                                          primary: _blueColor),
                                                   timePickerTheme:
                                                       TimePickerThemeData(
                                                           dayPeriodColor:
@@ -675,11 +672,9 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                           builder: (BuildContext context,
                                               Widget? child) {
                                             return Theme(
-                                              data:
-                                                  ThemeData.light().copyWith(
-                                                colorScheme:
-                                                    ColorScheme.light(
-                                                        primary: _blueColor),
+                                              data: ThemeData.light().copyWith(
+                                                colorScheme: ColorScheme.light(
+                                                    primary: _blueColor),
                                               ),
                                               child: child!,
                                             );
@@ -702,12 +697,11 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             builder: (BuildContext context,
                                                 Widget? child) {
                                               return Theme(
-                                                data: ThemeData.light()
-                                                    .copyWith(
+                                                data:
+                                                    ThemeData.light().copyWith(
                                                   colorScheme:
                                                       ColorScheme.light(
-                                                          primary:
-                                                              _blueColor),
+                                                          primary: _blueColor),
                                                   timePickerTheme:
                                                       TimePickerThemeData(
                                                           dayPeriodColor:
@@ -760,17 +754,15 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
   }
 
   void _submitForm() async {
-    DateTime startDateTime = DateTime(_startDate.year,
-      _startDate.month,
-      _startDate.day,
-      _isAllDay ? 0 : _startTime.hour,
-      _isAllDay ? 0 : _startTime.minute);
-    DateTime endDateTime = DateTime(_endDate.year,
-      _endDate.month,
-      _endDate.day,
-      _isAllDay ? 0 : _endTime.hour,
-      _isAllDay ? 1 : _endTime.minute);
-    
+    DateTime startDateTime = DateTime(
+        _startDate.year,
+        _startDate.month,
+        _startDate.day,
+        _isAllDay ? 0 : _startTime.hour,
+        _isAllDay ? 0 : _startTime.minute);
+    DateTime endDateTime = DateTime(_endDate.year, _endDate.month, _endDate.day,
+        _isAllDay ? 0 : _endTime.hour, _isAllDay ? 1 : _endTime.minute);
+
     if (name.text.isEmpty || desc.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please fill in name and description')),
@@ -786,17 +778,17 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
     }
 
     EventModel event = EventModel(
-      id: "",
-      name: name.text,
-      description: desc.text,
-      startDate: startDateTime,
-      endDate: endDateTime,
-      qrCode: "",
-      location: loc.text,
-      usersAttended: [],
-      image: "",
-      allDay: _isAllDay,
-      eventType: type.text);
+        id: "",
+        name: name.text,
+        description: desc.text,
+        startDate: startDateTime,
+        endDate: endDateTime,
+        qrCode: "",
+        location: loc.text,
+        usersAttended: [],
+        image: "",
+        allDay: _isAllDay,
+        eventType: type.text);
 
     try {
       EventModel.createEvent(event);

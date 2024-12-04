@@ -6,7 +6,8 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:simplex_chapter_x/frontend/chats/chats_page.dart';
 import 'package:simplex_chapter_x/frontend/gallery/gallery_page.dart';
 import 'package:simplex_chapter_x/frontend/home/home_page.dart';
-import 'package:simplex_chapter_x/frontend/nav/create_sheet.dart';
+import 'package:simplex_chapter_x/frontend/create/create_sheet.dart';
+import 'package:simplex_chapter_x/frontend/settings/settings_page.dart';
 
 import '../../app_info.dart';
 
@@ -51,7 +52,7 @@ class _NavigationState extends State<Navigation> {
       const HomeWidget(),
       const ChatsWidget(),
       const GalleryPage(),
-      Container(),
+      const SettingsPage(),
     ];
 
     double iconSize = 28;

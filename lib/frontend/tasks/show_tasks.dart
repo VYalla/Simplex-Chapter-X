@@ -103,7 +103,7 @@ class _ShowTasksState extends State<ShowTasks> {
                 Row(
                   children: [
                     Text(
-                      'TASKS',
+                      'DASHBOARD',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Google Sans',
                             color: const Color(0xFF333333),
@@ -183,10 +183,10 @@ class _ShowTasksState extends State<ShowTasks> {
           //   ),
           // ));
           showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (context) => TaskLandingPageWidget(task: task, chapterId: _currentChapter!)
-          );
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => TaskLandingPageWidget(
+                  task: task, chapterId: _currentChapter!));
         },
         child: Container(
           decoration: BoxDecoration(

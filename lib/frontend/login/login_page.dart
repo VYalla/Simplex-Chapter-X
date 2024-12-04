@@ -132,8 +132,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     borderRadius: BorderRadius.circular(0),
                                     child: Image.asset(
                                       // REPLACE WITH SIELIFY CHAPTER LOGO
-                                      'assets/images/fbla_logo.png',
-                                      height: 22,
+                                      'assets/images/appicon_trans.png',
+                                      height: 40,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -427,7 +427,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               //   (route) =>
                                               //       false, // This condition removes all previous routes
                                               // );
-                                              print("-------------------------------------------\n" + "Erorr: " + e.toString());
+                                              print(
+                                                  "-------------------------------------------\n" +
+                                                      "Erorr: " +
+                                                      e.toString());
                                               Fluttertoast.showToast(
                                                 msg: "Error",
                                                 toastLength: Toast.LENGTH_SHORT,

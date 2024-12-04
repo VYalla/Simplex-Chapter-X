@@ -152,130 +152,130 @@ class _GalleryPageState extends State<GalleryPage> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.905,
-                            height: 130,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.905,
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: Image.asset(
-                                          'assets/images/calendarbg.png',
-                                        ).image,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 3,
-                                          color: Color(0x16000000),
-                                          offset: Offset(
-                                            0,
-                                            3,
-                                          ),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: Color(0xFF4C3339),
-                                        width: 1.5,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.905,
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color(0x004C3339),
-                                          Color(0xFF685037)
-                                        ],
-                                        stops: [0, 1],
-                                        begin: AlignmentDirectional(0, -1),
-                                        end: AlignmentDirectional(0, 1),
-                                      ),
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        width: 0,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          22, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Calendar',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: Colors.white,
-                                                          fontSize: 28,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 20),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Keep track of all upcoming events.',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Google Sans',
-                                                        color:
-                                                            Color(0xCDFFDDBD),
-                                                        fontSize: 15,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                        //   child: Container(
+                        //     width: MediaQuery.sizeOf(context).width * 0.905,
+                        //     height: 130,
+                        //     child: Stack(
+                        //       children: [
+                        //         Align(
+                        //           alignment: AlignmentDirectional(0, 0),
+                        //           child: Container(
+                        //             width: MediaQuery.sizeOf(context).width *
+                        //                 0.905,
+                        //             height: 130,
+                        //             decoration: BoxDecoration(
+                        //               color: FlutterFlowTheme.of(context)
+                        //                   .secondaryBackground,
+                        //               image: DecorationImage(
+                        //                 fit: BoxFit.cover,
+                        //                 image: Image.asset(
+                        //                   'assets/images/calendarbg.png',
+                        //                 ).image,
+                        //               ),
+                        //               boxShadow: [
+                        //                 BoxShadow(
+                        //                   blurRadius: 3,
+                        //                   color: Color(0x16000000),
+                        //                   offset: Offset(
+                        //                     0,
+                        //                     3,
+                        //                   ),
+                        //                 )
+                        //               ],
+                        //               borderRadius: BorderRadius.circular(12),
+                        //               border: Border.all(
+                        //                 color: Color(0xFF4C3339),
+                        //                 width: 1.5,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         Align(
+                        //           alignment: AlignmentDirectional(0, 0),
+                        //           child: Container(
+                        //             width: MediaQuery.sizeOf(context).width *
+                        //                 0.905,
+                        //             height: 130,
+                        //             decoration: BoxDecoration(
+                        //               gradient: LinearGradient(
+                        //                 colors: [
+                        //                   Color(0x004C3339),
+                        //                   Color(0xFF685037)
+                        //                 ],
+                        //                 stops: [0, 1],
+                        //                 begin: AlignmentDirectional(0, -1),
+                        //                 end: AlignmentDirectional(0, 1),
+                        //               ),
+                        //               borderRadius: BorderRadius.circular(12),
+                        //               border: Border.all(
+                        //                 width: 0,
+                        //               ),
+                        //             ),
+                        //             child: Padding(
+                        //               padding: EdgeInsetsDirectional.fromSTEB(
+                        //                   22, 0, 0, 0),
+                        //               child: Column(
+                        //                 mainAxisSize: MainAxisSize.max,
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.end,
+                        //                 children: [
+                        //                   Row(
+                        //                     mainAxisSize: MainAxisSize.max,
+                        //                     children: [
+                        //                       Text(
+                        //                         'Calendar',
+                        //                         style:
+                        //                             FlutterFlowTheme.of(context)
+                        //                                 .bodyMedium
+                        //                                 .override(
+                        //                                   fontFamily:
+                        //                                       'Google Sans',
+                        //                                   color: Colors.white,
+                        //                                   fontSize: 28,
+                        //                                   letterSpacing: 0.0,
+                        //                                   fontWeight:
+                        //                                       FontWeight.bold,
+                        //                                   useGoogleFonts: false,
+                        //                                 ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                   Padding(
+                        //                     padding:
+                        //                         EdgeInsetsDirectional.fromSTEB(
+                        //                             0, 5, 0, 20),
+                        //                     child: Row(
+                        //                       mainAxisSize: MainAxisSize.max,
+                        //                       children: [
+                        //                         Text(
+                        //                           'Keep track of all upcoming events.',
+                        //                           style: FlutterFlowTheme.of(
+                        //                                   context)
+                        //                               .bodyMedium
+                        //                               .override(
+                        //                                 fontFamily:
+                        //                                     'Google Sans',
+                        //                                 color:
+                        //                                     Color(0xCDFFDDBD),
+                        //                                 fontSize: 15,
+                        //                                 letterSpacing: 0.0,
+                        //                                 useGoogleFonts: false,
+                        //                               ),
+                        //                         ),
+                        //                       ],
+                        //                     ),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                           child: Container(
@@ -459,7 +459,7 @@ class _GalleryPageState extends State<GalleryPage> {
                             },
                             child: Container(
                               width: MediaQuery.sizeOf(context).width * 0.905,
-                              height: 163,
+                              height: 130,
                               child: Stack(
                                 children: [
                                   Align(
@@ -500,7 +500,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
-                                      height: 163,
+                                      height: 130,
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
                                           colors: [
@@ -518,7 +518,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                       ),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 43),
+                                            22, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -574,214 +574,135 @@ class _GalleryPageState extends State<GalleryPage> {
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0, 1),
-                                    child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.905,
-                                      height: 44,
-                                      decoration: BoxDecoration(
-                                        color: Color(0x34FFFFFF),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(12),
-                                          bottomRight: Radius.circular(12),
-                                          topLeft: Radius.circular(0),
-                                          topRight: Radius.circular(0),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Container(
-                                              width: 80,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFFFE7EC),
-                                                borderRadius:
-                                                    BorderRadius.circular(36),
-                                              ),
-                                              child: Align(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
-                                                child: Text(
-                                                  'NEWEST PACKET',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Google Sans',
-                                                        color:
-                                                            Color(0xFF4D343A),
-                                                        fontSize: 8,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(12, 0, 0, 0),
-                                                child: Text(
-                                                  'Economics Study Guide',
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Google Sans',
-                                                        color: Colors.white,
-                                                        fontSize: 13,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.905,
-                            height: 130,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.905,
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: Image.asset(
-                                          'assets/images/QuicklinksBG.png',
-                                        ).image,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 3,
-                                          color: Color(0x16000000),
-                                          offset: Offset(
-                                            0,
-                                            3,
-                                          ),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: Color(0xFF021633),
-                                        width: 1.5,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0, 0),
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.905,
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color(0x004C3339),
-                                          Color(0xE9021633)
-                                        ],
-                                        stops: [0, 1],
-                                        begin: AlignmentDirectional(0, -1),
-                                        end: AlignmentDirectional(0, 1),
-                                      ),
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        width: 0,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          22, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Quicklinks',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: Colors.white,
-                                                          fontSize: 28,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 20),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Explore external links for information!',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Google Sans',
-                                                        color:
-                                                            Color(0xFFABCCE4),
-                                                        fontSize: 15,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                        //   child: Container(
+                        //     width: MediaQuery.sizeOf(context).width * 0.905,
+                        //     height: 130,
+                        //     child: Stack(
+                        //       children: [
+                        //         Align(
+                        //           alignment: AlignmentDirectional(0, 0),
+                        //           child: Container(
+                        //             width: MediaQuery.sizeOf(context).width *
+                        //                 0.905,
+                        //             height: 130,
+                        //             decoration: BoxDecoration(
+                        //               color: FlutterFlowTheme.of(context)
+                        //                   .secondaryBackground,
+                        //               image: DecorationImage(
+                        //                 fit: BoxFit.cover,
+                        //                 image: Image.asset(
+                        //                   'assets/images/QuicklinksBG.png',
+                        //                 ).image,
+                        //               ),
+                        //               boxShadow: [
+                        //                 BoxShadow(
+                        //                   blurRadius: 3,
+                        //                   color: Color(0x16000000),
+                        //                   offset: Offset(
+                        //                     0,
+                        //                     3,
+                        //                   ),
+                        //                 )
+                        //               ],
+                        //               borderRadius: BorderRadius.circular(12),
+                        //               border: Border.all(
+                        //                 color: Color(0xFF021633),
+                        //                 width: 1.5,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         Align(
+                        //           alignment: AlignmentDirectional(0, 0),
+                        //           child: Container(
+                        //             width: MediaQuery.sizeOf(context).width *
+                        //                 0.905,
+                        //             height: 130,
+                        //             decoration: BoxDecoration(
+                        //               gradient: LinearGradient(
+                        //                 colors: [
+                        //                   Color(0x004C3339),
+                        //                   Color(0xE9021633)
+                        //                 ],
+                        //                 stops: [0, 1],
+                        //                 begin: AlignmentDirectional(0, -1),
+                        //                 end: AlignmentDirectional(0, 1),
+                        //               ),
+                        //               borderRadius: BorderRadius.circular(12),
+                        //               border: Border.all(
+                        //                 width: 0,
+                        //               ),
+                        //             ),
+                        //             child: Padding(
+                        //               padding: EdgeInsetsDirectional.fromSTEB(
+                        //                   22, 0, 0, 0),
+                        //               child: Column(
+                        //                 mainAxisSize: MainAxisSize.max,
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.end,
+                        //                 children: [
+                        //                   Row(
+                        //                     mainAxisSize: MainAxisSize.max,
+                        //                     children: [
+                        //                       Text(
+                        //                         'Quicklinks',
+                        //                         style:
+                        //                             FlutterFlowTheme.of(context)
+                        //                                 .bodyMedium
+                        //                                 .override(
+                        //                                   fontFamily:
+                        //                                       'Google Sans',
+                        //                                   color: Colors.white,
+                        //                                   fontSize: 28,
+                        //                                   letterSpacing: 0.0,
+                        //                                   fontWeight:
+                        //                                       FontWeight.bold,
+                        //                                   useGoogleFonts: false,
+                        //                                 ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                   Padding(
+                        //                     padding:
+                        //                         EdgeInsetsDirectional.fromSTEB(
+                        //                             0, 5, 0, 20),
+                        //                     child: Row(
+                        //                       mainAxisSize: MainAxisSize.max,
+                        //                       children: [
+                        //                         Text(
+                        //                           'Explore external links for information!',
+                        //                           style: FlutterFlowTheme.of(
+                        //                                   context)
+                        //                               .bodyMedium
+                        //                               .override(
+                        //                                 fontFamily:
+                        //                                     'Google Sans',
+                        //                                 color:
+                        //                                     Color(0xFFABCCE4),
+                        //                                 fontSize: 15,
+                        //                                 letterSpacing: 0.0,
+                        //                                 useGoogleFonts: false,
+                        //                               ),
+                        //                         ),
+                        //                       ],
+                        //                     ),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     Padding(
@@ -853,6 +774,7 @@ class _GalleryPageState extends State<GalleryPage> {
                   ],
                 ),
               ),
+              SizedBox(height: 120),
             ],
           ),
         ),

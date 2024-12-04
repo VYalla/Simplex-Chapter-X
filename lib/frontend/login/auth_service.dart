@@ -7,6 +7,9 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
+import '../../app_info.dart';
+import '../../backend/models.dart';
+
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -18,13 +21,31 @@ class AuthService {
   );
 
   Future<void> _addUserToFirestore(User user) async {
-    await _firestore.collection('users').doc(user.uid).set({
-      'email': user.email,
-      'name': user.displayName,
-      'profilePic': user.photoURL,
-      'createdAt': FieldValue.serverTimestamp(),
-      'chapters': [],
-    });
+    // await _firestore.collection('users').doc(user.uid).set({
+    //   'email': user.email,
+    //   'name': user.displayName,
+    //   'profilePic': user.photoURL,
+    //   'createdAt': FieldValue.serverTimestamp(),
+    //   'chapters': [],
+    // });
+
+    UserModel user2 = UserModel(
+        id: user.uid,
+        email: user.email!,
+        profilePic: "",
+        name: user.displayName!,
+        pastEvents: [],
+        compEvents: [],
+        grade: 12,
+        isExec: false,
+        approved: true,
+        openedAppSinceApproved: false,
+        chapters: [],
+        currentChapter: "",
+        topicsSubscribed: []);
+
+    UserModel.writeUser(user2);
+    AppInfo.currentUser = user2;
   }
 
   Future<UserCredential?> signInWithGoogle() async {

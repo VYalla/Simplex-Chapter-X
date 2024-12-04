@@ -204,7 +204,8 @@ class ChatsCard extends StatelessWidget {
                                                         !AppInfo.currentUser
                                                             .topicsSubscribed
                                                             .contains(a.id)
-                                                    ? Color(0x80ffffff)
+                                                    ? Color.fromARGB(
+                                                        207, 255, 255, 255)
                                                     : Colors.white,
                                                 fontSize: 15,
                                                 letterSpacing: 0.0,

@@ -1,4 +1,4 @@
-package com.example.simplex_chapter_x
+package com.wesimplex.simplex
 
 import io.flutter.embedding.android.FlutterActivity
 

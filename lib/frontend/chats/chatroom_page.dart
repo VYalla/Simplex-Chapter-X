@@ -445,27 +445,27 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              if (AppInfo.currentUser.topicsSubscribed
-                                  .contains(a.id)) {
-                                AppInfo.currentUser.removeSubscribedTopic(a.id);
-                                a.unsubscribeNotif();
-                              } else {
-                                AppInfo.currentUser.addSubscribedTopic(a.id);
-                                a.subscribeNotif();
-                              }
-                              setState(() {});
-                            },
-                            child: Icon(
-                              AppInfo.currentUser.topicsSubscribed
-                                      .contains(a.id)
-                                  ? Icons.notifications_rounded
-                                  : Icons.notifications_off_rounded,
-                              color: Color(0xafffffff),
-                              size: 37,
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     if (AppInfo.currentUser.topicsSubscribed
+                          //         .contains(a.id)) {
+                          //       AppInfo.currentUser.removeSubscribedTopic(a.id);
+                          //       a.unsubscribeNotif();
+                          //     } else {
+                          //       AppInfo.currentUser.addSubscribedTopic(a.id);
+                          //       a.subscribeNotif();
+                          //     }
+                          //     setState(() {});
+                          //   },
+                          //   child: Icon(
+                          //     AppInfo.currentUser.topicsSubscribed
+                          //             .contains(a.id)
+                          //         ? Icons.notifications_rounded
+                          //         : Icons.notifications_off_rounded,
+                          //     color: Color(0xafffffff),
+                          //     size: 37,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

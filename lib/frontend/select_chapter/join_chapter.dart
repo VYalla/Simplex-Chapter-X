@@ -198,29 +198,29 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CreateChapterPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(50, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
-                    child: const Text(
-                      'Create a Chapter Instead',
-                      style: TextStyle(
-                        fontFamily: 'Google Sans',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     Navigator.pushReplacement(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => const CreateChapterPage()),
+                  //     );
+                  //   },
+                  //   style: ElevatedButton.styleFrom(
+                  //     minimumSize: const Size(50, 50),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(25),
+                  //     ),
+                  //   ),
+                  //   child: const Text(
+                  //     'Create a Chapter Instead',
+                  //     style: TextStyle(
+                  //       fontFamily: 'Google Sans',
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.w500,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

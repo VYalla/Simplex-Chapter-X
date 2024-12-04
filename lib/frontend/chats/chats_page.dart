@@ -222,7 +222,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                       'Subscribed',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Google Sans',
-                            color: FlutterFlowTheme.of(context).alternate,
+                            color: Color(0xFF999999),
                             fontSize: 18,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
@@ -285,7 +285,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                         'Unsubscribed',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: Color(0xFF999999),
                               fontSize: 18,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,

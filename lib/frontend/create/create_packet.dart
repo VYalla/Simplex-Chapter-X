@@ -7,7 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
 
-import '../nav/create_sheet.dart';
+import 'create_sheet.dart';
 
 class CreatePacketWidget extends StatefulWidget {
   const CreatePacketWidget({super.key});
@@ -144,16 +144,16 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                                             decoration: InputDecoration(
                                               isDense: true,
                                               hintText: 'Packet Title',
-                                              hintStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Google Sans',
-                                                        color: Color(0x7F999999),
-                                                        fontSize: 15,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
+                                              hintStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Google Sans',
+                                                    color: Color(0x7F999999),
+                                                    fontSize: 15,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
+                                                  ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0x00000000),
@@ -172,9 +172,9 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color:
-                                                      FlutterFlowTheme.of(context)
-                                                          .error,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
                                                   width: 1,
                                                 ),
                                                 borderRadius:
@@ -183,9 +183,9 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color:
-                                                      FlutterFlowTheme.of(context)
-                                                          .error,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
                                                   width: 1,
                                                 ),
                                                 borderRadius:
@@ -324,44 +324,50 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                                           ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 16.0),
+                                      padding:
+                                          const EdgeInsets.only(right: 16.0),
                                       child: GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: const Text('Pick a color!'),
-                                                content: SingleChildScrollView(
-                                                  child: ColorPicker(
-                                                    pickerColor: color,
-                                                    onColorChanged: changeColor,
-                                                  ),
-                                                ),
-                                                actions: <Widget>[
-                                                  ElevatedButton(
-                                                    child: const Text('Got it'),
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                  ),
-                                                ],
-                                              );}
-                                          );
-                                        },
-                                        child: Container(
-                                          width: 20,
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,  
-                                            color:  color,
-                                            border: Border.all(
-                                              color: Colors.black,
-                                              width: 2,
+                                          onTap: () {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                        'Pick a color!'),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: ColorPicker(
+                                                        pickerColor: color,
+                                                        onColorChanged:
+                                                            changeColor,
+                                                      ),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      ElevatedButton(
+                                                        child: const Text(
+                                                            'Got it'),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          child: Container(
+                                            width: 20,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: color,
+                                              border: Border.all(
+                                                color: Colors.black,
+                                                width: 2,
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      ),
+                                          )),
                                     ),
                                   ],
                                 ),
@@ -498,11 +504,11 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
     }
 
     PacketModel packet = PacketModel(
-      id: "",
-      title: title.text,
-      description: desc.text,
-      color: _colorToHex(),
-      url: url.text);
+        id: "",
+        title: title.text,
+        description: desc.text,
+        color: _colorToHex(),
+        url: url.text);
 
     try {
       PacketModel.createPacket(packet);

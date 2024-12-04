@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:intl/intl.dart';
+import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -44,9 +45,6 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
       backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
-        constraints: BoxConstraints(
-          minHeight: MediaQuery.sizeOf(context).height * 1,
-        ),
         decoration: const BoxDecoration(
           color: Color(0xFFF5F6F7),
           borderRadius: BorderRadius.only(
@@ -97,16 +95,18 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                             ),
                           ],
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.delete_forever_sharp,
-                            color: Color(0xFFD3D3D3),
-                            size: 26,
-                          ),
-                          onPressed: () {
-                            //IMPLEMENT THIS!!
-                          },
-                        ),
+                        AppInfo.isExec
+                            ? IconButton(
+                                icon: const Icon(
+                                  Icons.delete_forever_sharp,
+                                  color: Color(0xFFD3D3D3),
+                                  size: 26,
+                                ),
+                                onPressed: () {
+                                  //IMPLEMENT THIS!!
+                                },
+                              )
+                            : SizedBox(),
                       ],
                     ),
                   ),
@@ -285,200 +285,200 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(22, 20, 22, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'SUBMISSIONS',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Google Sans',
-                                  color: const Color(0xFF333333),
-                                  fontSize: 17,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (widget.task.submissions.isNotEmpty)
-                    ...widget.task.submissions
-                        .where((submission) =>
-                            submission['user'] ==
-                            FirebaseAuth.instance.currentUser?.uid)
-                        .map((submission) {
-                      return Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const Divider(
-                              height: 0,
-                              thickness: 1.5,
-                              color: Color(0xFFEDEEEF),
-                            ),
-                            Container(
-                              width: MediaQuery.sizeOf(context).width,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFF3F8FF),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            22, 15, 22, 15),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            const Icon(
-                                              Icons.attachment,
-                                              color: Color(0xFF4474B9),
-                                              size: 20,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(8, 0, 0, 0),
-                                              child: Text(
-                                                submission['text'] ??
-                                                    'Attachment',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Google Sans',
-                                                          color: const Color(
-                                                              0xFF4474B9),
-                                                          fontSize: 15,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        if (!isTaskSubmitted)
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.delete_forever_sharp,
-                                              color: Color(0xFFAFC8ED),
-                                              size: 22,
-                                            ),
-                                            onPressed: () =>
-                                                _deleteAttachment(submission),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Divider(
-                              height: 0,
-                              thickness: 1.5,
-                              color: Color(0xFFEDEEEF),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  if (!isTaskSubmitted)
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: _uploadFiles,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF226ADD),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 12),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.add, color: Colors.white),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      'Upload File',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: isTaskSubmitted ? null : _markAsDone,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  isTaskSubmitted ? Colors.grey : Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: BorderSide(
-                                    color: isTaskSubmitted
-                                        ? Colors.grey
-                                        : const Color(0xFFF6F6F6),
-                                    width: 2),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              child: Text(
-                                isTaskSubmitted ? 'Submitted' : 'Submit',
-                                style: TextStyle(
-                                  color: isTaskSubmitted
-                                      ? Colors.grey
-                                      : const Color(0xFF226ADD),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsetsDirectional.fromSTEB(22, 20, 22, 0),
+                  //   child: Row(
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     children: [
+                  //       Flexible(
+                  //         child: Text(
+                  //           'SUBMISSIONS',
+                  //           style: FlutterFlowTheme.of(context)
+                  //               .bodyMedium
+                  //               .override(
+                  //                 fontFamily: 'Google Sans',
+                  //                 color: const Color(0xFF333333),
+                  //                 fontSize: 17,
+                  //                 letterSpacing: 0.0,
+                  //                 fontWeight: FontWeight.bold,
+                  //                 useGoogleFonts: false,
+                  //               ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // if (widget.task.submissions.isNotEmpty)
+                  //   ...widget.task.submissions
+                  //       .where((submission) =>
+                  //           submission['user'] ==
+                  //           FirebaseAuth.instance.currentUser?.uid)
+                  //       .map((submission) {
+                  //     return Padding(
+                  //       padding:
+                  //           const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  //       child: Column(
+                  //         mainAxisSize: MainAxisSize.max,
+                  //         children: [
+                  //           const Divider(
+                  //             height: 0,
+                  //             thickness: 1.5,
+                  //             color: Color(0xFFEDEEEF),
+                  //           ),
+                  //           Container(
+                  //             width: MediaQuery.sizeOf(context).width,
+                  //             decoration: const BoxDecoration(
+                  //               color: Color(0xFFF3F8FF),
+                  //             ),
+                  //             child: Column(
+                  //               mainAxisSize: MainAxisSize.max,
+                  //               children: [
+                  //                 Padding(
+                  //                   padding:
+                  //                       const EdgeInsetsDirectional.fromSTEB(
+                  //                           22, 15, 22, 15),
+                  //                   child: Row(
+                  //                     mainAxisSize: MainAxisSize.max,
+                  //                     mainAxisAlignment:
+                  //                         MainAxisAlignment.spaceBetween,
+                  //                     children: [
+                  //                       Row(
+                  //                         mainAxisSize: MainAxisSize.max,
+                  //                         children: [
+                  //                           const Icon(
+                  //                             Icons.attachment,
+                  //                             color: Color(0xFF4474B9),
+                  //                             size: 20,
+                  //                           ),
+                  //                           Padding(
+                  //                             padding:
+                  //                                 const EdgeInsetsDirectional
+                  //                                     .fromSTEB(8, 0, 0, 0),
+                  //                             child: Text(
+                  //                               submission['text'] ??
+                  //                                   'Attachment',
+                  //                               style:
+                  //                                   FlutterFlowTheme.of(context)
+                  //                                       .bodyMedium
+                  //                                       .override(
+                  //                                         fontFamily:
+                  //                                             'Google Sans',
+                  //                                         color: const Color(
+                  //                                             0xFF4474B9),
+                  //                                         fontSize: 15,
+                  //                                         letterSpacing: 0.0,
+                  //                                         fontWeight:
+                  //                                             FontWeight.w500,
+                  //                                         useGoogleFonts: false,
+                  //                                       ),
+                  //                             ),
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                       if (!isTaskSubmitted)
+                  //                         IconButton(
+                  //                           icon: const Icon(
+                  //                             Icons.delete_forever_sharp,
+                  //                             color: Color(0xFFAFC8ED),
+                  //                             size: 22,
+                  //                           ),
+                  //                           onPressed: () =>
+                  //                               _deleteAttachment(submission),
+                  //                         ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const Divider(
+                  //             height: 0,
+                  //             thickness: 1.5,
+                  //             color: Color(0xFFEDEEEF),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     );
+                  //   }),
+                  // if (!isTaskSubmitted)
+                  //   Padding(
+                  //     padding:
+                  //         const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                  //     child: Row(
+                  //       mainAxisSize: MainAxisSize.max,
+                  //       children: [
+                  //         Expanded(
+                  //           child: ElevatedButton(
+                  //             onPressed: _uploadFiles,
+                  //             style: ElevatedButton.styleFrom(
+                  //               backgroundColor: const Color(0xFF226ADD),
+                  //               shape: RoundedRectangleBorder(
+                  //                 borderRadius: BorderRadius.circular(12),
+                  //               ),
+                  //             ),
+                  //             child: const Padding(
+                  //               padding: EdgeInsets.symmetric(vertical: 12),
+                  //               child: Row(
+                  //                 mainAxisAlignment: MainAxisAlignment.center,
+                  //                 children: [
+                  //                   Icon(Icons.add, color: Colors.white),
+                  //                   SizedBox(width: 8),
+                  //                   Text(
+                  //                     'Upload File',
+                  //                     style: TextStyle(
+                  //                       color: Colors.white,
+                  //                       fontSize: 15,
+                  //                       fontWeight: FontWeight.w500,
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                  //   child: Row(
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     children: [
+                  //       Expanded(
+                  //         child: ElevatedButton(
+                  //           onPressed: isTaskSubmitted ? null : _markAsDone,
+                  //           style: ElevatedButton.styleFrom(
+                  //             backgroundColor:
+                  //                 isTaskSubmitted ? Colors.grey : Colors.white,
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(12),
+                  //               side: BorderSide(
+                  //                   color: isTaskSubmitted
+                  //                       ? Colors.grey
+                  //                       : const Color(0xFFF6F6F6),
+                  //                   width: 2),
+                  //             ),
+                  //           ),
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.symmetric(vertical: 12),
+                  //             child: Text(
+                  //               isTaskSubmitted ? 'Submitted' : 'Submit',
+                  //               style: TextStyle(
+                  //                 color: isTaskSubmitted
+                  //                     ? Colors.grey
+                  //                     : const Color(0xFF226ADD),
+                  //                 fontSize: 15,
+                  //                 fontWeight: FontWeight.w500,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ],
