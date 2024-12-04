@@ -222,7 +222,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                       'Subscribed',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Google Sans',
-                            color: Color(0xFF999999),
+                            color: const Color(0xFF999999),
                             fontSize: 18,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
@@ -245,7 +245,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 24, right: 24),
+                  padding: const EdgeInsets.only(left: 24, right: 24),
                   child: Column(
                     children: subscribedChats,
                   )),
@@ -261,21 +261,22 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
                         child: Container(
                           width: 20,
                           height: 20,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xFF999999),
                             shape: BoxShape.circle,
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0, 0),
+                            alignment: const AlignmentDirectional(0, 0),
                             child: Icon(
                               !showUnsubscribed
                                   ? Icons.arrow_right
                                   : Icons.arrow_drop_down,
-                              color: Color(0xFFF5F6F7),
+                              color: const Color(0xFFF5F6F7),
                               size: 18,
                             ),
                           ),
@@ -285,7 +286,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                         'Unsubscribed',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: Color(0xFF999999),
+                              color: const Color(0xFF999999),
                               fontSize: 18,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
@@ -297,11 +298,11 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 24, right: 24),
+                  padding: const EdgeInsets.only(left: 24, right: 24),
                   child: Column(
                     children: otherItems,
                   )),
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
             ],
           ),
         ),

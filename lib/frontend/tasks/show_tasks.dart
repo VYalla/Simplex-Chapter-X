@@ -8,6 +8,8 @@ import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
 class ShowTasks extends StatefulWidget {
+  const ShowTasks({super.key});
+
   @override
   _ShowTasksState createState() => _ShowTasksState();
 }

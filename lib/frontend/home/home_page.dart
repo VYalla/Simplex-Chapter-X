@@ -679,9 +679,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                           //     ),
                           //   ],
                           // ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 25, 0, 0),
+                          const Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [ShowTasks()],
@@ -729,7 +729,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 15, 0),
                                   child: Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.transparent,
                                     ),
                                     child: Row(
@@ -738,19 +738,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 8, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0, 0, 8, 0),
                                           child: InkWell(
                                             onTap: () {
                                               setState(() {
                                                 startDate = startDate.subtract(
-                                                    Duration(days: 4));
+                                                    const Duration(days: 4));
                                                 endDate = endDate.subtract(
-                                                    Duration(days: 4));
+                                                    const Duration(days: 4));
                                               });
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.arrow_back_ios,
                                               color: Color(0xFF333333),
                                               size: 15,
@@ -775,19 +774,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(8, 0, 0, 0),
                                           child: InkWell(
                                             onTap: () {
                                               setState(() {
-                                                startDate = startDate
-                                                    .add(Duration(days: 4));
-                                                endDate = endDate
-                                                    .add(Duration(days: 4));
+                                                startDate = startDate.add(
+                                                    const Duration(days: 4));
+                                                endDate = endDate.add(
+                                                    const Duration(days: 4));
                                               });
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.arrow_forward_ios,
                                               color: Color(0xFF333333),
                                               size: 15,

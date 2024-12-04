@@ -30,12 +30,12 @@ class _GalleryPageState extends State<GalleryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         constraints: BoxConstraints(
           minHeight: MediaQuery.sizeOf(context).height * 1,
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFF5F6F7),
         ),
         child: SingleChildScrollView(
@@ -43,20 +43,21 @@ class _GalleryPageState extends State<GalleryPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 6, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -117,7 +118,8 @@ class _GalleryPageState extends State<GalleryPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -127,7 +129,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 25,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -135,12 +137,12 @@ class _GalleryPageState extends State<GalleryPage> {
                                 ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 0, 0),
                             child: Container(
                               width: 6,
                               height: 6,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFF3B58F4),
                                 shape: BoxShape.circle,
                               ),
@@ -277,14 +279,15 @@ class _GalleryPageState extends State<GalleryPage> {
                         //   ),
                         // ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 0.905,
                             height: 130,
                             child: Stack(
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0, 0),
+                                  alignment: const AlignmentDirectional(0, 0),
                                   child: Container(
                                     width: MediaQuery.sizeOf(context).width *
                                         0.905,
@@ -298,7 +301,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                           'assets/images/tasksbg.png',
                                         ).image,
                                       ),
-                                      boxShadow: [
+                                      boxShadow: const [
                                         BoxShadow(
                                           blurRadius: 3,
                                           color: Color(0x16000000),
@@ -310,20 +313,20 @@ class _GalleryPageState extends State<GalleryPage> {
                                       ],
                                       borderRadius: BorderRadius.circular(12),
                                       border: Border.all(
-                                        color: Color(0xFF9F9268),
+                                        color: const Color(0xFF9F9268),
                                         width: 1.5,
                                       ),
                                     ),
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0, 0),
+                                  alignment: const AlignmentDirectional(0, 0),
                                   child: Container(
                                     width: MediaQuery.sizeOf(context).width *
                                         0.905,
                                     height: 130,
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
+                                      gradient: const LinearGradient(
                                         colors: [
                                           Color(0x004C3339),
                                           Color(0xFF9F9268)
@@ -347,8 +350,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                         );
                                       },
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(22, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -376,8 +379,9 @@ class _GalleryPageState extends State<GalleryPage> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 5, 0, 20),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 0, 20),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -389,8 +393,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                                         .override(
                                                           fontFamily:
                                                               'Google Sans',
-                                                          color:
-                                                              Color(0xFFEDDFAD),
+                                                          color: const Color(
+                                                              0xFFEDDFAD),
                                                           fontSize: 15,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -412,7 +416,8 @@ class _GalleryPageState extends State<GalleryPage> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -422,7 +427,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 25,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -430,12 +435,12 @@ class _GalleryPageState extends State<GalleryPage> {
                                 ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 0, 0),
                             child: Container(
                               width: 6,
                               height: 6,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFF3B58F4),
                                 shape: BoxShape.circle,
                               ),
@@ -448,7 +453,8 @@ class _GalleryPageState extends State<GalleryPage> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).push(
@@ -463,7 +469,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               child: Stack(
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
@@ -477,7 +483,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                             'assets/images/PacketsBG.png',
                                           ).image,
                                         ),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 3,
                                             color: Color(0x16000000),
@@ -489,20 +495,20 @@ class _GalleryPageState extends State<GalleryPage> {
                                         ],
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: Color(0xFF4C3339),
+                                          color: const Color(0xFF4C3339),
                                           width: 1.5,
                                         ),
                                       ),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
                                       height: 130,
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                           colors: [
                                             Color(0x004C3339),
                                             Color(0xFF4C3339)
@@ -517,8 +523,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(22, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -546,8 +552,9 @@ class _GalleryPageState extends State<GalleryPage> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 5, 0, 20),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 0, 20),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -559,8 +566,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                                         .override(
                                                           fontFamily:
                                                               'Google Sans',
-                                                          color:
-                                                              Color(0xB3FFE7EC),
+                                                          color: const Color(
+                                                              0xB3FFE7EC),
                                                           fontSize: 15,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -706,7 +713,8 @@ class _GalleryPageState extends State<GalleryPage> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -716,7 +724,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 25,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -724,12 +732,12 @@ class _GalleryPageState extends State<GalleryPage> {
                                 ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 0, 0),
                             child: Container(
                               width: 6,
                               height: 6,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFF3B58F4),
                                 shape: BoxShape.circle,
                               ),
@@ -739,7 +747,8 @@ class _GalleryPageState extends State<GalleryPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -749,7 +758,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 25,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -757,12 +766,12 @@ class _GalleryPageState extends State<GalleryPage> {
                                 ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 0, 0),
                             child: Container(
                               width: 6,
                               height: 6,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xFF3B58F4),
                                 shape: BoxShape.circle,
                               ),
@@ -774,7 +783,7 @@ class _GalleryPageState extends State<GalleryPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 120),
+              const SizedBox(height: 120),
             ],
           ),
         ),

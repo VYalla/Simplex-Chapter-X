@@ -1,20 +1,21 @@
+// ignore_for_file: dead_code
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:simplex_chapter_x/app_info.dart';
+// import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/events/event_landing_page.dart';
-import 'package:simplex_chapter_x/frontend/tasks/show_all_tasks.dart';
-import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
+// import 'package:simplex_chapter_x/frontend/tasks/show_all_tasks.dart';
+// import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 
 class ShowEvents extends StatefulWidget {
   DateTime startDate;
   DateTime endDate;
 
-  ShowEvents({required this.startDate, required this.endDate, Key? key})
-      : super(key: key);
+  ShowEvents({required this.startDate, required this.endDate, super.key});
 
   @override
   _ShowEventsState createState() => _ShowEventsState();
@@ -62,8 +63,8 @@ class _ShowEventsState extends State<ShowEvents> {
 
   List<EventModel> _filterEvents(
       List<EventModel> allEvents, DateTime startDate, DateTime endDate) {
-    final currentUserId = FirebaseAuth.instance.currentUser?.uid;
-    final now = DateTime.now();
+    // final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+    // final now = DateTime.now();
 
     // Sort events by startt date
     allEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
@@ -172,16 +173,16 @@ class _ShowEventsState extends State<ShowEvents> {
                       Container(
                         width: 39,
                         height: 39,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           // TODO Event colors
                           color: true
-                              ? const Color.fromARGB(255, 0, 119, 255)
+                              ? Color.fromARGB(255, 0, 119, 255)
                               : false
-                                  ? const Color(0xFFFF6B6B)
-                                  : const Color(0xFFC1AD83),
+                                  ? Color(0xFFFF6B6B)
+                                  : Color(0xFFC1AD83),
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(
+                        child: const Icon(
                           // Event icons
                           true
                               ? Icons.calendar_month

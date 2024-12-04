@@ -1,5 +1,7 @@
+// ignore_for_file: must_be_immutable, no_logic_in_create_state
+
 import 'dart:async';
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -57,7 +59,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
   Future<void> getMessages() async {
     bool todayFound = false;
     bool yesterdayFound = false;
-    items = [SizedBox(height: 25)];
+    items = [const SizedBox(height: 25)];
     for (int i = 0; i < a.msgs.length; i++) {
       Map<String, String> m = a.msgs[i];
 
@@ -84,7 +86,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
         todayFound = true;
         // It's today
         items.add(buildDateLabel(context, 'Today'));
-      } else if (isSameDay(timestamp, now.subtract(Duration(days: 1))) &&
+      } else if (isSameDay(timestamp, now.subtract(const Duration(days: 1))) &&
           !yesterdayFound) {
         yesterdayFound = true;
         // It's yesterday
@@ -94,7 +96,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
       // Format timestamp
       String formattedTime;
       if (isSameDay(timestamp, now) ||
-          isSameDay(timestamp, now.subtract(Duration(days: 1)))) {
+          isSameDay(timestamp, now.subtract(const Duration(days: 1)))) {
         formattedTime = DateFormat.jm()
             .format(timestamp); // Only show time for today and yesterday
       } else {
@@ -135,7 +137,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                       fontSize: 15,
                       letterSpacing: 0.0,
                       useGoogleFonts: false,
-                      color: Color.fromARGB(255, 41, 41, 255),
+                      color: const Color.fromARGB(255, 41, 41, 255),
                       decoration: TextDecoration.underline,
                     ),
                 recognizer: TapGestureRecognizer()
@@ -143,6 +145,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                     final uri = Uri.parse(token);
                     try {
                       await launchUrl(uri);
+                      // ignore: empty_catches
                     } catch (e) {}
                   },
               ),
@@ -195,7 +198,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                   initials,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Google Sans',
-                        color: Color(0xFFF8FFF1),
+                        color: const Color(0xFFF8FFF1),
                         fontSize: 20,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
@@ -258,7 +261,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
               formattedTime,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Google Sans',
-                    color: Color(0x34333333),
+                    color: const Color(0x34333333),
                     fontSize: 12,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
@@ -269,7 +272,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
         ),
       ));
     }
-    items.add(SizedBox(height: 100));
+    items.add(const SizedBox(height: 100));
   }
 
   void _setupMessageListener() {
@@ -313,7 +316,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
             label,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Google Sans',
-                  color: Color(0xFFB0B0B0),
+                  color: const Color(0xFFB0B0B0),
                   fontSize: 15,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
@@ -483,7 +486,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: !dataLoaded
                                   ? [
-                                      Padding(
+                                      const Padding(
                                           padding: EdgeInsets.only(top: 30),
                                           child: CircularProgressIndicator(
                                               color: Colors.black))
@@ -593,7 +596,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                               ),
                             ),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ],
                 ),
               ),
@@ -606,7 +609,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
 
   Future<void> _sendMessage() async {
     if (text.text.isEmpty) {
-      toasts.toast("Message text is empty.", true);
+      Toasts.toast("Message text is empty.", true);
     } else {
       a.msgs.add({
         'senderName': AppInfo.currentUser.name,
@@ -620,7 +623,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
       ChapterCard c = ChapterCard.fromDocumentSnapshot(chapter);
       _sendNotification(text.text, "", a.id, c.name);
 
-      toasts.toast("Message sent!", false);
+      Toasts.toast("Message sent!", false);
       text.text = "";
       setState(() {});
     }

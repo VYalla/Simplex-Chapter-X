@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -20,7 +20,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   late TextEditingController title;
-  Color color = Color(0xFF8252BE);
+  Color color = const Color(0xFF8252BE);
 
   @override
   void initState() {
@@ -40,12 +40,12 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(22, 35, 22, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(22, 35, 22, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -61,7 +61,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                         'Cancel',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: Color(0xFF3B58F4),
+                              color: const Color(0xFF3B58F4),
                               fontSize: 15,
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
@@ -77,7 +77,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                         'Add',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: Color(0xFF3B58F4),
+                              color: const Color(0xFF3B58F4),
                               fontSize: 15,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
@@ -88,7 +88,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -96,7 +96,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                         'Create Chat',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: Color(0xFF333333),
+                              color: const Color(0xFF333333),
                               fontSize: 32,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
@@ -107,7 +107,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +116,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                         child: Container(
                           width: 100,
                           decoration: BoxDecoration(
-                            color: Color(0x0B767676),
+                            color: const Color(0x0B767676),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -145,13 +145,14 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Google Sans',
-                                                    color: Color(0x7F999999),
+                                                    color:
+                                                        const Color(0x7F999999),
                                                     fontSize: 15,
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts: false,
                                                   ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1,
                                                 ),
@@ -159,7 +160,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                                                     BorderRadius.circular(8),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1,
                                                 ),
@@ -194,7 +195,8 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Google Sans',
-                                                  color: Color(0xFF333333),
+                                                  color:
+                                                      const Color(0xFF333333),
                                                   fontSize: 15,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts: false,
@@ -209,13 +211,13 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                                   ),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 height: 0,
                                 thickness: 1,
                                 color: Color(0xFFE7E7E7),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     12, 12, 12, 12),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -228,7 +230,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Google Sans',
-                                            color: Color(0xFF333333),
+                                            color: const Color(0xFF333333),
                                             fontSize: 15,
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
@@ -301,7 +303,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
   void _submitForm() async {
     if (title.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill in name')),
+        const SnackBar(content: Text('Please fill in name')),
       );
       return;
     }
@@ -311,10 +313,10 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
 
     try {
       AnnouncementModel.createChat(a);
-      toasts.toast("Chat Created!", false);
+      Toasts.toast("Chat Created!", false);
       getCreateSheet();
     } catch (e) {
-      toasts.toast("Error", true);
+      Toasts.toast("Error", true);
     }
   }
 

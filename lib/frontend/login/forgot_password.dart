@@ -172,8 +172,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                               ),
                             ),
                             const Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  24, 20, 24, 0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(24, 20, 24, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [

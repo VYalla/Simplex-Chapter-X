@@ -8,7 +8,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
-import '../../app_info.dart';
+// import '../../app_info.dart';
 import '../../backend/models.dart';
 
 class AuthService {
@@ -44,8 +44,8 @@ class AuthService {
         idToken: googleAuth.idToken,
       );
 
-      final scaffoldContext = ScaffoldMessenger.of(context);
-      final navigatorState = Navigator.of(context);
+      // final scaffoldContext = ScaffoldMessenger.of(context);
+      // final navigatorState = Navigator.of(context);
 
       final userCredential = await _auth.signInWithCredential(credential);
 
@@ -129,20 +129,20 @@ class AuthService {
 
         return AlertDialog(
           backgroundColor: Colors.white,
-          title: Text('Complete Your Profile'),
+          title: const Text('Complete Your Profile'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: firstNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'First Name',
                   hintText: 'Enter your first name',
                 ),
               ),
               TextField(
                 controller: lastNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Last Name',
                   hintText: 'Enter your last name',
                 ),
@@ -151,7 +151,7 @@ class AuthService {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text(
+              child: const Text(
                 'Submit',
                 style: TextStyle(color: Colors.black),
               ),
@@ -163,7 +163,7 @@ class AuthService {
                   Navigator.of(dialogContext).pop(fullName);
                 } else {
                   ScaffoldMessenger.of(dialogContext).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                         content: Text('Please enter both first and last name')),
                   );
                 }

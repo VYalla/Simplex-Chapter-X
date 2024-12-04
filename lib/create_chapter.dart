@@ -46,7 +46,8 @@ class _CreateChapterPageState extends State<CreateChapterPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
-        DocumentReference chapter = await FirebaseFirestore.instance.collection('chapters').add({
+        DocumentReference chapter =
+            await FirebaseFirestore.instance.collection('chapters').add({
           'name': _chapterName,
           'parentApproval': _parentApproval,
           'joinCode': _joinCode,
@@ -58,8 +59,10 @@ class _CreateChapterPageState extends State<CreateChapterPage> {
         chapter.collection("events").add({});
         chapter.collection("packets").add({});
 
-        await FirebaseFirestore.instance.collection('codes').doc('codes').update({
-          'codes.' + _joinCode: chapter.id});
+        await FirebaseFirestore.instance
+            .collection('codes')
+            .doc('codes')
+            .update({'codes.' + _joinCode: chapter.id});
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Chapter created successfully')),

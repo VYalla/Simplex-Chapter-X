@@ -39,7 +39,7 @@ class _PacketsPageState extends State<PacketsPage> {
 
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF5F6F7),
+        backgroundColor: const Color(0xFFF5F6F7),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('chapters')
@@ -70,7 +70,7 @@ class _PacketsPageState extends State<PacketsPage> {
                 constraints: BoxConstraints(
                   minHeight: MediaQuery.sizeOf(context).height * 1,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFFF5F6F7),
                 ),
                 child: SingleChildScrollView(
@@ -83,7 +83,7 @@ class _PacketsPageState extends State<PacketsPage> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: const AlignmentDirectional(0, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
                                 height: 251,
@@ -96,7 +96,7 @@ class _PacketsPageState extends State<PacketsPage> {
                                       'assets/images/PacketsBG.png',
                                     ).image,
                                   ),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 3,
                                       color: Color(0x16000000),
@@ -108,19 +108,19 @@ class _PacketsPageState extends State<PacketsPage> {
                                   ],
                                   borderRadius: BorderRadius.circular(0),
                                   border: Border.all(
-                                    color: Color(0xFF021633),
+                                    color: const Color(0xFF021633),
                                     width: 1.5,
                                   ),
                                 ),
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0, 0),
+                              alignment: const AlignmentDirectional(0, 0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width,
                                 height: 251,
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                     colors: [
                                       Color(0x004C3339),
                                       Color(0xFF4C3339)
@@ -135,7 +135,7 @@ class _PacketsPageState extends State<PacketsPage> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       22, 0, 0, 0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -143,8 +143,8 @@ class _PacketsPageState extends State<PacketsPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 65, 22, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(0, 65, 22, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -157,11 +157,11 @@ class _PacketsPageState extends State<PacketsPage> {
                                               child: Container(
                                                 width: 24,
                                                 height: 24,
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                   color: Colors.black,
                                                   shape: BoxShape.circle,
                                                 ),
-                                                child: Align(
+                                                child: const Align(
                                                   alignment:
                                                       AlignmentDirectional(
                                                           0, 0),
@@ -201,9 +201,8 @@ class _PacketsPageState extends State<PacketsPage> {
                                             ],
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 20),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0, 5, 0, 20),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -215,8 +214,8 @@ class _PacketsPageState extends State<PacketsPage> {
                                                       .override(
                                                         fontFamily:
                                                             'Google Sans',
-                                                        color:
-                                                            Color(0xFFFFE7EC),
+                                                        color: const Color(
+                                                            0xFFFFE7EC),
                                                         fontSize: 16,
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts: false,
@@ -236,13 +235,14 @@ class _PacketsPageState extends State<PacketsPage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(22, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  22, 0, 0, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -265,11 +265,12 @@ class _PacketsPageState extends State<PacketsPage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Divider(
+                            const Divider(
                               height: 0,
                               thickness: 1.5,
                               color: Color(0xFFEDEEEF),
@@ -283,7 +284,7 @@ class _PacketsPageState extends State<PacketsPage> {
                                             _buildPacketItem(packet))
                                         .toList(),
                                   ),
-                            Divider(
+                            const Divider(
                               height: 0,
                               thickness: 1.5,
                               color: Color(0xFFEDEEEF),
@@ -312,7 +313,7 @@ class _PacketsPageState extends State<PacketsPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 15),
+                padding: const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 15),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -326,7 +327,7 @@ class _PacketsPageState extends State<PacketsPage> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Google Sans',
-                                    color: Color(0xFF333333),
+                                    color: const Color(0xFF333333),
                                     fontSize: 15,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
@@ -335,21 +336,22 @@ class _PacketsPageState extends State<PacketsPage> {
                         ),
                         Text(
                           packet.description,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Google Sans',
-                                    color: Color.fromARGB(255, 99, 99, 99),
-                                    fontSize: 15,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w300,
-                                    useGoogleFonts: false,
-                                  ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Google Sans',
+                                color: const Color.fromARGB(255, 99, 99, 99),
+                                fontSize: 15,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w300,
+                                useGoogleFonts: false,
+                              ),
                         )
                       ],
                     ),
                     AppInfo.isExec
                         ? IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete_forever_sharp,
                               color: Color(0xFFD3D3D3),
                               size: 26,
@@ -358,7 +360,7 @@ class _PacketsPageState extends State<PacketsPage> {
                               PacketModel.removePacketById(packet.id);
                             },
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ],
                 ),
               ),

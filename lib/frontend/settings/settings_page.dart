@@ -118,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
-              Padding(
+              const Padding(
                   padding: EdgeInsets.only(top: 25, right: 20, left: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -137,7 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       )),
                     ],
                   )),
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
             ],
           ),
         ),

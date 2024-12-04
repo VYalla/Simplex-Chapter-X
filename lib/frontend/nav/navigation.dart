@@ -15,9 +15,9 @@ class Navigation extends StatefulWidget {
   final int pIndex;
 
   const Navigation({
-    Key? key,
+    super.key,
     required this.pIndex,
-  }) : super(key: key);
+  });
 
   @override
   // ignore: no_logic_in_create_state
@@ -195,7 +195,7 @@ class _NavigationState extends State<Navigation> {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             AppInfo.isExec
                 ? Align(
                     alignment: const AlignmentDirectional(0, 1),
@@ -229,7 +229,7 @@ class _NavigationState extends State<Navigation> {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       ),

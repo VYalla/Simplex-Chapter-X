@@ -1,4 +1,4 @@
-part of models;
+part of 'models.dart';
 
 class ChapterModel {
   final String name;
@@ -32,7 +32,8 @@ class ChapterModel {
 
   static Future<void> joinChapter(String chapterID) async {
     AppInfo.database.collection("chapters").doc(chapterID).update({
-  'users': FieldValue.arrayUnion([AppInfo.currentUser.id])});
+      'users': FieldValue.arrayUnion([AppInfo.currentUser.id])
+    });
 
     UserModel.addChapter(AppInfo.currentUser, chapterID);
   }

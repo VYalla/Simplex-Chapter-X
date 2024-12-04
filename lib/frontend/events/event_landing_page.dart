@@ -12,8 +12,8 @@ class EventLandingPageWidget extends StatefulWidget {
   const EventLandingPageWidget({
     required this.event,
     required this.chapterId,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<EventLandingPageWidget> createState() => _EventLandingPageWidgetState();
@@ -36,13 +36,13 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         constraints: BoxConstraints(
           minHeight: MediaQuery.sizeOf(context).height * 1,
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFF5F6F7),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0),
@@ -59,7 +59,8 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,21 +68,21 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.calendar_month_sharp,
                               color: Color(0xFFD0D6F6),
                               size: 20,
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  8, 0, 0, 0),
                               child: Text(
                                 'Event',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Google Sans',
-                                      color: Color(0xFF3B58F4),
+                                      color: const Color(0xFF3B58F4),
                                       fontSize: 15,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -92,7 +93,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                           ],
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete_forever_sharp,
                             color: Color(0xFFD3D3D3),
                             size: 26,
@@ -103,8 +104,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const HomeWidget()),
+                                  builder: (context) => const HomeWidget()),
                               (route) =>
                                   false, // This condition removes all previous routes
                             );
@@ -114,7 +114,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 8, 22, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(22, 8, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -125,7 +125,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 20,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
@@ -135,12 +135,13 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1.5,
                     color: Color(0x33CFCFCF),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(25, 10, 0, 10),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(25, 10, 0, 10),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -150,16 +151,16 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                             width: 44,
                             height: 44,
                             decoration: BoxDecoration(
-                              color: Color(0xFFE0ECFF),
+                              color: const Color(0xFFE0ECFF),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.calendar_today_outlined,
                               color: Color(0xFF226ADD),
                               size: 20,
                             ),
                           ),
-                          Padding(
+                          const Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                             child: Column(
@@ -187,16 +188,16 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                25, 0, 0, 0),
                             child: Container(
                               width: 44,
                               height: 44,
                               decoration: BoxDecoration(
-                                color: Color(0xFFE0ECFF),
+                                color: const Color(0xFFE0ECFF),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.location_on_outlined,
                                 color: Color(0xFF226ADD),
                                 size: 24,
@@ -204,22 +205,22 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 25, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 0, 25, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   widget.event.location,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: 'Google Sans',
                                     color: Color(0xFF333333),
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   'North Creek High Shcool',
                                   style: TextStyle(
                                     fontFamily: 'Google Sans',
@@ -234,12 +235,13 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                       ),
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1.5,
                     color: Color(0x33CFCFCF),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -250,7 +252,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 17,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
@@ -262,7 +264,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(22, 6, 22, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(22, 6, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -273,7 +275,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 15,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,

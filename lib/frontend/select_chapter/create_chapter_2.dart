@@ -26,11 +26,11 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height * 1,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFF5F6F7),
         ),
         child: Column(
@@ -43,7 +43,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,21 +55,21 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                               Container(
                                 width: 22,
                                 height: 22,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.black,
                                   shape: BoxShape.circle,
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Text(
                                   'Create Group',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Google Sans',
-                                        color: Color(0xFF333333),
+                                        color: const Color(0xFF333333),
                                         fontSize: 20,
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
@@ -80,11 +81,11 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                           Container(
                             width: 24,
                             height: 24,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.black,
                               shape: BoxShape.circle,
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: AlignmentDirectional(0, 0),
                               child: Icon(
                                 Icons.close,
@@ -97,7 +98,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 25, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 25, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -107,7 +109,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 32,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
@@ -117,7 +119,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 3, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 3, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -127,7 +130,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 16,
                                   letterSpacing: 0.0,
                                   fontStyle: FontStyle.italic,
@@ -138,7 +141,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 30, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 30, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -148,7 +152,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 24,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
@@ -158,7 +162,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,7 +174,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                               child: Stack(
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
@@ -183,7 +188,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             'assets/images/calendarbg.png',
                                           ).image,
                                         ),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 3,
                                             color: Color(0x16000000),
@@ -195,20 +200,20 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ],
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: Color(0xFF4C3339),
+                                          color: const Color(0xFF4C3339),
                                           width: 1.5,
                                         ),
                                       ),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
                                       height: 130,
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                           colors: [
                                             Color(0x004C3339),
                                             Color(0xFF685037)
@@ -223,8 +228,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(22, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -252,8 +257,9 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 15),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 15),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -265,8 +271,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                                         .override(
                                                           fontFamily:
                                                               'Google Sans',
-                                                          color:
-                                                              Color(0xCDFFDDBD),
+                                                          color: const Color(
+                                                              0xCDFFDDBD),
                                                           fontSize: 13,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -285,12 +291,12 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12, 0, 0, 0),
                             child: Container(
                               width: 40,
                               height: 98,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent,
                               ),
                               child: Column(
@@ -303,15 +309,16 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                           fontSize: 11,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 6, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 0),
                                     child: Container(
                                       width: 18,
                                       height: 18,
@@ -320,7 +327,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             .secondaryBackground,
                                         borderRadius: BorderRadius.circular(3),
                                         border: Border.all(
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                         ),
                                       ),
                                     ),
@@ -333,7 +340,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -345,7 +353,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                               child: Stack(
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
@@ -359,7 +367,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             'assets/images/tasksbg.png',
                                           ).image,
                                         ),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 3,
                                             color: Color(0x16000000),
@@ -371,20 +379,20 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ],
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: Color(0xFF9F9268),
+                                          color: const Color(0xFF9F9268),
                                           width: 1.5,
                                         ),
                                       ),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
                                       height: 130,
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                           colors: [
                                             Color(0x004C3339),
                                             Color(0xFF9F9268)
@@ -399,8 +407,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(22, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -428,8 +436,9 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 15),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 15),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -441,8 +450,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                                         .override(
                                                           fontFamily:
                                                               'Google Sans',
-                                                          color:
-                                                              Color(0xFFEDDFAD),
+                                                          color: const Color(
+                                                              0xFFEDDFAD),
                                                           fontSize: 13,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -461,12 +470,12 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12, 0, 0, 0),
                             child: Container(
                               width: 40,
                               height: 98,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent,
                               ),
                               child: Column(
@@ -479,15 +488,16 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                           fontSize: 11,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 6, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 0),
                                     child: Container(
                                       width: 18,
                                       height: 18,
@@ -496,7 +506,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             .secondaryBackground,
                                         borderRadius: BorderRadius.circular(3),
                                         border: Border.all(
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                         ),
                                       ),
                                     ),
@@ -509,7 +519,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 30, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 30, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -519,7 +530,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 24,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
@@ -529,7 +540,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -541,7 +553,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                               child: Stack(
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
@@ -555,7 +567,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             'assets/images/QuicklinksBG.png',
                                           ).image,
                                         ),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 3,
                                             color: Color(0x16000000),
@@ -567,20 +579,20 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ],
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: Color(0xFF021633),
+                                          color: const Color(0xFF021633),
                                           width: 1.5,
                                         ),
                                       ),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
                                       height: 130,
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                           colors: [
                                             Color(0x004C3339),
                                             Color(0xE9021633)
@@ -595,8 +607,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(22, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -624,8 +636,9 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 15),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 15),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -637,8 +650,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                                         .override(
                                                           fontFamily:
                                                               'Google Sans',
-                                                          color:
-                                                              Color(0xFFABCCE4),
+                                                          color: const Color(
+                                                              0xFFABCCE4),
                                                           fontSize: 13,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -657,12 +670,12 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12, 0, 0, 0),
                             child: Container(
                               width: 40,
                               height: 98,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent,
                               ),
                               child: Column(
@@ -675,15 +688,16 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                           fontSize: 11,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 6, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 0),
                                     child: Container(
                                       width: 18,
                                       height: 18,
@@ -692,7 +706,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             .secondaryBackground,
                                         borderRadius: BorderRadius.circular(3),
                                         border: Border.all(
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                         ),
                                       ),
                                     ),
@@ -705,7 +719,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -717,7 +732,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                               child: Stack(
                                 children: [
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
@@ -731,7 +746,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             'assets/images/PacketsBG.png',
                                           ).image,
                                         ),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             blurRadius: 3,
                                             color: Color(0x16000000),
@@ -743,20 +758,20 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ],
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: Color(0xFF4C3339),
+                                          color: const Color(0xFF4C3339),
                                           width: 1.5,
                                         ),
                                       ),
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
                                           0.905,
                                       height: 163,
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                           colors: [
                                             Color(0x004C3339),
                                             Color(0xFF4C3339)
@@ -771,8 +786,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            22, 0, 0, 0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(22, 0, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -800,8 +815,9 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                               ],
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 15),
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 15),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -813,8 +829,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                                         .override(
                                                           fontFamily:
                                                               'Google Sans',
-                                                          color:
-                                                              Color(0xB3FFE7EC),
+                                                          color: const Color(
+                                                              0xB3FFE7EC),
                                                           fontSize: 13,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -833,12 +849,12 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12, 0, 0, 0),
                             child: Container(
                               width: 40,
                               height: 98,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent,
                               ),
                               child: Column(
@@ -851,15 +867,16 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                           fontSize: 11,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 6, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 6, 0, 0),
                                     child: Container(
                                       width: 18,
                                       height: 18,
@@ -868,7 +885,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                             .secondaryBackground,
                                         borderRadius: BorderRadius.circular(3),
                                         border: Border.all(
-                                          color: Color(0xFF3B58F4),
+                                          color: const Color(0xFF3B58F4),
                                         ),
                                       ),
                                     ),
@@ -881,7 +898,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 50, 22, 60),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 50, 22, 60),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -893,8 +911,8 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  30, 0, 30, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -905,7 +923,7 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFFB4B4B4),
+                                          color: const Color(0xFFB4B4B4),
                                           fontSize: 15,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
@@ -919,12 +937,12 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                           Container(
                             height: 32,
                             decoration: BoxDecoration(
-                              color: Color(0xFF0445AF),
+                              color: const Color(0xFF0445AF),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  30, 0, 30, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -959,14 +977,14 @@ class _CreateChapter2WidgetState extends State<CreateChapter2Widget> {
                 Container(
                   width: MediaQuery.sizeOf(context).width,
                   height: 9,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFF0445AF),
                   ),
                 ),
                 Container(
                   width: MediaQuery.sizeOf(context).width * 0,
                   height: 9,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFFB8C7E8),
                   ),
                 ),

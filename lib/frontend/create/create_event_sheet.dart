@@ -26,10 +26,10 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
   bool _isAllDay = false;
   DateTime _startDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
-  DateTime _endDate = DateTime.now().add(Duration(hours: 1));
+  DateTime _endDate = DateTime.now().add(const Duration(hours: 1));
   TimeOfDay _endTime =
       TimeOfDay.now().replacing(hour: (TimeOfDay.now().hour + 1) % 24);
-  final Color _blueColor = Color(0xFF3B58F4);
+  final Color _blueColor = const Color(0xFF3B58F4);
 
   @override
   void initState() {
@@ -53,12 +53,12 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(22, 35, 22, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(22, 35, 22, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -74,7 +74,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         'Cancel',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: Color(0xFF3B58F4),
+                              color: const Color(0xFF3B58F4),
                               fontSize: 15,
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
@@ -90,7 +90,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         'Add',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: Color(0xFF3B58F4),
+                              color: const Color(0xFF3B58F4),
                               fontSize: 15,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -109,7 +109,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         'Create Event',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Google Sans',
-                              color: Color(0xFF333333),
+                              color: const Color(0xFF333333),
                               fontSize: 32,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
@@ -120,7 +120,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +129,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         child: Container(
                           width: 100,
                           decoration: BoxDecoration(
-                            color: Color(0x0B767676),
+                            color: const Color(0x0B767676),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -153,13 +153,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Google Sans',
-                                                    color: Color(0x7F999999),
+                                                    color:
+                                                        const Color(0x7F999999),
                                                     fontSize: 15,
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts: false,
                                                   ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1,
                                             ),
@@ -167,7 +168,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                 BorderRadius.circular(8),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1,
                                             ),
@@ -202,7 +203,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF333333),
+                                              color: const Color(0xFF333333),
                                               fontSize: 15,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -215,7 +216,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                   ),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 height: 0,
                                 thickness: 1,
                                 color: Color(0xFFE7E7E7),
@@ -243,13 +244,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Google Sans',
-                                                    color: Color(0x7F999999),
+                                                    color:
+                                                        const Color(0x7F999999),
                                                     fontSize: 15,
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts: false,
                                                   ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1,
                                                 ),
@@ -257,7 +259,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                     BorderRadius.circular(8),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1,
                                                 ),
@@ -292,7 +294,8 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Google Sans',
-                                                  color: Color(0xFF333333),
+                                                  color:
+                                                      const Color(0xFF333333),
                                                   fontSize: 15,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts: false,
@@ -307,7 +310,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                   ),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 height: 0,
                                 thickness: 1,
                                 color: Color(0xFFE7E7E7),
@@ -330,13 +333,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Google Sans',
-                                                    color: Color(0x7F999999),
+                                                    color:
+                                                        const Color(0x7F999999),
                                                     fontSize: 15,
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts: false,
                                                   ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1,
                                             ),
@@ -344,7 +348,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                 BorderRadius.circular(8),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1,
                                             ),
@@ -379,7 +383,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF333333),
+                                              color: const Color(0xFF333333),
                                               fontSize: 15,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -400,7 +404,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -409,7 +413,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         child: Container(
                           width: 100,
                           decoration: BoxDecoration(
-                            color: Color(0x0B767676),
+                            color: const Color(0x0B767676),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -433,13 +437,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                   .bodyMedium
                                                   .override(
                                                     fontFamily: 'Google Sans',
-                                                    color: Color(0x7F999999),
+                                                    color:
+                                                        const Color(0x7F999999),
                                                     fontSize: 15,
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts: false,
                                                   ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1,
                                             ),
@@ -447,7 +452,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                                 BorderRadius.circular(8),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1,
                                             ),
@@ -482,7 +487,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF333333),
+                                              color: const Color(0xFF333333),
                                               fontSize: 15,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -495,13 +500,13 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                   ),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 height: 0,
                                 thickness: 1,
                                 color: Color(0xFFE7E7E7),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     12, 12, 12, 12),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -514,7 +519,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Google Sans',
-                                            color: Color(0xFF333333),
+                                            color: const Color(0xFF333333),
                                             fontSize: 15,
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
@@ -523,7 +528,8 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                     Switch(
                                       activeColor: _blueColor,
                                       inactiveThumbColor: Colors.black,
-                                      inactiveTrackColor: Color(0xFFF5F6F7),
+                                      inactiveTrackColor:
+                                          const Color(0xFFF5F6F7),
                                       value: _isAllDay,
                                       onChanged: (bool value) {
                                         setState(() {
@@ -534,13 +540,13 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                   ],
                                 ),
                               ),
-                              Divider(
+                              const Divider(
                                 height: 0,
                                 thickness: 1,
                                 color: Color(0xFFE7E7E7),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     12, 12, 12, 12),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -553,7 +559,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Google Sans',
-                                            color: Color(0xFF333333),
+                                            color: const Color(0xFF333333),
                                             fontSize: 15,
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
@@ -626,7 +632,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF3B58F4),
+                                              color: const Color(0xFF3B58F4),
                                               fontSize: 15,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -636,13 +642,13 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                   ],
                                 ),
                               ),
-                              Divider(
+                              const Divider(
                                 height: 0,
                                 thickness: 1,
                                 color: Color(0xFFE7E7E7),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     12, 12, 12, 12),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -655,7 +661,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Google Sans',
-                                            color: Color(0xFF333333),
+                                            color: const Color(0xFF333333),
                                             fontSize: 15,
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
@@ -728,7 +734,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF3B58F4),
+                                              color: const Color(0xFF3B58F4),
                                               fontSize: 15,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -765,14 +771,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
 
     if (name.text.isEmpty || desc.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill in name and description')),
+        const SnackBar(content: Text('Please fill in name and description')),
       );
       return;
     }
 
     if (endDateTime.isBefore(startDateTime)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('End time must be after start time')),
+        const SnackBar(content: Text('End time must be after start time')),
       );
       return;
     }
@@ -792,11 +798,11 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
 
     try {
       EventModel.createEvent(event);
-      toasts.toast("Event Created!", false);
+      Toasts.toast("Event Created!", false);
       EventModel.updateEvents();
       getCreateSheet();
     } catch (e) {
-      toasts.toast("Error", true);
+      Toasts.toast("Error", true);
     }
   }
 

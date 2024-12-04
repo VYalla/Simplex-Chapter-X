@@ -10,10 +10,10 @@ class TaskLandingPageWidget extends StatefulWidget {
   final String chapterId;
 
   const TaskLandingPageWidget({
-    Key? key,
+    super.key,
     required this.task,
     required this.chapterId,
-  }) : super(key: key);
+  });
 
   @override
   State<TaskLandingPageWidget> createState() => _TaskLandingPageWidgetState();
@@ -106,7 +106,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                                   //IMPLEMENT THIS!!
                                 },
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                       ],
                     ),
                   ),

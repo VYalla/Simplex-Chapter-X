@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
-import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
+// import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
 import 'package:simplex_chapter_x/frontend/login/login_page.dart';
-import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
+// import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 import 'package:simplex_chapter_x/frontend/toast.dart';
 
@@ -140,8 +140,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(0),
                                     child: Image.asset(
-                                      'assets/images/fbla_logo.png',
-                                      height: 22,
+                                      // REPLACE WITH SIELIFY CHAPTER LOGO
+                                      'assets/images/appicon_trans.png',
+                                      height: 40,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -962,7 +963,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
                                       child: IconButton(
                                         icon: Icon(
                                           Icons.check,
@@ -1036,7 +1038,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
                                       child: IconButton(
                                         icon: Icon(
                                           Icons.check,
@@ -1101,7 +1104,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       onTap: () async {
                                         if (password.text !=
                                             confirmPassword.text) {
-                                          toasts.toast(
+                                          Toasts.toast(
                                               "Passwords Do Not Match", true);
                                         } else if ([
                                           firstName.text,
@@ -1109,19 +1112,19 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           email.text,
                                           password.text
                                         ].contains("")) {
-                                          toasts.toast(
+                                          Toasts.toast(
                                               "Please Fill Out All Fields",
                                               true);
                                         } else if (!emailRegExp
                                             .hasMatch(email.text)) {
-                                          toasts.toast("Email Invalid", true);
+                                          Toasts.toast("Email Invalid", true);
                                         } else if (!agreedPrivacy ||
                                             !agreedTOS) {
-                                          toasts.toast(
+                                          Toasts.toast(
                                               "Please Agree to the TOS and Privacy Policy",
                                               true);
                                         } else if (password.text.length < 6) {
-                                          toasts.toast(
+                                          Toasts.toast(
                                               "Password should be at least 6 characters",
                                               true);
                                         } else {
@@ -1170,16 +1173,16 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           } on FirebaseAuthException catch (e) {
                                             if (e.code ==
                                                 'email-already-in-use') {
-                                              toasts.toast(
+                                              Toasts.toast(
                                                   'The email address is already in use.',
                                                   true);
                                             } else if (e.code ==
                                                 'invalid-email') {
-                                              toasts.toast(
+                                              Toasts.toast(
                                                   'Invalid email format.',
                                                   true);
                                             } else {
-                                              toasts.toast(
+                                              Toasts.toast(
                                                   'Unexpected error: ${e.code}',
                                                   true);
                                             }

@@ -1,12 +1,12 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:simplex_chapter_x/create_chapter.dart';
+// import 'package:simplex_chapter_x/create_chapter.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -144,7 +144,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                               fieldWidth: 38,
                               borderWidth: 1,
                             ),
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontFamily: 'Google Sans',
                               color: Colors.white,
                               fontSize: 44,
@@ -167,7 +167,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
+              padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,11 +183,11 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
                       child: Container(
                         width: 58,
                         height: 58,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Align(
+                        child: const Align(
                           alignment: AlignmentDirectional(0, 0),
                           child: Icon(
                             Icons.arrow_forward,
@@ -251,7 +251,7 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
             await AppInfo.database.collection('chapters').doc(chapterID).get();
         if ((chapter.get("users") as List<dynamic>)
             .contains(AppInfo.currentUser.id)) {
-          toasts.toast("Already Member of Chapter", true);
+          Toasts.toast("Already Member of Chapter", true);
         } else {
           ChapterModel.joinChapter(chapterID);
 

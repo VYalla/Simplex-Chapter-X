@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
+// import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 
@@ -11,14 +11,14 @@ class ChapterCard extends StatelessWidget {
   final String clubID;
 
   const ChapterCard({
-    Key? key,
+    super.key,
     required this.bgImg,
     required this.name,
     required this.clubImg,
     required this.clubID,
-  }) : super(key: key);
+  });
 
-  ChapterCard.fromDocumentSnapshot(DocumentSnapshot<Object?> doc)
+  ChapterCard.fromDocumentSnapshot(DocumentSnapshot<Object?> doc, {super.key})
       : clubID = doc.id,
         name = doc.get("name") as String,
         bgImg =

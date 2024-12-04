@@ -33,11 +33,11 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height * 1,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFF5F6F7),
         ),
         child: Column(
@@ -50,7 +50,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,21 +62,21 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                               Container(
                                 width: 22,
                                 height: 22,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.black,
                                   shape: BoxShape.circle,
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 0),
                                 child: Text(
                                   'Create Group',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Google Sans',
-                                        color: Color(0xFF333333),
+                                        color: const Color(0xFF333333),
                                         fontSize: 20,
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
@@ -87,11 +88,11 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                           Container(
                             width: 24,
                             height: 24,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.black,
                               shape: BoxShape.circle,
                             ),
-                            child: Align(
+                            child: const Align(
                               alignment: AlignmentDirectional(0, 0),
                               child: Icon(
                                 Icons.close,
@@ -104,7 +105,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 25, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 25, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -114,7 +116,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
+                                  color: const Color(0xFF333333),
                                   fontSize: 32,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
@@ -124,7 +126,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 25, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 25, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -143,13 +146,13 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                         useGoogleFonts: false,
                                       ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: ' Chapter Name',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '*',
                                   style: TextStyle(
                                     color: Color(0xFFAC3C3C),
@@ -161,7 +164,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Google Sans',
-                                    color: Color(0xFF333333),
+                                    color: const Color(0xFF333333),
                                     fontSize: 18,
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
@@ -172,7 +175,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(44, 10, 33, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(44, 10, 33, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -190,12 +194,12 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Google Sans',
-                                        color: Color(0xFFB4C6E6),
+                                        color: const Color(0xFFB4C6E6),
                                         fontSize: 20,
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -207,7 +211,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       topRight: Radius.circular(0),
                                     ),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -219,7 +223,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       topRight: Radius.circular(0),
                                     ),
                                   ),
-                                  errorBorder: UnderlineInputBorder(
+                                  errorBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -231,7 +235,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       topRight: Radius.circular(0),
                                     ),
                                   ),
-                                  focusedErrorBorder: UnderlineInputBorder(
+                                  focusedErrorBorder:
+                                      const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -248,7 +253,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Google Sans',
-                                      color: Color(0xFFB4C6E6),
+                                      color: const Color(0xFFB4C6E6),
                                       fontSize: 20,
                                       letterSpacing: 0.0,
                                       useGoogleFonts: false,
@@ -262,7 +267,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 25, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 25, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -281,13 +287,13 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                         useGoogleFonts: false,
                                       ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: ' School',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '*',
                                   style: TextStyle(
                                     color: Color(0xFFAC3C3C),
@@ -299,7 +305,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Google Sans',
-                                    color: Color(0xFF333333),
+                                    color: const Color(0xFF333333),
                                     fontSize: 18,
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
@@ -310,7 +316,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(44, 10, 33, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(44, 10, 33, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -328,12 +335,12 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       .labelMedium
                                       .override(
                                         fontFamily: 'Google Sans',
-                                        color: Color(0xFFB4C6E6),
+                                        color: const Color(0xFFB4C6E6),
                                         fontSize: 20,
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -345,7 +352,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       topRight: Radius.circular(0),
                                     ),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -357,7 +364,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       topRight: Radius.circular(0),
                                     ),
                                   ),
-                                  errorBorder: UnderlineInputBorder(
+                                  errorBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -369,7 +376,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       topRight: Radius.circular(0),
                                     ),
                                   ),
-                                  focusedErrorBorder: UnderlineInputBorder(
+                                  focusedErrorBorder:
+                                      const UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFB4C6E6),
                                       width: 0.5,
@@ -386,7 +394,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Google Sans',
-                                      color: Color(0xFFB4C6E6),
+                                      color: const Color(0xFFB4C6E6),
                                       fontSize: 20,
                                       letterSpacing: 0.0,
                                       useGoogleFonts: false,
@@ -400,7 +408,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 25, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 25, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -419,13 +428,13 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                         useGoogleFonts: false,
                                       ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: ' CTSO Afilliation',
                                   style: TextStyle(
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: '*',
                                   style: TextStyle(
                                     color: Color(0xFFAC3C3C),
@@ -437,7 +446,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Google Sans',
-                                    color: Color(0xFF333333),
+                                    color: const Color(0xFF333333),
                                     fontSize: 18,
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
@@ -448,7 +457,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(44, 4, 33, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(44, 4, 33, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -459,7 +469,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Google Sans',
-                                    color: Color(0xFF828282),
+                                    color: const Color(0xFF828282),
                                     fontSize: 15,
                                     letterSpacing: 0.0,
                                     fontStyle: FontStyle.italic,
@@ -471,7 +481,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(44, 10, 33, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(44, 10, 33, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -479,10 +490,10 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                             width: 138,
                             height: 32,
                             decoration: BoxDecoration(
-                              color: Color(0xFFE5EBF7),
+                              color: const Color(0xFFE5EBF7),
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(
-                                color: Color(0xFF5E87CB),
+                                color: const Color(0xFF5E87CB),
                                 width: 1,
                               ),
                             ),
@@ -490,7 +501,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Container(
                                     width: 18,
@@ -499,19 +510,20 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(3),
                                       border: Border.all(
-                                        color: Color(0xFF5E87CB),
+                                        color: const Color(0xFF5E87CB),
                                         width: 0.75,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
                                       child: Text(
                                         'A',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF333333),
+                                              color: const Color(0xFF333333),
                                               fontSize: 11,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -521,7 +533,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Text(
                                     'FBLA',
@@ -529,7 +541,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF0445AE),
+                                          color: const Color(0xFF0445AE),
                                           fontSize: 13,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
@@ -543,7 +555,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(44, 6, 33, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(44, 6, 33, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -551,10 +564,10 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                             width: 138,
                             height: 32,
                             decoration: BoxDecoration(
-                              color: Color(0xFFE5EBF7),
+                              color: const Color(0xFFE5EBF7),
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(
-                                color: Color(0xFF5E87CB),
+                                color: const Color(0xFF5E87CB),
                                 width: 1,
                               ),
                             ),
@@ -562,7 +575,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Container(
                                     width: 18,
@@ -571,19 +584,20 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(3),
                                       border: Border.all(
-                                        color: Color(0xFF5E87CB),
+                                        color: const Color(0xFF5E87CB),
                                         width: 0.75,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
                                       child: Text(
                                         'B',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF333333),
+                                              color: const Color(0xFF333333),
                                               fontSize: 11,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -593,7 +607,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Text(
                                     'DECA',
@@ -601,7 +615,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF0445AE),
+                                          color: const Color(0xFF0445AE),
                                           fontSize: 13,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
@@ -615,7 +629,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(44, 6, 33, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(44, 6, 33, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -623,10 +638,10 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                             width: 138,
                             height: 32,
                             decoration: BoxDecoration(
-                              color: Color(0xFFE5EBF7),
+                              color: const Color(0xFFE5EBF7),
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(
-                                color: Color(0xFF5E87CB),
+                                color: const Color(0xFF5E87CB),
                                 width: 1,
                               ),
                             ),
@@ -634,7 +649,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Container(
                                     width: 18,
@@ -643,19 +658,20 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(3),
                                       border: Border.all(
-                                        color: Color(0xFF5E87CB),
+                                        color: const Color(0xFF5E87CB),
                                         width: 0.75,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
                                       child: Text(
                                         'C',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF333333),
+                                              color: const Color(0xFF333333),
                                               fontSize: 11,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -665,7 +681,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Text(
                                     'TSA',
@@ -673,7 +689,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF0445AE),
+                                          color: const Color(0xFF0445AE),
                                           fontSize: 13,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
@@ -687,7 +703,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(44, 6, 33, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(44, 6, 33, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -695,10 +712,10 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                             width: 138,
                             height: 32,
                             decoration: BoxDecoration(
-                              color: Color(0xFFE5EBF7),
+                              color: const Color(0xFFE5EBF7),
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(
-                                color: Color(0xFF5E87CB),
+                                color: const Color(0xFF5E87CB),
                                 width: 1,
                               ),
                             ),
@@ -706,7 +723,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Container(
                                     width: 18,
@@ -715,19 +732,20 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(3),
                                       border: Border.all(
-                                        color: Color(0xFF5E87CB),
+                                        color: const Color(0xFF5E87CB),
                                         width: 0.75,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
                                       child: Text(
                                         'D',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Google Sans',
-                                              color: Color(0xFF333333),
+                                              color: const Color(0xFF333333),
                                               fontSize: 11,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
@@ -737,7 +755,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       6, 0, 0, 0),
                                   child: Text(
                                     'Nope',
@@ -745,7 +763,7 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Google Sans',
-                                          color: Color(0xFF0445AE),
+                                          color: const Color(0xFF0445AE),
                                           fontSize: 13,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
@@ -759,7 +777,8 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(22, 50, 22, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(22, 50, 22, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -767,12 +786,12 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                           Container(
                             height: 32,
                             decoration: BoxDecoration(
-                              color: Color(0xFF0445AF),
+                              color: const Color(0xFF0445AF),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  30, 0, 30, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -807,14 +826,14 @@ class _CreateChapterWidgetState extends State<CreateChapterWidget> {
                 Container(
                   width: MediaQuery.sizeOf(context).width * 0.5,
                   height: 9,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFF0445AF),
                   ),
                 ),
                 Container(
                   width: MediaQuery.sizeOf(context).width * 0.5,
                   height: 9,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFFB8C7E8),
                   ),
                 ),

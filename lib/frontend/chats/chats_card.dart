@@ -10,8 +10,7 @@ class ChatsCard extends StatelessWidget {
   final void Function() onTap;
 
   const ChatsCard(
-      {Key? key, required this.a, required this.onPress, required this.onTap})
-      : super(key: key);
+      {super.key, required this.a, required this.onPress, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +119,7 @@ class ChatsCard extends StatelessWidget {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Align(
-                                    alignment: AlignmentDirectional(0, 0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Icon(
                                       AppInfo.currentUser.topicsSubscribed
                                               .contains(a.id)
@@ -204,7 +203,7 @@ class ChatsCard extends StatelessWidget {
                                                         !AppInfo.currentUser
                                                             .topicsSubscribed
                                                             .contains(a.id)
-                                                    ? Color.fromARGB(
+                                                    ? const Color.fromARGB(
                                                         207, 255, 255, 255)
                                                     : Colors.white,
                                                 fontSize: 15,

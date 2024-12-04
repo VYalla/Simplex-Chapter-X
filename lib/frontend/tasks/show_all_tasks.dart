@@ -8,8 +8,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 class ShowAllTasksWidget extends StatelessWidget {
   final String chapterId;
 
-  const ShowAllTasksWidget({Key? key, required this.chapterId})
-      : super(key: key);
+  const ShowAllTasksWidget({super.key, required this.chapterId});
 
   @override
   Widget build(BuildContext context) {
