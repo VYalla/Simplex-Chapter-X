@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simplex_chapter_x/frontend/chats/chats_card.dart';
-import 'package:simplex_chapter_x/frontend/chats/join_chats.dart';
+import 'package:simplex_chapter_x/frontend/chats/chats_page.dart';
 
 import '../../app_info.dart';
 import '../../backend/models.dart';
@@ -13,25 +13,24 @@ import 'package:flutter/material.dart';
 
 import 'chatroom_page.dart';
 
-class ChatsWidget extends StatefulWidget {
-  const ChatsWidget({super.key});
+class JoinChatsWidget extends StatefulWidget {
+  const JoinChatsWidget({super.key});
 
   @override
-  State<ChatsWidget> createState() => _ChatsWidgetState();
+  State<JoinChatsWidget> createState() => _JoinChatsWidgetState();
 }
 
-class _ChatsWidgetState extends State<ChatsWidget> {
+class _JoinChatsWidgetState extends State<JoinChatsWidget> {
   List<String> firstLast = AppInfo.currentUser.name.split(' ');
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool dataLoaded = false;
-  bool showUnsubscribed = false;
   List<AnnouncementModel> groups = [];
   StreamSubscription<DocumentSnapshot>? _streamSubscription;
   List<Widget> subscribedChats = [];
   List<Widget> unsubscribedChats = [];
 
-  _ChatsWidgetState() {
+  _JoinChatsWidgetState() {
     _setupMessageListener();
   }
 
@@ -90,23 +89,9 @@ class _ChatsWidgetState extends State<ChatsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    subscribedChats = [];
     unsubscribedChats = [];
     for (AnnouncementModel a in groups) {
-      if (AppInfo.currentUser.topicsSubscribed.contains(a.id)) {
-        subscribedChats.add(ChatsCard(
-          a: a,
-          onPress: updateCards,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ChatroomWidget(a: a),
-              ),
-            );
-          },
-        ));
-      } else {
+      if (!AppInfo.currentUser.topicsSubscribed.contains(a.id)) {
         unsubscribedChats.add(ChatsCard(
           a: a,
           onPress: updateCards,
@@ -121,7 +106,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
         ));
       }
     }
-    List<Widget> otherItems = showUnsubscribed ? unsubscribedChats : [];
+    List<Widget> otherItems = unsubscribedChats;
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: const Color(0xFFF5F6F7),
@@ -147,7 +132,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
@@ -158,7 +143,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Chats',
+                                  'Unsubscribed',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -183,27 +168,34 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                               ],
                             ),
                           ),
-                          Container(
-                            width: 33,
-                            height: 33,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF526BF4),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF051989),
-                                width: 1,
+                          InkWell(
+                            onTap: () {
+                              if (!true) {
+                                Navigator.pop(context);
+                              } else {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ChatsWidget()),
+                                  (route) =>
+                                      false, // This condition removes all previous routes
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: 37,
+                              height: 37,
+                              decoration: const BoxDecoration(
+                                color: Color(0x59000000),
+                                shape: BoxShape.circle,
                               ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Text(
-                                firstLast[0][0] + firstLast[1][0],
-                                style: const TextStyle(
-                                  fontFamily: 'Google Sans',
+                              child: const Align(
+                                alignment: AlignmentDirectional(0, 0),
+                                child: Icon(
+                                  Icons.close,
                                   color: Colors.white,
-                                  fontSize: 13,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
+                                  size: 20,
                                 ),
                               ),
                             ),
@@ -214,85 +206,13 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                   ],
                 ),
               ),
+
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24, 25, 0, 12),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Subscribed',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Google Sans',
-                            color: FlutterFlowTheme.of(context).alternate,
-                            fontSize: 18,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFD90000),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight, 
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: ElevatedButton(
-                            onPressed: () { 
-                              print("pressed");
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const JoinChatsWidget()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Text(
-                                  'Join Chats',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 24, right: 24),
+                  padding: EdgeInsets.only(top:15, left: 24, right: 24),
                   child: Column(
-                    children: subscribedChats,
+                    children: otherItems,
                   )),
+              SizedBox(height: 90),
             ],
           ),
         ),
