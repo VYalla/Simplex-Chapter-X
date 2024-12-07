@@ -1,17 +1,22 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable max-len */
-const functions = require("firebase-functions");
+const {onRequest} = require("firebase-functions/v2/https");
 const admin = require("firebase-admin");
+
 admin.initializeApp();
 
-exports.sendNotif = functions.https.onCall(async (data, context) => {
-  const topic = data.topic;
-  const title = data.title;
-  const body = data.body;
+exports.sendNotif = onRequest(async (req, res) => {
+  const {topic, title, body} = req.body; // Extract parameters from request body
+
+  if (!topic || !title || !body) {
+    res.status(400).send({success: false, message: "Missing required fields: topic, title, or body."});
+    return;
+  }
+
   const message = {
     notification: {
-      title: title,
-      body: body,
+      title,
+      body,
     },
     android: {
       priority: "high",
@@ -24,40 +29,15 @@ exports.sendNotif = functions.https.onCall(async (data, context) => {
         },
       },
     },
-    topic: topic,
+    topic,
   };
+
   try {
     const response = await admin.messaging().send(message);
     console.log("Notification sent successfully:", response);
-    return {"success": true, "message": "Notification sent successfully"};
+    res.status(200).send({success: true, message: "Notification sent successfully", response});
   } catch (error) {
     console.error("Error sending notification:", error);
-    return {"success": false, "message": "Error sending notification"};
-  }
-});
-
-exports.deleteUserById = functions.https.onCall(async (data, context) => {
-  try {
-    // Check if the request is authenticated and the user has admin privileges
-    if (!context.auth) {
-      throw new functions.https.HttpsError(
-          "permission-denied",
-          "You do not have the necessary permissions to delete a user.",
-      );
-    }
-
-    // Get the user ID from the request data
-    const userId = data.id;
-
-    // Delete the user
-    await admin.auth().deleteUser(userId);
-
-    return {message: "User deleted successfully."};
-  } catch (error) {
-    console.error("Error deleting user:", error);
-    throw new functions.https.HttpsError(
-        "internal",
-        "An error occurred while deleting the user.",
-    );
+    res.status(500).send({success: false, message: "Error sending notification", error: error.message});
   }
 });

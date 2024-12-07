@@ -4,7 +4,8 @@ import 'dart:async';
 // import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_functions/cloud_functions.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
@@ -630,14 +631,35 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
     FocusScope.of(context).unfocus();
   }
 
-  void _sendNotification(String msg, String img, String topic, String title) {
-    HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('sendNotif');
-    callable.call(<String, dynamic>{
-      'topic': topic,
-      'title': title,
-      'body': msg,
-      "image": img,
-    });
+  void _sendNotification(
+      String msg, String img, String topic, String title) async {
+    final url = Uri.parse(
+        'https://us-central1-madx-33e96.cloudfunctions.net/sendNotif');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'topic': topic,
+          'title': title,
+          'body': msg,
+          'image': img,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        if (responseData['success'] == true) {
+          print('Notification sent successfully: ${responseData['message']}');
+        } else {
+          print('Error sending notification: ${responseData['message']}');
+        }
+      } else {
+        print('Error: ${response.statusCode} - ${response.body}');
+      }
+    } catch (error) {
+      print('Failed to send notification: $error');
+    }
   }
 }
