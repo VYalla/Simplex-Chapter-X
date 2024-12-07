@@ -77,7 +77,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
 
   Future<void> _signInWithApple() async {
     try {
-      final userCredential = await _authService.signInWithApple();
+      final userCredential = await _authService.signInWithApple(context);
       if (userCredential != null) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const ChapterSelectWidget(),

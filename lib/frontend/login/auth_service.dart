@@ -20,15 +20,15 @@ class AuthService {
     ],
   );
 
-  Future<void> _addUserToFirestore(User user) async {
-    await _firestore.collection('users').doc(user.uid).set({
-      'email': user.email,
-      'name': user.displayName,
-      'profilePic': user.photoURL,
-      'createdAt': FieldValue.serverTimestamp(),
-      'chapters': [],
-    });
-  }
+  // Future<void> _addUserToFirestore(User user) async {
+  //   await _firestore.collection('users').doc(user.uid).set({
+  //     'email': user.email,
+  //     'name': user.displayName,
+  //     'profilePic': user.photoURL,
+  //     'createdAt': FieldValue.serverTimestamp(),
+  //     'chapters': [],
+  //   });
+  // }
 
   Future<UserCredential?> signInWithGoogle(BuildContext context) async {
     try {
@@ -175,7 +175,7 @@ class AuthService {
     );
   }
 
-  Future<UserCredential?> signInWithApple() async {
+  Future<UserCredential?> signInWithApple(BuildContext context) async {
     try {
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
@@ -194,7 +194,34 @@ class AuthService {
       );
 
       final userCredential = await _auth.signInWithCredential(oauthCredential);
-      await _addUserToFirestore(userCredential.user!);
+      DocumentSnapshot userDoc = await _firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+      String fullName;
+      if (userDoc.exists) {
+        fullName = userDoc.get('name') ?? '';
+      } else {
+        fullName =
+            await _getFullNameSafely(context, userCredential.user!) ?? '';
+        UserModel newUser = UserModel(
+          id: userCredential.user!.uid,
+          email: userCredential.user!.email ?? '',
+          profilePic: userCredential.user!.photoURL ?? '',
+          name: fullName,
+          pastEvents: [],
+          compEvents: [],
+          grade: 12,
+          isExec: false,
+          approved: true,
+          openedAppSinceApproved: false,
+          currentChapter: '',
+          chapters: [],
+          topicsSubscribed: [],
+        );
+
+        await UserModel.writeUser(newUser);
+      }
       return userCredential;
     } on SignInWithAppleAuthorizationException catch (e) {
       print('Apple Sign-In Authorization Error:');

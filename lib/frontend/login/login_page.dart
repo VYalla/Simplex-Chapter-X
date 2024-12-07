@@ -58,7 +58,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   Future<void> _signInWithApple() async {
-    final userCredential = await _authService.signInWithApple();
+    final userCredential = await _authService.signInWithApple(context);
     if (userCredential != null) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) {
