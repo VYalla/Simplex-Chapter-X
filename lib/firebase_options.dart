@@ -54,16 +54,17 @@ class DefaultFirebaseOptions {
     appId: '1:766507839697:android:131aab77cb403422e295f0',
     messagingSenderId: '766507839697',
     projectId: 'madx-33e96',
-    storageBucket: 'madx-33e96.appspot.com',
+    storageBucket: 'madx-33e96.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCqWNIjFXAK9aVTDOcmWC5_6pv-fPgSTTg',
-    appId: '1:766507839697:ios:fd25deefc28331aee295f0',
+    appId: '1:766507839697:ios:675606e525a20de6e295f0',
     messagingSenderId: '766507839697',
     projectId: 'madx-33e96',
-    storageBucket: 'madx-33e96.appspot.com',
-    iosClientId: '766507839697-5q0fdv0qbr1kf4qe62gk4ilob6n7se40.apps.googleusercontent.com',
-    iosBundleId: 'com.example.simplexChapterx',
+    storageBucket: 'madx-33e96.firebasestorage.app',
+    iosClientId: '766507839697-su8i1llu8apijs4kobcvpq0vojtgimpg.apps.googleusercontent.com',
+    iosBundleId: 'com.wesimplex.simplex',
   );
+
 }

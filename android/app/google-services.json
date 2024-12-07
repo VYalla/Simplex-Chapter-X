@@ -2,14 +2,14 @@
   "project_info": {
     "project_number": "766507839697",
     "project_id": "madx-33e96",
-    "storage_bucket": "madx-33e96.appspot.com"
+    "storage_bucket": "madx-33e96.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:766507839697:android:3ea7faafd29d6f96e295f0",
         "android_client_info": {
-          "package_name": "com.example.simplex_chapter_x"
+          "package_name": "com.ncfbla.app"
         }
       },
       "oauth_client": [
