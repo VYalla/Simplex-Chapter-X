@@ -285,12 +285,13 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                           ...chapterCards.map((card) => GestureDetector(
                                 onTap: () async {
                                   await _selectChapter(card.clubID);
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Navigation(pIndex: 0),
-                                    ),
+                                        builder: (context) =>
+                                            const Navigation(pIndex: 0)),
+                                    (route) =>
+                                        false, // This condition removes all previous routes
                                   );
                                 },
                                 child: card,

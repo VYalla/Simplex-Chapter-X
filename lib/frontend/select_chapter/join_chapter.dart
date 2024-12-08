@@ -1,6 +1,7 @@
 // import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:simplex_chapter_x/create_chapter.dart';
@@ -16,6 +17,8 @@ import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
 
+import '../nav/navigation.dart';
+
 class JoinChapterWidget extends StatefulWidget {
   const JoinChapterWidget({super.key});
 
@@ -25,6 +28,7 @@ class JoinChapterWidget extends StatefulWidget {
 
 class _JoinChapterWidgetState extends State<JoinChapterWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late TextEditingController pin;
   String enteredPin = '';
   bool joined = false;
@@ -255,6 +259,14 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
         } else {
           ChapterModel.joinChapter(chapterID);
 
+          final User? user = FirebaseAuth.instance.currentUser;
+
+          String userId = user!.uid;
+
+          await _firestore.collection('users').doc(userId).update({
+            'currentChapter': chapterID,
+          });
+          AppInfo.currentUser.currentChapter = chapterID;
           await AppInfo.loadData();
 
           Fluttertoast.showToast(
@@ -265,6 +277,12 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
             fontSize: 16.0,
           );
 
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const Navigation(pIndex: 0)),
+            (route) => false, // This condition removes all previous routes
+          );
           joined = true;
         }
       }
