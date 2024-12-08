@@ -181,6 +181,10 @@ class AuthService {
       final nonce = _sha256ofString(rawNonce);
 
       final appleCredential = await SignInWithApple.getAppleIDCredential(
+        webAuthenticationOptions: WebAuthenticationOptions(
+            clientId: "com.wesimplex.madx-33e96",
+            redirectUri: Uri.parse(
+                "https://madx-33e96.firebaseapp.com/__/auth/handler")),
         scopes: [
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
@@ -189,9 +193,9 @@ class AuthService {
       );
 
       final oauthCredential = OAuthProvider("apple.com").credential(
-        idToken: appleCredential.identityToken,
-        rawNonce: rawNonce,
-      );
+          idToken: appleCredential.identityToken,
+          rawNonce: rawNonce,
+          accessToken: appleCredential.authorizationCode);
 
       final userCredential = await _auth.signInWithCredential(oauthCredential);
       DocumentSnapshot userDoc = await _firestore
