@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>766507839697-su8i1llu8apijs4kobcvpq0vojtgimpg.apps.googleusercontent.com</string>
+	<string>766507839697-2d68md69l279c0rbocimrg9d2km0elea.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.766507839697-su8i1llu8apijs4kobcvpq0vojtgimpg</string>
+	<string>com.googleusercontent.apps.766507839697-2d68md69l279c0rbocimrg9d2km0elea</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCqWNIjFXAK9aVTDOcmWC5_6pv-fPgSTTg</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.wesimplex.simplex</string>
+	<string>com.wesimplex.chapter</string>
 	<key>PROJECT_ID</key>
 	<string>madx-33e96</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:766507839697:ios:675606e525a20de6e295f0</string>
+	<string>1:766507839697:ios:f0a99ac63a3388f0e295f0</string>
 </dict>
 </plist>
