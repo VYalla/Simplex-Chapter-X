@@ -111,7 +111,7 @@ class AnnouncementModel {
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      FlutterAppBadger.removeBadge();
+      FlutterAppBadgeControl.removeBadge();
     });
   }
 
