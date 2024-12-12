@@ -412,7 +412,15 @@ class _CalanderPageState extends State<CalanderPage> {
     selectedDate = DateTime.now();
     currentMonth = DateTime(selectedDate.year, selectedDate.month);
     currentWeekStart = _findFirstDayOfWeek(selectedDate);
-    _loadTasks();
+    _loadAllTasks();
+  }
+
+  Future<void> _loadAllTasks() async {
+    final currentTasks = await TaskModel.getCurrentTasks();
+    final pastTasks = await TaskModel.getPastTasks();
+    setState(() {
+      tasks = [...currentTasks, ...pastTasks];
+    });
   }
 
   DateTime _findFirstDayOfWeek(DateTime date) {
@@ -541,8 +549,8 @@ class _CalanderPageState extends State<CalanderPage> {
                                         Navigator.of(context).pop();
                                       },
                                       child: Container(
-                                        width: 24,
-                                        height: 24,
+                                        width: 30,
+                                        height: 30,
                                         decoration: const BoxDecoration(
                                           color: Colors.black,
                                           shape: BoxShape.circle,
