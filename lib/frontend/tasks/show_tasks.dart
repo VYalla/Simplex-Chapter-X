@@ -89,6 +89,7 @@ class _ShowTasksState extends State<ShowTasks> {
         final chapterData = snapshot.data!.data() as Map<String, dynamic>?;
         final allTasks = (chapterData?['tasks'] as List<dynamic>?)
                 ?.map((task) => TaskModel.fromMap(task))
+                .where((task) => !task.dueDate.isBefore(DateTime.now()))
                 .toList() ??
             [];
 

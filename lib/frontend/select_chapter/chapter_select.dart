@@ -207,7 +207,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                           children: [
                             Flexible(
                               child: AutoSizeText(
-                                'Hello ${AppInfo.currentUser.name},',
+                                'Hi ${firstLast[0]}!',
                                 maxLines: 1,
                                 style: const TextStyle(
                                   fontFamily: 'Google Sans',
