@@ -1,5 +1,6 @@
+import 'package:simplex_chapter_x/frontend/gallery/task_page.dart';
 import 'package:simplex_chapter_x/frontend/gallery/packets_page.dart';
-import 'package:simplex_chapter_x/frontend/gallery/tasks_page.dart';
+import 'package:simplex_chapter_x/frontend/gallery/calander_page.dart';
 
 import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -266,6 +267,141 @@ class _GalleryPageState extends State<GalleryPage> {
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: Image.asset(
+                                          'assets/images/calendarbg.png',
+                                        ).image,
+                                      ),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 3,
+                                          color: Color(0x16000000),
+                                          offset: Offset(
+                                            0,
+                                            3,
+                                          ),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: const Color(0xFF9F9268),
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: const AlignmentDirectional(0, 0),
+                                  child: Container(
+                                    width: MediaQuery.sizeOf(context).width *
+                                        0.905,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      gradient: const LinearGradient(
+                                        colors: [
+                                          Color(0x004C3339),
+                                          Color.fromARGB(255, 159, 126, 104)
+                                        ],
+                                        stops: [0, 1],
+                                        begin: AlignmentDirectional(0, -1),
+                                        end: AlignmentDirectional(0, 1),
+                                      ),
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        width: 0,
+                                      ),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const CalanderPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(22, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'Calendar',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Google Sans',
+                                                        color: Colors.white,
+                                                        fontSize: 28,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0, 5, 0, 20),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'Keep track of all upcoming events.',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Google Sans',
+                                                          color: const Color(
+                                                              0xFFEDDFAD),
+                                                          fontSize: 15,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                          child: Container(
+                            width: MediaQuery.sizeOf(context).width * 0.905,
+                            height: 130,
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: const AlignmentDirectional(0, 0),
+                                  child: Container(
+                                    width: MediaQuery.sizeOf(context).width *
+                                        0.905,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: Image.asset(
                                           'assets/images/tasksbg.png',
                                         ).image,
                                       ),
@@ -312,8 +448,9 @@ class _GalleryPageState extends State<GalleryPage> {
                                       onTap: () {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                const TasksPage(),
+                                            builder: (context) {
+                                              return TaskPage();
+                                            },
                                           ),
                                         );
                                       },

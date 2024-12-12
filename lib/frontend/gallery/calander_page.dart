@@ -5,14 +5,14 @@ import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
-class TasksPage extends StatefulWidget {
-  const TasksPage({super.key});
+class CalanderPage extends StatefulWidget {
+  const CalanderPage({super.key});
 
   @override
-  State<TasksPage> createState() => _TasksPageState();
+  State<CalanderPage> createState() => _CalanderPageState();
 }
 
-class _TasksPageState extends State<TasksPage> {
+class _CalanderPageState extends State<CalanderPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime selectedDate;
   late DateTime currentMonth;
@@ -332,7 +332,7 @@ class _TasksPageState extends State<TasksPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'TASK',
+                                'CALENDAR',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -481,7 +481,7 @@ class _TasksPageState extends State<TasksPage> {
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: Image.asset(
-                              'assets/images/tasksbg.png',
+                              'assets/images/calendarbg.png',
                             ).image,
                           ),
                           boxShadow: const [
@@ -509,7 +509,10 @@ class _TasksPageState extends State<TasksPage> {
                         height: 251,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                            colors: [Color(0x004C3339), Color(0xFF9F9268)],
+                            colors: [
+                              Color(0x004C3339),
+                              Color.fromARGB(255, 159, 133, 104)
+                            ],
                             stops: [0, 1],
                             begin: AlignmentDirectional(0, -1),
                             end: AlignmentDirectional(0, 1),
@@ -564,7 +567,7 @@ class _TasksPageState extends State<TasksPage> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        'Tasks',
+                                        'Calendar',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -586,7 +589,7 @@ class _TasksPageState extends State<TasksPage> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          'Explore external links for information!',
+                                          'Keep track of all upcoming events.',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
