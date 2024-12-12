@@ -376,22 +376,49 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ],
                               ),
                             ),
-                            const Padding(
+                            Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(24, 18, 24, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(24, 18, 24, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                      fontFamily: 'Google Sans',
-                                      color: Color(0xFF868686),
-                                      fontSize: 15,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
+                                  InkWell(
+                                    child: Text(
+                                      'Forgot Password?',
+                                      style: TextStyle(
+                                        fontFamily: 'Google Sans',
+                                        color: Color(0xFF868686),
+                                        fontSize: 15,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            contentPadding: const EdgeInsets.only(
+                                              top: 8,
+                                              bottom: 4,
+                                              left: 24,
+                                              right: 24,
+                                            ),
+                                            title: const Text('Reset Password'),
+                                            content: const Text('To reset your password, please send an email regarding your problem to hello@wesimplex.com'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('Close'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
