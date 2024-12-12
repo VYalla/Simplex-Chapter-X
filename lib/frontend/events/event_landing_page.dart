@@ -1,3 +1,4 @@
+import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/home/home_page.dart';
 
@@ -92,7 +93,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                             ),
                           ],
                         ),
-                        IconButton(
+                        AppInfo.isExec ? IconButton(
                           icon: const Icon(
                             Icons.delete_forever_sharp,
                             color: Color(0xFFD3D3D3),
@@ -101,15 +102,9 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                           onPressed: () {
                             EventModel.removeEventById(widget.event.id);
 
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeWidget()),
-                              (route) =>
-                                  false, // This condition removes all previous routes
-                            );
+                            Navigator.pop(context);
                           },
-                        ),
+                        ) : const SizedBox(),
                       ],
                     ),
                   ),

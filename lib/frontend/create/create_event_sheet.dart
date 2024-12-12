@@ -56,6 +56,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
       backgroundColor: const Color(0xFFF5F6F7),
       body: Column(
         mainAxisSize: MainAxisSize.max,
+        
         children: [
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(22, 35, 22, 0),
@@ -77,23 +78,6 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                               color: const Color(0xFF3B58F4),
                               fontSize: 15,
                               letterSpacing: 0.0,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
-                    InkWell(
-                      //TODO Finish implementing rest of event generation
-                      onTap: () {
-                        _submitForm();
-                      },
-                      child: Text(
-                        'Add',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Google Sans',
-                              color: const Color(0xFF3B58F4),
-                              fontSize: 15,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -753,6 +737,41 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                 ),
               ],
             ),
+          ),
+          Expanded(
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 30.0,
+                  left: 15.0,
+                  right: 15.0,
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _submitForm();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                    ),
+                    child: const Text(
+                      'Add',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(20, 20, 20, 1),
+                      ),
+                    ),
+                  )
+                ),
+              ),
+            )
           ),
         ],
       ),

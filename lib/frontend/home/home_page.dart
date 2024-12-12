@@ -698,7 +698,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      'OUTLOOK',
+                                      'Upcoming',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
