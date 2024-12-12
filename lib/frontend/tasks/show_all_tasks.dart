@@ -35,6 +35,7 @@ class ShowAllTasksWidget extends StatelessWidget {
           final chapterData = snapshot.data!.data() as Map<String, dynamic>?;
           final tasks = (chapterData?['tasks'] as List<dynamic>?)
                   ?.map((task) => TaskModel.fromMap(task))
+                  .where((task) => !task.dueDate.isBefore(DateTime.now()))
                   .toList() ??
               [];
 

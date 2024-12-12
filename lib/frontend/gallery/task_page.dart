@@ -2,14 +2,14 @@ import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
 
-class CalendarPage extends StatefulWidget {
-  const CalendarPage({super.key});
+class TaskPage extends StatefulWidget {
+  const TaskPage({super.key});
 
   @override
-  State<CalendarPage> createState() => _CalendarPageState();
+  State<TaskPage> createState() => _TaskPageState();
 }
 
-class _CalendarPageState extends State<CalendarPage> {
+class _TaskPageState extends State<TaskPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -55,7 +55,7 @@ class _CalendarPageState extends State<CalendarPage> {
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: Image.asset(
-                              'assets/images/calendarbg.png',
+                              'assets/images/tasksbg.png',
                             ).image,
                           ),
                           boxShadow: const [
@@ -83,7 +83,7 @@ class _CalendarPageState extends State<CalendarPage> {
                         height: 251,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                            colors: [Color(0x004C3339), Color(0x79713A13)],
+                            colors: [Color(0x004C3339), Color(0xFF9F9268)],
                             stops: [0, 1],
                             begin: AlignmentDirectional(0, -1),
                             end: AlignmentDirectional(0, 1),
@@ -133,7 +133,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        'Calendar',
+                                        'Tasks',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -155,7 +155,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          'Explore external links for information!',
+                                          'Complete and keep track of tasks!',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
