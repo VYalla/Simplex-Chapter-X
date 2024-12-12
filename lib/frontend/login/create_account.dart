@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
@@ -14,6 +15,7 @@ import 'package:simplex_chapter_x/frontend/login/login_page.dart';
 // import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 
 import 'package:simplex_chapter_x/frontend/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CreateAccountWidget extends StatefulWidget {
   const CreateAccountWidget({super.key});
@@ -988,13 +990,19 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     child: RichText(
                                       textScaler:
                                           MediaQuery.of(context).textScaler,
-                                      text: const TextSpan(
+                                      text: TextSpan(
                                         children: [
                                           TextSpan(
                                             text: 'I accept the ',
                                             style: TextStyle(
                                               fontFamily: 'Google Sans',
                                             ),
+                                            recognizer: TapGestureRecognizer() 
+                                              ..onTap = () {
+                                                setState(() {
+                                                  agreedTOS = !agreedTOS;
+                                                });
+                                              },
                                           ),
                                           TextSpan(
                                             text: 'Terms of Service',
@@ -1003,6 +1011,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                               decoration:
                                                   TextDecoration.underline,
                                             ),
+                                            recognizer: TapGestureRecognizer() 
+                                              ..onTap = () {
+                                                _launchURL('https://github.com/MahirEmran/Sielify/blob/main/Sielify_Terms_and_Conditions.md');
+                                              },
                                           )
                                         ],
                                         style: TextStyle(
@@ -1063,13 +1075,19 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     child: RichText(
                                       textScaler:
                                           MediaQuery.of(context).textScaler,
-                                      text: const TextSpan(
+                                      text: TextSpan(
                                         children: [
                                           TextSpan(
                                             text: 'I accept the ',
                                             style: TextStyle(
                                               fontFamily: 'Google Sans',
                                             ),
+                                            recognizer: TapGestureRecognizer() 
+                                              ..onTap = () {
+                                                setState(() {
+                                                  agreedPrivacy = !agreedPrivacy;
+                                                });
+                                              },
                                           ),
                                           TextSpan(
                                             text: 'Privacy Policy',
@@ -1078,6 +1096,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                               decoration:
                                                   TextDecoration.underline,
                                             ),
+                                            recognizer: TapGestureRecognizer() 
+                                              ..onTap = () {
+                                                _launchURL('https://github.com/MahirEmran/Sielify/blob/main/Sielify_Privacy_Policy.md');
+                                              },
                                           )
                                         ],
                                         style: TextStyle(
@@ -1228,5 +1250,11 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchURL(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

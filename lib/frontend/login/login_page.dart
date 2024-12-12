@@ -429,7 +429,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               // );
                                               print(
                                                   "-------------------------------------------\n" +
-                                                      "Erorr: " +
+                                                      "Error: " +
                                                       e.toString());
                                               Fluttertoast.showToast(
                                                 msg: "Error",
