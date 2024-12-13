@@ -95,18 +95,29 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                             ),
                           ],
                         ),
-                        AppInfo.isExec
-                            ? IconButton(
-                                icon: const Icon(
-                                  Icons.delete_forever_sharp,
-                                  color: Color(0xFFD3D3D3),
-                                  size: 26,
-                                ),
-                                onPressed: () {
-                                  //IMPLEMENT THIS!!
-                                },
-                              )
-                            : const SizedBox(),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            width: 24,
+                            height: 24,
+                            decoration: const BoxDecoration(
+                              color: Colors.black54,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Align(
+                              alignment:
+                                  AlignmentDirectional(
+                                      0, 0),
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -137,6 +148,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                         const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           height: 40,
@@ -177,6 +189,20 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                             ),
                           ),
                         ),
+                        AppInfo.isExec
+                            ? IconButton(
+                                icon: const Icon(
+                                  Icons.delete_forever_sharp,
+                                  color: Color(0xFFD3D3D3),
+                                  size: 26,
+                                ),
+                                onPressed: () async {
+                                  // TODO: Maybe add an "Are you sure?" pop-up
+                                  await TaskModel.deleteTaskById(widget.chapterId, widget.task.id);
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            : const SizedBox(),
                       ],
                     ),
                   ),
