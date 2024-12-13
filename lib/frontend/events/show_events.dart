@@ -69,10 +69,11 @@ class _ShowEventsState extends State<ShowEvents> {
     // Sort events by startt date
     allEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
 
-    // Filter events by range
+    // Filter so that all events occur after or during startDate
     final filteredEvents = allEvents
-        .where((event) => dateRangesOverlap(
-            event.startDate, event.endDate, startDate, endDate))
+        // .where((event) => dateRangesOverlap(
+        //     event.startDate, event.endDate, startDate, endDate))
+        .where((event) => event.endDate.compareTo(startDate) >= 0)
         .toList();
 
     // if (filteredEvents.length >= 2) {

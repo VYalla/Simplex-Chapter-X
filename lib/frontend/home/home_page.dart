@@ -725,77 +725,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 15, 0),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Colors.transparent,
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 8, 0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                startDate = startDate.subtract(
-                                                    const Duration(days: 4));
-                                                endDate = endDate.subtract(
-                                                    const Duration(days: 4));
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.arrow_back_ios,
-                                              color: Color(0xFF333333),
-                                              size: 15,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          DateFormat('MMM d')
-                                                  .format(startDate) +
-                                              ' - ' +
-                                              DateFormat('MMM d')
-                                                  .format(endDate),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Google Sans',
-                                                color: const Color(0xFF333333),
-                                                fontSize: 15,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(8, 0, 0, 0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                startDate = startDate.add(
-                                                    const Duration(days: 4));
-                                                endDate = endDate.add(
-                                                    const Duration(days: 4));
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.arrow_forward_ios,
-                                              color: Color(0xFF333333),
-                                              size: 15,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -816,6 +745,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
+                                                // TODO: remove or replace endDate
                                                 ShowEvents(
                                                     startDate: startDate,
                                                     endDate: endDate)
