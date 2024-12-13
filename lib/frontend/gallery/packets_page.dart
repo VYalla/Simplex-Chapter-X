@@ -155,8 +155,8 @@ class _PacketsPageState extends State<PacketsPage> {
                                                 Navigator.of(context).pop();
                                               },
                                               child: Container(
-                                                width: 24,
-                                                height: 24,
+                                                width: 30,
+                                                height: 30,
                                                 decoration: const BoxDecoration(
                                                   color: Colors.black,
                                                   shape: BoxShape.circle,
@@ -300,73 +300,131 @@ class _PacketsPageState extends State<PacketsPage> {
   }
 
   Widget _buildPacketItem(PacketModel packet) {
-    return InkWell(
-        onTap: () {
-          _launchURL(packet.url);
-        },
-        child: Container(
-          width: MediaQuery.sizeOf(context).width,
-          decoration: BoxDecoration(
-            color: Color(int.parse(packet.color, radix: 16)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 15),
-                child: Row(
+    final backgroundColor = Color(int.parse(packet.color, radix: 16));
+
+    final textColor = _getTextColor(backgroundColor);
+
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: () {
+              _launchURL(packet.url);
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.905,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(20, 15, 20, 15),
+                child: Column(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          packet.title,
+                          'PACKET',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Google Sans',
-                                    color: const Color(0xFF333333),
-                                    fontSize: 15,
+                                    color: textColor,
+                                    fontSize: 12,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.bold,
                                     useGoogleFonts: false,
                                   ),
                         ),
-                        Text(
-                          packet.description,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Google Sans',
-                                color: const Color.fromARGB(255, 99, 99, 99),
-                                fontSize: 15,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w300,
-                                useGoogleFonts: false,
-                              ),
-                        )
+                        AppInfo.isExec
+                            ? IconButton(
+                                padding: EdgeInsets.zero,
+                                constraints: BoxConstraints(),
+                                icon: Icon(
+                                  Icons.delete_forever_sharp,
+                                  color: textColor,
+                                  size: 20,
+                                ),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Delete Packet'),
+                                        content: Text(
+                                            'Are you sure you want to delete this packet?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('Cancel'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: Text('Delete',
+                                                style: TextStyle(
+                                                    color: Colors.red)),
+                                            onPressed: () {
+                                              PacketModel.removePacketById(
+                                                  packet.id);
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                              )
+                            : const SizedBox(),
                       ],
                     ),
-                    AppInfo.isExec
-                        ? IconButton(
-                            icon: const Icon(
-                              Icons.delete_forever_sharp,
-                              color: Color(0xFFD3D3D3),
-                              size: 26,
-                            ),
-                            onPressed: () {
-                              PacketModel.removePacketById(packet.id);
-                            },
-                          )
-                        : const SizedBox(),
+                    SizedBox(height: 6),
+                    Text(
+                      packet.title,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Google Sans',
+                            color: textColor,
+                            fontSize: 15,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                            useGoogleFonts: false,
+                          ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      packet.description,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Google Sans',
+                            color: textColor.withOpacity(0.7),
+                            fontSize: 13,
+                            letterSpacing: 0.0,
+                            useGoogleFonts: false,
+                          ),
+                    ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ));
+        ],
+      ),
+    );
+  }
+
+  Color _getTextColor(Color backgroundColor) {
+    double luminance = (0.299 * backgroundColor.r +
+            0.587 * backgroundColor.g +
+            0.114 * backgroundColor.b) /
+        255;
+
+    return luminance > 0.5 ? Colors.black : Colors.white;
   }
 
   Future<void> _launchURL(String url) async {
