@@ -106,7 +106,7 @@ class CreateScreen extends StatelessWidget {
             child: ListView(
               children: [
                 _buildMenuItem('Packets', Icons.grid_view),
-                _buildMenuItem('Chats', Icons.chat),
+                _buildMenuItem('Channels', Icons.chat),
                 _buildMenuItem('Events', Icons.event),
                 _buildMenuItem('Tasks', Icons.check_box),
               ],

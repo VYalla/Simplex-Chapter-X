@@ -204,7 +204,7 @@ class CreateSheet {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 5, 0, 0),
                             child: Text(
-                              'Chats',
+                              'Channels',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

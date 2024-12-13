@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:intl/intl.dart';
+import 'package:simplex_chapter_x/frontend/chats/chats_page.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -52,7 +53,6 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
     super.dispose();
     _streamSubscription!.cancel();
     text.dispose();
-
     focus.dispose();
   }
 
@@ -448,27 +448,31 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                               ),
                             ),
                           ),
-                          // InkWell(
-                          //   onTap: () {
-                          //     if (AppInfo.currentUser.topicsSubscribed
-                          //         .contains(a.id)) {
-                          //       AppInfo.currentUser.removeSubscribedTopic(a.id);
-                          //       a.unsubscribeNotif();
-                          //     } else {
-                          //       AppInfo.currentUser.addSubscribedTopic(a.id);
-                          //       a.subscribeNotif();
-                          //     }
-                          //     setState(() {});
-                          //   },
-                          //   child: Icon(
-                          //     AppInfo.currentUser.topicsSubscribed
-                          //             .contains(a.id)
-                          //         ? Icons.notifications_rounded
-                          //         : Icons.notifications_off_rounded,
-                          //     color: Color(0xafffffff),
-                          //     size: 37,
-                          //   ),
-                          // ),
+                          !AppInfo.currentUser.topicsSubscribed.contains(a.id)
+                              ? InkWell(
+                                  onTap: () {
+                                    AppInfo.currentUser
+                                        .addSubscribedTopic(a.id);
+                                    a.subscribeNotif();
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0x4C000000),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox(),
                         ],
                       ),
                     ),
@@ -481,7 +485,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                     Align(
                         alignment: const AlignmentDirectional(0, -1),
                         child: SingleChildScrollView(
-                            reverse: false,
+                            reverse: true,
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: !dataLoaded

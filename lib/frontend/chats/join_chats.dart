@@ -143,7 +143,7 @@ class _JoinChatsWidgetState extends State<JoinChatsWidget> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Unsubscribed',
+                                  'Available Channels',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -169,13 +169,11 @@ class _JoinChatsWidgetState extends State<JoinChatsWidget> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.pushAndRemoveUntil(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         const Navigation(pIndex: 1)),
-                                (route) =>
-                                    false, // This condition removes all previous routes
                               );
                             },
                             child: Container(
