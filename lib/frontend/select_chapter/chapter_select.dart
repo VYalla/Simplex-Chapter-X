@@ -245,94 +245,91 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            const Text(
+                              'YOUR GROUPS',
+                              style: TextStyle(
+                                fontFamily: 'Google Sans',
+                                color: Colors.black,
+                                fontSize: 20,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  12, 0, 0, 0),
+                              child: Container(
+                                width: 6,
+                                height: 6,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFD90000),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (cardsLoaded && chapterCards.isNotEmpty)
+                        ...chapterCards.map((card) => GestureDetector(
+                              onTap: () async {
+                                await _selectChapter(card.clubID);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Navigation(pIndex: 0),
+                                  ),
+                                );
+                              },
+                              child: card,
+                            ))
+                      else if (cardsLoaded && chapterCards.isEmpty)
                         Padding(
                           padding:
-                              const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                          child: Row(
+                              const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               const Text(
-                                'YOUR GROUPS',
+                                'You haven\'t joined any chapters yet.',
                                 style: TextStyle(
                                   fontFamily: 'Google Sans',
                                   color: Colors.black,
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    12, 0, 0, 0),
-                                child: Container(
-                                  width: 6,
-                                  height: 6,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFD90000),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (cardsLoaded && chapterCards.isNotEmpty)
-                          ...chapterCards.map((card) => GestureDetector(
-                                onTap: () async {
-                                  await _selectChapter(card.clubID);
+                              const SizedBox(height: 10),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.black),
+                                onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Navigation(pIndex: 0),
-                                    ),
+                                        builder: (context) =>
+                                            const JoinChapterWidget()),
                                   );
                                 },
-                                child: card,
-                              ))
-                        else if (cardsLoaded && chapterCards.isEmpty)
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 20, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                const Text(
-                                  'You haven\'t joined any chapters yet.',
-                                  style: TextStyle(
-                                    fontFamily: 'Google Sans',
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    letterSpacing: 0.0,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      foregroundColor: Colors.black),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const JoinChapterWidget()),
-                                    );
-                                  },
-                                  child: const Text('Join a Chapter'),
-                                ),
-                              ],
-                            ),
-                          )
-                        else
-                          const CircularProgressIndicator(),
-                      ],
-                    ),
+                                child: const Text('Join a Chapter'),
+                              ),
+                            ],
+                          ),
+                        )
+                      else
+                        const CircularProgressIndicator(),
+                    ],
                   ),
                 ],
               ),
