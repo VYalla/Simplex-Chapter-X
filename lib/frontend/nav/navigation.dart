@@ -145,30 +145,12 @@ class _NavigationState extends State<Navigation> {
                   padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 0, 38, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [icons[0], icons[1]],
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(38, 0, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [icons[2], icons[3]],
-                          ),
-                        ),
-                      ),
+                      icons[0],
+                      icons[1],
+                      icons[2],
+                      icons[3],
                     ],
                   ),
                 ),
