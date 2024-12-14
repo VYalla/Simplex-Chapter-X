@@ -60,6 +60,27 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
     bool todayFound = false;
     bool yesterdayFound = false;
     items = [const SizedBox(height: 25)];
+
+    if (a.msgs.isEmpty) {
+      items.add(Padding(
+        padding: const EdgeInsets.only(top: 100),
+        child: Text(
+          'No messages yet',
+          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Google Sans',
+                color: Colors.grey,
+                fontSize: 16,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+                useGoogleFonts: false,
+              ),
+          textAlign: TextAlign.center,
+        ),
+      ));
+      items.add(const SizedBox(height: 100));
+      return;
+    }
+
     for (int i = 0; i < a.msgs.length; i++) {
       Map<String, String> m = a.msgs[i];
 
