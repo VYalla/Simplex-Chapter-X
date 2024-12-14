@@ -68,7 +68,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                   children: [
                     InkWell(
                       onTap: () {
-                        getCreateSheet();
+                        closeSheet();
                       },
                       child: Text(
                         'Cancel',
@@ -816,14 +816,13 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
       EventModel.createEvent(event);
       Toasts.toast("Event Created!", false);
       EventModel.updateEvents();
-      getCreateSheet();
+      closeSheet();
     } catch (e) {
       Toasts.toast("Error", true);
     }
   }
 
-  void getCreateSheet() {
+  void closeSheet() {
     Navigator.pop(context);
-    CreateSheet.getCreateSheet(context);
   }
 }

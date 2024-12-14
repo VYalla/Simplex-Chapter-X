@@ -59,7 +59,7 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                   children: [
                     InkWell(
                       onTap: () {
-                        getCreateSheet();
+                        closeSheet();
                       },
                       child: Text(
                         'Cancel',
@@ -531,15 +531,14 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
     try {
       PacketModel.createPacket(packet);
       Toasts.toast("Packet Created!", false);
-      getCreateSheet();
+      closeSheet();
     } catch (e) {
       Toasts.toast("Error", true);
     }
   }
 
-  void getCreateSheet() {
+  void closeSheet() {
     Navigator.pop(context);
-    CreateSheet.getCreateSheet(context);
   }
 
   void changeColor(Color newColor) {

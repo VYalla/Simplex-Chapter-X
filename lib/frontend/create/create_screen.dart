@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:simplex_chapter_x/app_info.dart';
+import 'package:simplex_chapter_x/frontend/create/create_chat_sheet.dart';
+import 'package:simplex_chapter_x/frontend/create/create_event_sheet.dart';
+import 'package:simplex_chapter_x/frontend/create/create_packet.dart';
+import 'package:simplex_chapter_x/frontend/create/create_task_sheet.dart';
+import 'package:simplex_chapter_x/frontend/flutter_flow/flutter_flow_theme.dart';
 import 'package:simplex_chapter_x/frontend/profile/profile_page.dart';
 
 class CreateScreen extends StatelessWidget {
@@ -8,94 +14,94 @@ class CreateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: false,
-        title: const Text(
-          'Admin Panel',
-          style: TextStyle(
-            fontSize: 35.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding:
-                const EdgeInsets.only(right: 8.0), // Add space from the edge
-            child: SizedBox(
-              width: 46,
-              height: 46,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(-1, -1),
-                    child: Container(
-                      width: 43,
-                      height: 43,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF526BF4),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color(0xFF051989),
-                          width: 1,
-                        ),
-                      ),
-                      child: Align(
-                        alignment: const AlignmentDirectional(0, 0),
-                        child: Text(
-                          firstLast[0][0] + firstLast[1][0],
-                          style: const TextStyle(
-                            fontFamily: 'Google Sans',
-                            color: Colors.white,
-                            fontSize: 15,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(1, 1),
-                    child: GestureDetector(
-                      onTap: () {
-                        Profile.showProfilePage(context);
-                      },
-                      child: Container(
-                        width: 19,
-                        height: 19,
-                        decoration: const BoxDecoration(
-                          color: Color(0x99000000),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Align(
-                          alignment: AlignmentDirectional(0, 0),
-                          child: Icon(
-                            Icons.more_vert,
-                            color: Colors.white,
-                            size: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+      backgroundColor: const Color(0xFFf5f6f7),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0, 6, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Admin Panel',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Google Sans',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primary,
+                                    fontSize: 40,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
+                            // const Padding(
+                            //   padding: EdgeInsetsDirectional.fromSTEB(
+                            //       15, 0, 0, 0),
+                            //   child: Icon(
+                            //     Icons.help_outline,
+                            //     color: Color(0xFF98989D),
+                            //     size: 17,
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 33,
+                        height: 33,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF526BF4),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color(0xFF051989),
+                            width: 1,
+                          ),
+                        ),
+                        child: Align(
+                          alignment: const AlignmentDirectional(0, 0),
+                          child: Text(
+                            firstLast[0][0] + firstLast[1][0],
+                            style: const TextStyle(
+                              fontFamily: 'Google Sans',
+                              color: Colors.white,
+                              fontSize: 13,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: EdgeInsetsDirectional.fromSTEB(25, 29, 0, 0),
             child: Text(
               'Create',
               style: TextStyle(
+                fontFamily: 'Google Sans',
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
@@ -104,11 +110,12 @@ class CreateScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
               children: [
-                _buildMenuItem('Packets', Icons.grid_view),
-                _buildMenuItem('Channels', Icons.chat),
-                _buildMenuItem('Events', Icons.event),
-                _buildMenuItem('Tasks', Icons.check_box),
+                _buildMenuItem('Packets', Symbols.widgets, context),
+                _buildMenuItem('Channels', Icons.chat_bubble, context),
+                _buildMenuItem('Events', Icons.calendar_today, context),
+                _buildMenuItem('Tasks', Icons.check_box, context),
               ],
             ),
           ),
@@ -117,26 +124,57 @@ class CreateScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(String title, IconData icon) {
+  Widget _buildMenuItem(String title, IconData icon, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color.fromARGB(54, 82, 106, 244),
+          color: const Color(0xFFD8DEFE),
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: ListTile(
-          leading: Icon(icon, color: const Color(0xFF526BF4)),
+          leading: Icon(icon, color: const Color(0xFF617AFF)),
           title: Text(
             title,
-            style: TextStyle(
-              fontSize: 16.0,
+            style: const TextStyle(
+              fontFamily: 'Google Sans',
+              fontSize: 20.0,
               fontWeight: FontWeight.w500,
-              color: Color(0xFF526BF4),
+              color: Color(0xFF3B68F4),
             ),
           ),
           onTap: () {
-            //navigation
+            Widget page;
+            switch (title) {
+              case "Events":
+                page = const CreateEventWidget();
+                break;
+              case "Packets":
+                page = const CreatePacketWidget();
+                break;
+              case "Tasks":
+                page = const CreateTaskSheet();
+                break;
+              case "Channels":
+                page = const CreateChatSheet();
+                break;
+              default:
+                page = Container();
+            }
+            
+            showModalBottomSheet(
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0)),
+              ),
+              backgroundColor: const Color(0xFFF5F6F7),
+              context: context,
+              builder: (context) {
+                return page;
+              }
+            );
           },
         ),
       ),

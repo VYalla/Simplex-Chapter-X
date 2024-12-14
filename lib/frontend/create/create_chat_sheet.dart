@@ -55,7 +55,7 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
                   children: [
                     InkWell(
                       onTap: () {
-                        getCreateSheet();
+                        closeSheet();
                       },
                       child: Text(
                         'Cancel',
@@ -330,15 +330,14 @@ class _CreateChatSheetState extends State<CreateChatSheet> {
     try {
       AnnouncementModel.createChat(a);
       Toasts.toast("Chat Created!", false);
-      getCreateSheet();
+      closeSheet();
     } catch (e) {
       Toasts.toast("Error", true);
     }
   }
 
-  void getCreateSheet() {
+  void closeSheet() {
     Navigator.pop(context);
-    CreateSheet.getCreateSheet(context);
   }
 
   void changeColor(Color newColor) {

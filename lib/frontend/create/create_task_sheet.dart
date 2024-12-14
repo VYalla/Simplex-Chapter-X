@@ -132,7 +132,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
                     children: [
                       InkWell(
                         onTap: () {
-                          getCreateSheet();
+                          closeSheet();
                         },
                         child: Text(
                           'Cancel',
@@ -760,8 +760,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
     );
   }
 
-  void getCreateSheet() {
+  void closeSheet() {
     Navigator.pop(context);
-    CreateSheet.getCreateSheet(context);
   }
 }
