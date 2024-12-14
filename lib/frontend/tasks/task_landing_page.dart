@@ -38,6 +38,43 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
     }
   }
 
+  Future<void> _showDeleteConfirmationDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete Task'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Are you sure you want to delete this task?'),
+                Text('This action cannot be undone.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
+              onPressed: () async {
+                await TaskModel.deleteTaskById(
+                    widget.chapterId, widget.task.id);
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,9 +144,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                               shape: BoxShape.circle,
                             ),
                             child: const Align(
-                              alignment:
-                                  AlignmentDirectional(
-                                      0, 0),
+                              alignment: AlignmentDirectional(0, 0),
                               child: Icon(
                                 Icons.close,
                                 color: Colors.white,
@@ -143,69 +178,6 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFECECED),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                15, 0, 15, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.edit_calendar,
-                                  color: Color(0xFF999999),
-                                  size: 22,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Text(
-                                    'Add reminder', //what is this for?
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Google Sans',
-                                          color: const Color(0xFF999999),
-                                          fontSize: 15,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        AppInfo.isExec
-                            ? IconButton(
-                                icon: const Icon(
-                                  Icons.delete_forever_sharp,
-                                  color: Color(0xFFD3D3D3),
-                                  size: 26,
-                                ),
-                                onPressed: () async {
-                                  // TODO: Maybe add an "Are you sure?" pop-up
-                                  await TaskModel.deleteTaskById(widget.chapterId, widget.task.id);
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            : const SizedBox(),
-                      ],
-                    ),
-                  ),
                   const Divider(
                     thickness: 1.5,
                     color: Color(0x33CFCFCF),
@@ -215,48 +187,63 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                         const EdgeInsetsDirectional.fromSTEB(25, 10, 0, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE0ECFF),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(
-                            Icons.calendar_today_outlined,
-                            color: Color(0xFF226ADD),
-                            size: 20,
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.task.timeDue,
-                                style: const TextStyle(
-                                  fontFamily: 'Google Sans',
-                                  color: Color(0xFF333333),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15,
-                                ),
+                        Row(
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE0ECFF),
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              Text(
-                                DateFormat('EEEE, MMMM d')
-                                    .format(widget.task.dueDate),
-                                style: const TextStyle(
-                                  fontFamily: 'Google Sans',
-                                  color: Color(0xFF858585),
-                                  fontSize: 15,
-                                ),
+                              child: const Icon(
+                                Icons.calendar_today_outlined,
+                                color: Color(0xFF226ADD),
+                                size: 20,
                               ),
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10, 0, 0, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.task.timeDue,
+                                    style: const TextStyle(
+                                      fontFamily: 'Google Sans',
+                                      color: Color(0xFF333333),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Text(
+                                    DateFormat('EEEE, MMMM d')
+                                        .format(widget.task.dueDate),
+                                    style: const TextStyle(
+                                      fontFamily: 'Google Sans',
+                                      color: Color(0xFF858585),
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+                        AppInfo.isExec
+                            ? IconButton(
+                                icon: const Icon(
+                                  Icons.delete_forever_sharp,
+                                  color: Color(0xFFD3D3D3),
+                                  size: 26,
+                                ),
+                                onPressed: _showDeleteConfirmationDialog,
+                              )
+                            : const SizedBox(),
                       ],
                     ),
                   ),

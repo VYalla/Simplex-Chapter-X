@@ -121,6 +121,26 @@ class _ChatsWidgetState extends State<ChatsWidget> {
         ));
       }
     }
+
+    if (subscribedChats.isEmpty && dataLoaded) {
+      subscribedChats.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Text(
+            'No subscribed channels',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Google Sans',
+                  color: Colors.grey,
+                  fontSize: 16,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
+                  useGoogleFonts: false,
+                ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
     // List<Widget> otherItems = showUnsubscribed ? unsubscribedChats : [];
     return Scaffold(
       key: scaffoldKey,
