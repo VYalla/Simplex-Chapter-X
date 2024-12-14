@@ -730,30 +730,29 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
                     right: 15.0,
                   ),
                   child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _submitForm();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _submitForm();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _blueColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                      ),
-                      child: const Text(
-                        'Add',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(20, 20, 20, 1),
+                        child: const Text(
+                          'Add',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    )
-                  ),
+                      )),
                 ),
-              )
+              ),
             ),
           ],
         ),

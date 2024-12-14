@@ -1,4 +1,3 @@
-// import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -37,6 +36,7 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
   void dispose() {
     title.dispose();
     desc.dispose();
+    url.dispose();
     super.dispose();
   }
 
@@ -72,23 +72,7 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                             ),
                       ),
                     ),
-                    InkWell(
-                      //TODO Finish implementing rest of event generation
-                      onTap: () {
-                        _submitForm();
-                      },
-                      child: Text(
-                        'Add',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Google Sans',
-                              color: const Color(0xFF3B58F4),
-                              fontSize: 15,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.bold,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
+                    // Removed the "Add" text button from here
                   ],
                 ),
                 Padding(
@@ -398,6 +382,7 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              // Existing title, description, and color picker rows
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -492,6 +477,35 @@ class _CreatePacketWidgetState extends State<CreatePacketWidget> {
                   ),
                 ),
               ],
+            ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 30.0,
+              left: 22.0,
+              right: 22.0,
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _submitForm,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF3B58F4),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+                child: const Text(
+                  'Add',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
           ),
         ],

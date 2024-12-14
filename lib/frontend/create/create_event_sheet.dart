@@ -56,7 +56,6 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
       backgroundColor: const Color(0xFFF5F6F7),
       body: Column(
         mainAxisSize: MainAxisSize.max,
-        
         children: [
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(22, 35, 22, 0),
@@ -739,22 +738,22 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
             ),
           ),
           Expanded(
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 30.0,
-                  left: 15.0,
-                  right: 15.0,
-                ),
-                child: SizedBox(
+              child: Container(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                bottom: 30.0,
+                left: 15.0,
+                right: 15.0,
+              ),
+              child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
                       _submitForm();
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: const Color(0xFF3B58F4),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -765,14 +764,12 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(20, 20, 20, 1),
+                        color: Colors.white,
                       ),
                     ),
-                  )
-                ),
-              ),
-            )
-          ),
+                  )),
+            ),
+          )),
         ],
       ),
     );
