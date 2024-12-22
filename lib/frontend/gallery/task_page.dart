@@ -167,7 +167,7 @@ class _TaskPageState extends State<TaskPage> {
                                   ),
                         ),
                         Text(
-                          task.timeDue,
+                          DateFormat('HH:mm').format(task.dueDate),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Google Sans',

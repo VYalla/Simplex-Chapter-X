@@ -63,8 +63,8 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
             TextButton(
               child: const Text('Delete', style: TextStyle(color: Colors.red)),
               onPressed: () async {
-                await TaskModel.deleteTaskById(
-                    widget.chapterId, widget.task.id);
+                TaskModel.removeTaskById(
+                    widget.task.id);
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
@@ -212,7 +212,8 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    widget.task.timeDue,
+                                    DateFormat('HH:mm')
+                                        .format(widget.task.dueDate),
                                     style: const TextStyle(
                                       fontFamily: 'Google Sans',
                                       color: Color(0xFF333333),
@@ -612,26 +613,26 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
     });
   }
 
-  Future<void> _markAsDone() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null && widget.task.submissions.isNotEmpty) {
-      await TaskModel.completeTask(
-        widget.task,
-        '', // submissionText
-        '', // submissionImage
-        '', // pdf
-        DateTime.now().toIso8601String(),
-        user.uid,
-      );
-      setState(() {
-        isTaskSubmitted = true;
-      });
-    } else if (widget.task.submissions.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content:
-                Text('Please attach at least one file before submitting.')),
-      );
-    }
-  }
+  // Future<void> _markAsDone() async {
+  //   final user = FirebaseAuth.instance.currentUser;
+  //   if (user != null && widget.task.submissions.isNotEmpty) {
+  //     await TaskModel.completeTask(
+  //       widget.task,
+  //       '', // submissionText
+  //       '', // submissionImage
+  //       '', // pdf
+  //       DateTime.now().toIso8601String(),
+  //       user.uid,
+  //     );
+  //     setState(() {
+  //       isTaskSubmitted = true;
+  //     });
+  //   } else if (widget.task.submissions.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //           content:
+  //               Text('Please attach at least one file before submitting.')),
+  //     );
+  //   }
+  // }
 }

@@ -52,11 +52,11 @@ class _CreateChapterPageState extends State<CreateChapterPage> {
           'parentApproval': _parentApproval,
           'joinCode': _joinCode,
           'widgets': _selectedWidgets,
-          'tasks': [],
           'users': []
         });
 
         chapter.collection("events").add({});
+        chapter.collection("tasks").add({});
         chapter.collection("packets").add({});
 
         await FirebaseFirestore.instance

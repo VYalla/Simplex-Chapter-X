@@ -279,6 +279,43 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                       ),
                     ),
                   ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: InkWell(
+                          onTap: () {
+                            print("pressed");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const JoinChatsWidget()),
+                            );
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                                left: 12, right: 12, top: 4, bottom: 4),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Join Chat',
+                                  style: TextStyle(
+                                    color: Color(0xFF3B58F4),
+                                    fontFamily: 'Google Sans',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ]),
               ),
               Padding(

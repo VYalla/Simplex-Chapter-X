@@ -679,14 +679,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                           //     ),
                           //   ],
                           // ),
-                          const Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [ShowTasks()],
-                            ),
-                          ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 25, 0, 0),

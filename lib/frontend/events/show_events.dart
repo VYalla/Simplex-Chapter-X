@@ -7,9 +7,11 @@ import 'package:intl/intl.dart';
 // import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/events/event_landing_page.dart';
+import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 // import 'package:simplex_chapter_x/frontend/tasks/show_all_tasks.dart';
 // import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import 'package:async/async.dart';
 
 class ShowEvents extends StatefulWidget {
   DateTime startDate;
@@ -61,19 +63,26 @@ class _ShowEventsState extends State<ShowEvents> {
     return overlap;
   }
 
-  List<EventModel> _filterEvents(
-      List<EventModel> allEvents, DateTime startDate, DateTime endDate) {
+  int compareDates(dynamic a, dynamic b) {
+    DateTime timeA = a is EventModel ? a.startDate : a.dueDate;
+    DateTime timeB = b is EventModel ? b.startDate : b.dueDate;
+
+    return timeA.compareTo(timeB);
+  }
+
+  List<dynamic> _filterObjects(
+      List<dynamic> allEvents, DateTime startDate, DateTime endDate) {
     // final currentUserId = FirebaseAuth.instance.currentUser?.uid;
     // final now = DateTime.now();
 
     // Sort events by startt date
-    allEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
+    allEvents.sort((a, b) => compareDates(a, b));
 
     // Filter so that all events occur after or during startDate
     final filteredEvents = allEvents
         // .where((event) => dateRangesOverlap(
         //     event.startDate, event.endDate, startDate, endDate))
-        .where((event) => event.endDate.compareTo(startDate) >= 0)
+        .where((object) => checkDate(object, startDate, endDate))
         .toList();
 
     // if (filteredEvents.length >= 2) {
@@ -88,17 +97,37 @@ class _ShowEventsState extends State<ShowEvents> {
     }
   }
 
+  bool checkDate(dynamic object, startDate, endDate) {
+    if (object is TaskModel) {
+      return object.dueDate.compareTo(startDate) >= 0;
+    } else {
+      return dateRangesOverlap(object.startDate, object.endDate, startDate, endDate);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_currentChapter == null) {
       return const Center(child: CircularProgressIndicator());
     }
 
+    // Stream<QuerySnapshot<Map<String, dynamic>>> stream1 = FirebaseFirestore.instance
+    //       .collection('chapters')
+    //       .doc(_currentChapter)
+    //       .collection('events')
+    //       .snapshots();
+        
+    // Stream<QuerySnapshot<Map<String, dynamic>>> stream2 = FirebaseFirestore.instance
+    //     .collection('chapters')
+    //     .doc(_currentChapter)
+    //     .collection('tasks')
+    //     .snapshots();
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('chapters')
           .doc(_currentChapter)
-          .collection('events')
+          .collection('timedObjects')
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -113,13 +142,14 @@ class _ShowEventsState extends State<ShowEvents> {
 
         final allEvents = (docs as List<dynamic>?)
                 ?.where((event) =>
-                    (event.data() as Map<String, dynamic>).containsKey("name"))
-                .map((event) => EventModel.fromDocumentSnapshot(event))
+                    (event.data() as Map<String, dynamic>).containsKey("description"))
+                .map((event) => timeEventsFromSnapshot(event))
                 .toList() ??
             [];
 
         final eventsToDisplay =
-            _filterEvents(allEvents, widget.startDate, widget.endDate);
+            _filterObjects(allEvents, widget.startDate, widget.endDate);
+          
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +159,7 @@ class _ShowEventsState extends State<ShowEvents> {
                 ? const Center(child: Text('No events available'))
                 : Column(
                     children: eventsToDisplay
-                        .map((event) => _buildEventItem(event))
+                        .map((event) => event is EventModel ? _buildEventItem(event) : _buildTaskItem(event))
                         .toList(),
                   ),
           ],
@@ -137,6 +167,40 @@ class _ShowEventsState extends State<ShowEvents> {
       },
     );
   }
+
+  dynamic timeEventsFromSnapshot(DocumentSnapshot doc) {
+    if ((doc.data() as Map<String, dynamic>)['type'].toString().toLowerCase() == 'task') {
+      return TaskModel.fromDocumentSnapshot(doc);
+    } else {
+      return EventModel.fromDocumentSnapshot(doc);
+    }
+  }
+
+  // Stream<List<dynamic>> combineStreams(
+  //   Stream<QuerySnapshot<Map<String, dynamic>>> eventStream,
+  //   Stream<QuerySnapshot<Map<String, dynamic>>> taskStream,
+  // ) {
+  //   Stream<List<TaskModel>> processedTaskStream = taskStream.map((snapshot) =>
+  //     snapshot.docs.map((doc) => TaskModel.fromDocumentSnapshot(doc)).toList());
+
+  //   Stream<List<EventModel>> processedEventStream = eventStream.map((snapshot) =>
+  //     snapshot.docs.map((doc) => EventModel.fromDocumentSnapshot(doc)).toList());
+
+  //   Stream<List<dynamic>> combinedStream = StreamZip([processedTaskStream, processedEventStream]);
+
+  //   return combinedStream;
+
+  //   // await for (var snapshot2 in taskStream) {
+  //   //   yield snapshot2.docs.map((doc) => TaskModel.fromDocumentSnapshot(doc)).toList();
+  //   // }
+
+  //   // print('yo');
+
+  //   // await for (var snapshot1 in eventStream) {
+  //   //   yield snapshot1.docs.map((doc) => EventModel.fromDocumentSnapshot(doc)).toList();
+  //   // }
+    
+  // }
 
   Widget _buildEventItem(EventModel event) {
     return Padding(
@@ -273,6 +337,130 @@ class _ShowEventsState extends State<ShowEvents> {
                         fontWeight: FontWeight.bold,
                         useGoogleFonts: false,
                       ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Color(0xFFC8C8C8),
+                  size: 12,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTaskItem(TaskModel task) {
+    final isCompleted =
+        task.usersSubmitted.contains(FirebaseAuth.instance.currentUser?.uid);
+    final isOverdue = task.dueDate.isBefore(DateTime.now()) && !isCompleted;
+
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+      child: GestureDetector(
+        onTap: () {
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (context) => TaskLandingPageWidget(
+          //     task: task,
+          //     chapterId: _currentChapter!,
+          //   ),
+          // ));
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => TaskLandingPageWidget(
+                  task: task, chapterId: _currentChapter!));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: isCompleted
+                ? const Color(0xFFDEF3DD)
+                : isOverdue
+                    ? const Color(0xFFFFE5E5)
+                    : const Color(0xFFEEEFEF),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(17, 15, 18, 15),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        width: 39,
+                        height: 39,
+                        decoration: BoxDecoration(
+                          color: isCompleted
+                              ? const Color(0xFF8CBC89)
+                              : isOverdue
+                                  ? const Color(0xFFFF6B6B)
+                                  : const Color(0xFFC1AD83),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          isCompleted
+                              ? Icons.check
+                              : isOverdue
+                                  ? Icons.warning
+                                  : Icons.access_time,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(10, 0, 8, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                isCompleted
+                                    ? 'COMPLETED'
+                                    : isOverdue
+                                        ? 'OVERDUE'
+                                        : 'PENDING',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Google Sans',
+                                      color: isCompleted
+                                          ? const Color(0xFF8CBC89)
+                                          : isOverdue
+                                              ? const Color(0xFFFF6B6B)
+                                              : const Color(0xFFC1AD83),
+                                      fontSize: 12,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                task.title,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Google Sans',
+                                      color: const Color(0xFF333333),
+                                      fontSize: 15,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const Icon(
                   Icons.arrow_forward_ios,

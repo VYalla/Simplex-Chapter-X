@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:simplex_chapter_x/frontend/toast.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'create_sheet.dart';
@@ -67,14 +68,6 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
 
       _formKey.currentState!.save();
 
-      final startDateTime = DateTime(
-        _startDate.year,
-        _startDate.month,
-        _startDate.day,
-        _startTime.hour,
-        _startTime.minute,
-      );
-
       final endDateTime = DateTime(
         _endDate.year,
         _endDate.month,
@@ -83,20 +76,12 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
         _endTime.minute,
       );
 
-      if (endDateTime.isBefore(startDateTime)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('End time must be after start time')),
-        );
-        return;
-      }
-
       final newTask = TaskModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: "",
         chapterId: _currentChapter!,
         title: name.text,
         description: desc.text,
         dueDate: endDateTime,
-        timeDue: DateFormat('h:mm a').format(endDateTime),
         submissions: [],
         usersSubmitted: [],
         links: [],
@@ -105,7 +90,14 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
         isCompleted: false,
       );
 
-      await TaskModel.writeTask(newTask);
+      try {
+      TaskModel.createTask(newTask);
+      Toasts.toast("Event Created!", false);
+      TaskModel.updateTasks();
+      Navigator.pop(context);
+    } catch (e) {
+      Toasts.toast("Error", true);
+    }
 
       Navigator.pop(context);
     }
@@ -514,112 +506,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Starts',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Google Sans',
-                                              color: const Color(0xFF333333),
-                                              fontSize: 15,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts: false,
-                                            ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () async {
-                                          final DateTime? pickedDate =
-                                              await showDatePicker(
-                                            context: context,
-                                            initialDate: _startDate,
-                                            firstDate: DateTime.now(),
-                                            lastDate: DateTime(2101),
-                                            builder: (BuildContext context,
-                                                Widget? child) {
-                                              return Theme(
-                                                data:
-                                                    ThemeData.light().copyWith(
-                                                  colorScheme:
-                                                      ColorScheme.light(
-                                                          primary: _blueColor),
-                                                ),
-                                                child: child!,
-                                              );
-                                            },
-                                          );
-                                          if (pickedDate != null &&
-                                              pickedDate != _startDate) {
-                                            setState(() {
-                                              _startDate = pickedDate;
-                                            });
-                                          }
-
-                                          if (!_isAllDay) {
-                                            final TimeOfDay? pickedTime =
-                                                await showTimePicker(
-                                              context: context,
-                                              initialTime: _startTime,
-                                              initialEntryMode:
-                                                  TimePickerEntryMode.input,
-                                              builder: (BuildContext context,
-                                                  Widget? child) {
-                                                return Theme(
-                                                  data: ThemeData.light()
-                                                      .copyWith(
-                                                    colorScheme:
-                                                        ColorScheme.light(
-                                                            primary:
-                                                                _blueColor),
-                                                    timePickerTheme:
-                                                        TimePickerThemeData(
-                                                            dayPeriodColor:
-                                                                _blueColor),
-                                                  ),
-                                                  child: child!,
-                                                );
-                                              },
-                                            );
-                                            if (pickedTime != null &&
-                                                pickedTime != _startTime) {
-                                              setState(() {
-                                                _startTime = pickedTime;
-                                              });
-                                            }
-                                          }
-                                        },
-                                        child: Text(
-                                          _isAllDay
-                                              ? DateFormat('MMM d, yyyy')
-                                                  .format(_startDate)
-                                              : '${DateFormat('MMM d, yyyy').format(_startDate)} ${_startTime.format(context)}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Google Sans',
-                                                color: const Color(0xFF3B58F4),
-                                                fontSize: 15,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const Divider(
-                                  height: 0,
-                                  thickness: 1,
-                                  color: Color(0xFFE7E7E7),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      12, 12, 12, 12),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Ends',
+                                        'Due Date',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

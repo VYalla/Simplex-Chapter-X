@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
+import 'package:simplex_chapter_x/frontend/events/event_landing_page.dart';
 import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +18,49 @@ class _CalanderPageState extends State<CalanderPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime selectedDate;
   late DateTime currentMonth;
-  List<TaskModel> tasks = [];
+  List<dynamic> timedObjects = [];
   bool isMonthView = true;
   late DateTime currentWeekStart;
+  String? _currentChapter;
 
-  Future<void> _loadTasks() async {
-    final currentTasks = await TaskModel.getCurrentTasks();
-    setState(() {
-      tasks = currentTasks;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _loadCurrentChapter();
+
+    selectedDate = DateTime.now();
+    currentMonth = DateTime(selectedDate.year, selectedDate.month);
+    currentWeekStart = _findFirstDayOfWeek(selectedDate);
+    _loadAllTimedObjects();
   }
 
-  List<TaskModel> _getTasksForDate(DateTime date) {
-    return tasks.where((task) {
-      return task.dueDate.year == date.year &&
-          task.dueDate.month == date.month &&
-          task.dueDate.day == date.day;
+  void _loadCurrentChapter() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      setState(() {
+        _currentChapter = userDoc.data()?['currentChapter'];
+      });
+    }
+  }
+
+  List<dynamic> _getTimedObjectsForDate(DateTime date) {
+    return timedObjects.where((timedObject) {
+      if (timedObject is EventModel) {
+        return timedObject.startDate.year <= date.year &&
+        timedObject.startDate.month <= date.month &&
+        timedObject.endDate.day <= date.day &&
+        timedObject.endDate.year >= date.year &&
+        timedObject.endDate.month >= date.month &&
+        timedObject.endDate.day >= date.day;
+      } else {
+        return timedObject.dueDate.year == date.year &&
+                  timedObject.dueDate.month == date.month &&
+                  timedObject.dueDate.day == date.day;
+      }
     }).toList();
   }
 
@@ -83,7 +112,7 @@ class _CalanderPageState extends State<CalanderPage> {
 
     for (var i = 1; i <= daysInMonth; i++) {
       final currentDate = DateTime(currentMonth.year, currentMonth.month, i);
-      final hasTask = _getTasksForDate(currentDate).isNotEmpty;
+      final hasTask = _getTimedObjectsForDate(currentDate).isNotEmpty;
       final isSelected = selectedDate.year == currentDate.year &&
           selectedDate.month == currentDate.month &&
           selectedDate.day == currentDate.day;
@@ -189,7 +218,7 @@ class _CalanderPageState extends State<CalanderPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(7, (index) {
             final currentDate = currentWeekStart.add(Duration(days: index));
-            final hasTask = _getTasksForDate(currentDate).isNotEmpty;
+            final hasTask = _getTimedObjectsForDate(currentDate).isNotEmpty;
             final isSelected = selectedDate.year == currentDate.year &&
                 selectedDate.month == currentDate.month &&
                 selectedDate.day == currentDate.day;
@@ -240,14 +269,14 @@ class _CalanderPageState extends State<CalanderPage> {
   }
 
   Widget _buildTasksList() {
-    final tasksForDate = _getTasksForDate(selectedDate);
+    final tasksForDate = _getTimedObjectsForDate(selectedDate);
 
     if (tasksForDate.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(22),
         child: Center(
           child: Text(
-            'No tasks due on ${DateFormat('MMMM d, yyyy').format(selectedDate)}',
+            'No tasks or events on ${DateFormat('MMMM d, yyyy').format(selectedDate)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Google Sans',
                   color: const Color(0xFF676767),
@@ -262,164 +291,19 @@ class _CalanderPageState extends State<CalanderPage> {
 
     return Column(
       children: tasksForDate.map((task) {
-        final isCompleted = task.usersSubmitted
-            .contains(FirebaseAuth.instance.currentUser?.uid);
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TaskLandingPageWidget(
-                  task: task,
-                  chapterId: task.chapterId,
-                ),
-              ),
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(22, 0, 22, 12),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 18, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 24,
-                        height: 24,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF5F6F7),
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: isCompleted
-                                ? const Color(0xFF8CBC89)
-                                : const Color(0xFFC1AD83),
-                            width: 2,
-                          ),
-                        ),
-                        child: isCompleted
-                            ? const Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: Icon(
-                                  Icons.check,
-                                  color: Color(0xFF8CBC89),
-                                  size: 16,
-                                ),
-                              )
-                            : null,
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isCompleted
-                          ? const Color(0xFFE8F5E9)
-                          : const Color(0xFFFFF3CD),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20, 15, 20, 15),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'CALENDAR',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Google Sans',
-                                      color: isCompleted
-                                          ? const Color(0xFF4CAF50)
-                                          : const Color(0xFFC1AD83),
-                                      fontSize: 12,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                              Text(
-                                task.timeDue,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Google Sans',
-                                      color: isCompleted
-                                          ? const Color(0xFF4CAF50)
-                                          : const Color(0xFFC1AD83),
-                                      fontSize: 13,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 6, 0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    task.title,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Google Sans',
-                                          color: isCompleted
-                                              ? const Color(0xFF4CAF50)
-                                              : const Color(0xFF333333),
-                                          fontSize: 15,
-                                          letterSpacing: 0.0,
-                                          decoration: isCompleted
-                                              ? TextDecoration.lineThrough
-                                              : null,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
+        if (task is EventModel) {
+          return _buildEventItem(task);
+        } else {
+          return _buildTaskItem(task);
+        }}).toList(),
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    selectedDate = DateTime.now();
-    currentMonth = DateTime(selectedDate.year, selectedDate.month);
-    currentWeekStart = _findFirstDayOfWeek(selectedDate);
-    _loadAllTasks();
-  }
-
-  Future<void> _loadAllTasks() async {
+  Future<void> _loadAllTimedObjects() async {
     final currentTasks = await TaskModel.getCurrentTasks();
     final pastTasks = await TaskModel.getPastTasks();
     setState(() {
-      tasks = [...currentTasks, ...pastTasks];
+      timedObjects = [...currentTasks, ...pastTasks];
     });
   }
 
@@ -851,5 +735,287 @@ class _CalanderPageState extends State<CalanderPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildEventItem(EventModel event) {
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            //TODO Fix Event Landing Page Widget
+            builder: (context) => EventLandingPageWidget(
+              event: event,
+              chapterId: _currentChapter!,
+            ),
+          ));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            // TODO Event types?
+            color: true
+                ? const Color.fromARGB(255, 208, 242, 255)
+                : false
+                    ? const Color(0xFFFFE5E5)
+                    : const Color(0xFFEEEFEF),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(17, 15, 18, 15),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        width: 39,
+                        height: 39,
+                        decoration: const BoxDecoration(
+                          // TODO Event colors
+                          color: true
+                              ? Color.fromARGB(255, 0, 119, 255)
+                              : false
+                                  ? Color(0xFFFF6B6B)
+                                  : Color(0xFFC1AD83),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          // Event icons
+                          true
+                              ? Icons.calendar_month
+                              : false
+                                  ? Icons.warning
+                                  : Icons.access_time,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(10, 0, 8, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                // TODO event type names
+                                event.eventType,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Google Sans',
+                                      // TODO event colors
+                                      color: true
+                                          ? const Color.fromARGB(255, 5, 0, 77)
+                                          : false
+                                              ? const Color(0xFFFF6B6B)
+                                              : const Color(0xFFC1AD83),
+                                      fontSize: 12,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                event.name,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Google Sans',
+                                      color: const Color(0xFF333333),
+                                      fontSize: 15,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                              const SizedBox(height: 3),
+                              Visibility(
+                                visible: !event.allDay,
+                                child: Text(
+                                  '${_formatTime(event.startDate, event.endDate)}',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Google Sans',
+                                        // TODO color changes?
+                                        color: true
+                                            ? const Color.fromARGB(
+                                                255, 21, 0, 138)
+                                            : const Color(0xFF666666),
+                                        fontSize: 12,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  _formatDate(event.startDate),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Google Sans',
+                        color: const Color.fromARGB(255, 107, 107, 107),
+                        fontSize: 20,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        useGoogleFonts: false,
+                      ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Color(0xFFC8C8C8),
+                  size: 12,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTaskItem(TaskModel task) {
+    final isCompleted =
+        task.usersSubmitted.contains(FirebaseAuth.instance.currentUser?.uid);
+    final isOverdue = task.dueDate.isBefore(DateTime.now()) && !isCompleted;
+
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+      child: GestureDetector(
+        onTap: () {
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (context) => TaskLandingPageWidget(
+          //     task: task,
+          //     chapterId: _currentChapter!,
+          //   ),
+          // ));
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => TaskLandingPageWidget(
+                  task: task, chapterId: _currentChapter!));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: isCompleted
+                ? const Color(0xFFDEF3DD)
+                : isOverdue
+                    ? const Color(0xFFFFE5E5)
+                    : const Color(0xFFEEEFEF),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(17, 15, 18, 15),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        width: 39,
+                        height: 39,
+                        decoration: BoxDecoration(
+                          color: isCompleted
+                              ? const Color(0xFF8CBC89)
+                              : isOverdue
+                                  ? const Color(0xFFFF6B6B)
+                                  : const Color(0xFFC1AD83),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          isCompleted
+                              ? Icons.check
+                              : isOverdue
+                                  ? Icons.warning
+                                  : Icons.access_time,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(10, 0, 8, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                isCompleted
+                                    ? 'COMPLETED'
+                                    : isOverdue
+                                        ? 'OVERDUE'
+                                        : 'PENDING',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Google Sans',
+                                      color: isCompleted
+                                          ? const Color(0xFF8CBC89)
+                                          : isOverdue
+                                              ? const Color(0xFFFF6B6B)
+                                              : const Color(0xFFC1AD83),
+                                      fontSize: 12,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                task.title,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Google Sans',
+                                      color: const Color(0xFF333333),
+                                      fontSize: 15,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Color(0xFFC8C8C8),
+                  size: 12,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _formatTime(DateTime startDate, DateTime endDate) {
+    return '${startDate.hour.toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} - ${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')}';
+  }
+
+  String _formatDate(DateTime startDate) {
+    DateFormat formatter = DateFormat('MMM dd ');
+    return formatter.format(startDate);
   }
 }
