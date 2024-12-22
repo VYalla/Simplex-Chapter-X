@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:flutter_app_badge_control/flutter_app_badge_control.dart';
 // import 'package:mad3/frontend/pages/pages.dart'
 //     show firebaseMessagingBackgroundHandler;
 
@@ -109,7 +109,7 @@ class AppInfo {
     // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      FlutterAppBadger.removeBadge();
+      FlutterAppBadgeControl.removeBadge();
     });
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       await messenger.subscribeToTopic('announcements');
