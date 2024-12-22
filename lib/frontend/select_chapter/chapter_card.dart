@@ -23,8 +23,7 @@ class ChapterCard extends StatelessWidget {
         name = doc.get("name") as String,
         bgImg =
             'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/454531818_520016530728357_6259979388890006873_n%20(2).png?alt=media&token=a1d8f4bd-ad26-45a1-918f-f8d2788673f2',
-        clubImg =
-            'https://firebasestorage.googleapis.com/v0/b/mad2-5df9e.appspot.com/o/fbla_logo.png?alt=media&token=31e40871-5a41-4b8a-ab1c-17ef5e55d4e2';
+        clubImg = doc.get("logo") as String;
 
   static Future<List<ChapterCard>> getCards() async {
     if (AppInfo.currentUser.chapters == null) {

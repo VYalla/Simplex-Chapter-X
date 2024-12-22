@@ -20,6 +20,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
+  String logo = "";
 
   @override
   void initState() {
@@ -33,6 +34,18 @@ class _HomeWidgetState extends State<HomeWidget> {
       endDate =
           DateTime(endDate.year, endDate.month, endDate.day + 1, 23, 59, 59);
     });
+
+    AppInfo.database
+        .collection('chapters')
+        .doc(AppInfo.currentUser.currentChapter)
+        .get()
+        .then(
+      (value) {
+        setState(() {
+          logo = value.get('logo') as String;
+        });
+      },
+    );
 
     super.initState();
   }
@@ -173,14 +186,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(0),
-                                  child: Image.asset(
-                                    'assets/images/fbla_logo.png',
-                                    height: 22,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                logo == ''
+                                    ? Container(
+                                        color: Colors.transparent, height: 22)
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(0),
+                                        child: Image.network(
+                                          logo,
+                                          height: 22,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
