@@ -11,7 +11,6 @@ import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 // import 'package:simplex_chapter_x/frontend/tasks/show_all_tasks.dart';
 // import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:async/async.dart';
 
 class ShowEvents extends StatefulWidget {
   DateTime startDate;
@@ -101,7 +100,8 @@ class _ShowEventsState extends State<ShowEvents> {
     if (object is TaskModel) {
       return object.dueDate.compareTo(startDate) >= 0;
     } else {
-      return dateRangesOverlap(object.startDate, object.endDate, startDate, endDate);
+      return dateRangesOverlap(
+          object.startDate, object.endDate, startDate, endDate);
     }
   }
 
@@ -116,7 +116,7 @@ class _ShowEventsState extends State<ShowEvents> {
     //       .doc(_currentChapter)
     //       .collection('events')
     //       .snapshots();
-        
+
     // Stream<QuerySnapshot<Map<String, dynamic>>> stream2 = FirebaseFirestore.instance
     //     .collection('chapters')
     //     .doc(_currentChapter)
@@ -141,15 +141,14 @@ class _ShowEventsState extends State<ShowEvents> {
         final docs = snapshot.data!.docs;
 
         final allEvents = (docs as List<dynamic>?)
-                ?.where((event) =>
-                    (event.data() as Map<String, dynamic>).containsKey("description"))
+                ?.where((event) => (event.data() as Map<String, dynamic>)
+                    .containsKey("description"))
                 .map((event) => timeEventsFromSnapshot(event))
                 .toList() ??
             [];
 
         final eventsToDisplay =
             _filterObjects(allEvents, widget.startDate, widget.endDate);
-          
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +158,9 @@ class _ShowEventsState extends State<ShowEvents> {
                 ? const Center(child: Text('No events available'))
                 : Column(
                     children: eventsToDisplay
-                        .map((event) => event is EventModel ? _buildEventItem(event) : _buildTaskItem(event))
+                        .map((event) => event is EventModel
+                            ? _buildEventItem(event)
+                            : _buildTaskItem(event))
                         .toList(),
                   ),
           ],
@@ -169,7 +170,8 @@ class _ShowEventsState extends State<ShowEvents> {
   }
 
   dynamic timeEventsFromSnapshot(DocumentSnapshot doc) {
-    if ((doc.data() as Map<String, dynamic>)['type'].toString().toLowerCase() == 'task') {
+    if ((doc.data() as Map<String, dynamic>)['type'].toString().toLowerCase() ==
+        'task') {
       return TaskModel.fromDocumentSnapshot(doc);
     } else {
       return EventModel.fromDocumentSnapshot(doc);
@@ -199,7 +201,7 @@ class _ShowEventsState extends State<ShowEvents> {
   //   // await for (var snapshot1 in eventStream) {
   //   //   yield snapshot1.docs.map((doc) => EventModel.fromDocumentSnapshot(doc)).toList();
   //   // }
-    
+
   // }
 
   Widget _buildEventItem(EventModel event) {
@@ -476,7 +478,13 @@ class _ShowEventsState extends State<ShowEvents> {
   }
 
   String _formatTime(DateTime startDate, DateTime endDate) {
-    return '${startDate.hour.toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} - ${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')}';
+    final DateFormat formatter =
+        DateFormat('h.mma'); // 12-hour format with AM/PM
+    String startTime =
+        formatter.format(startDate).toLowerCase(); // Format start time
+    String endTime = formatter.format(endDate).toLowerCase(); // Format end time
+
+    return '$startTime - $endTime';
   }
 
   String _formatDate(DateTime startDate) {

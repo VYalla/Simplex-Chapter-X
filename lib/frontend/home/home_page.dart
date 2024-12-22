@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/frontend/events/show_events.dart';
-import 'package:simplex_chapter_x/frontend/tasks/show_tasks.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../select_chapter/chapter_select.dart';
 
@@ -94,6 +94,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       'currentChapter': "",
                                     });
                                     AppInfo.currentUser.currentChapter = "";
+
+                                    AppInfo.isExec = false;
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,

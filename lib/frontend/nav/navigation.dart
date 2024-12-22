@@ -128,98 +128,210 @@ class _NavigationState extends State<Navigation> {
           for (Widget item in pages) (item),
         ],
       ),
-      bottomNavigationBar: Container(
-        width: MediaQuery.sizeOf(context).width,
-        height: 100 + addHeight,
-        child: Stack(
-          children: [
-            Align(
-              alignment: const AlignmentDirectional(0, 1),
-              child: Container(
-                width: MediaQuery.sizeOf(context).width,
-                height: 75 + addHeight,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      icons[0],
-                      icons[1],
-                      icons[2],
-                      icons[3],
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            AppInfo.isExec
-                ? Align(
+      bottomNavigationBar: !AppInfo.isExec
+          ? Container(
+              width: MediaQuery.sizeOf(context).width,
+              height: 100 + addHeight,
+              child: Stack(
+                children: [
+                  Align(
                     alignment: const AlignmentDirectional(0, 1),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          0, 0, 0, 38 + addHeight),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 76,
-                          height: 61,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFFFFFF),
-                            borderRadius: BorderRadius.circular(40),
-                            // border: Border.all(
-                            //   color: Colors.white,
-                            //   width: 5,
-                            // ),
-                          ),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 75 + addHeight,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            icons[0],
+                            icons[1],
+                            icons[2],
+                            icons[3],
+                          ],
                         ),
                       ),
                     ),
-                  )
-                : const SizedBox(),
-            AppInfo.isExec
-                ? Align(
-                    alignment: const AlignmentDirectional(0, 1),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          0, 0, 0, 41 + addHeight),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            pI = 4;
-                          });
-                          pageController.jumpToPage(4);
-                        },
-                        child: Container(
-                          width: 66,
-                          height: 51,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF3B58F4),
-                            borderRadius: BorderRadius.circular(45),
-                            // border: Border.all(
-                            //   color: Colors.white,
-                            //   width: 5,
-                            // ),
-                          ),
-                          child: const Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Icon(
-                              Icons.add_rounded,
-                              color: Colors.white,
-                              size: 28,
+                  ),
+                  AppInfo.isExec
+                      ? Align(
+                          alignment: const AlignmentDirectional(0, 1),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 38 + addHeight),
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                width: 76,
+                                height: 61,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFFFFFFF),
+                                  borderRadius: BorderRadius.circular(40),
+                                  // border: Border.all(
+                                  //   color: Colors.white,
+                                  //   width: 5,
+                                  // ),
+                                ),
+                              ),
                             ),
                           ),
+                        )
+                      : const SizedBox(),
+                  AppInfo.isExec
+                      ? Align(
+                          alignment: const AlignmentDirectional(0, 1),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 41 + addHeight),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  pI = 4;
+                                });
+                                pageController.jumpToPage(4);
+                              },
+                              child: Container(
+                                width: 66,
+                                height: 51,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF3B58F4),
+                                  borderRadius: BorderRadius.circular(45),
+                                  // border: Border.all(
+                                  //   color: Colors.white,
+                                  //   width: 5,
+                                  // ),
+                                ),
+                                child: const Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Icon(
+                                    Icons.add_rounded,
+                                    color: Colors.white,
+                                    size: 28,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
+                ],
+              ),
+            )
+          : Container(
+              width: MediaQuery.sizeOf(context).width,
+              height: 100 + addHeight,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: const AlignmentDirectional(0, 1),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 75 + addHeight,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(25, 0, 25, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 38, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [icons[0], icons[1]],
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    38, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [icons[2], icons[3]],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  )
-                : const SizedBox(),
-          ],
-        ),
-      ),
+                  ),
+                  AppInfo.isExec
+                      ? Align(
+                          alignment: const AlignmentDirectional(0, 1),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 38 + addHeight),
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                width: 76,
+                                height: 61,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFFFFFFF),
+                                  borderRadius: BorderRadius.circular(40),
+                                  // border: Border.all(
+                                  //   color: Colors.white,
+                                  //   width: 5,
+                                  // ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
+                  AppInfo.isExec
+                      ? Align(
+                          alignment: const AlignmentDirectional(0, 1),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 41 + addHeight),
+                            child: InkWell(
+                              onTap: () {
+                                CreateSheet.getCreateSheet(context);
+                              },
+                              child: Container(
+                                width: 66,
+                                height: 51,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF3B58F4),
+                                  borderRadius: BorderRadius.circular(45),
+                                  // border: Border.all(
+                                  //   color: Colors.white,
+                                  //   width: 5,
+                                  // ),
+                                ),
+                                child: const Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Icon(
+                                    Icons.add_rounded,
+                                    color: Colors.white,
+                                    size: 28,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
+                ],
+              ),
+            ),
 
       // bottomNavigationBar: Container(
       //   decoration: const BoxDecoration(

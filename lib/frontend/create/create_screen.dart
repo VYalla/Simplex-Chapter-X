@@ -6,10 +6,11 @@ import 'package:simplex_chapter_x/frontend/create/create_event_sheet.dart';
 import 'package:simplex_chapter_x/frontend/create/create_packet.dart';
 import 'package:simplex_chapter_x/frontend/create/create_task_sheet.dart';
 import 'package:simplex_chapter_x/frontend/flutter_flow/flutter_flow_theme.dart';
-import 'package:simplex_chapter_x/frontend/profile/profile_page.dart';
 
 class CreateScreen extends StatelessWidget {
   List<String> firstLast = AppInfo.currentUser.name.split(' ');
+
+  CreateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,8 @@ class CreateScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0, 6, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -45,8 +46,7 @@ class CreateScreen extends StatelessWidget {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Google Sans',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primary,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 40,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
@@ -161,20 +161,19 @@ class CreateScreen extends StatelessWidget {
               default:
                 page = Container();
             }
-            
+
             showModalBottomSheet(
-              isScrollControlled: true,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25.0),
-                    topRight: Radius.circular(25.0)),
-              ),
-              backgroundColor: const Color(0xFFF5F6F7),
-              context: context,
-              builder: (context) {
-                return page;
-              }
-            );
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0)),
+                ),
+                backgroundColor: const Color(0xFFF5F6F7),
+                context: context,
+                builder: (context) {
+                  return page;
+                });
           },
         ),
       ),

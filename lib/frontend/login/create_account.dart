@@ -996,7 +996,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                         children: [
                                           TextSpan(
                                             text: 'I accept the ',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontFamily: 'Google Sans',
                                             ),
                                             recognizer: TapGestureRecognizer()
@@ -1008,7 +1008,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           ),
                                           TextSpan(
                                             text: 'Terms of Service',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontFamily: 'Google Sans',
                                               decoration:
                                                   TextDecoration.underline,
@@ -1020,7 +1020,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                               },
                                           )
                                         ],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Google Sans',
                                           color: Color(0xFF8B8B8B),
                                           fontWeight: FontWeight.normal,
@@ -1082,7 +1082,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                         children: [
                                           TextSpan(
                                             text: 'I accept the ',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontFamily: 'Google Sans',
                                             ),
                                             recognizer: TapGestureRecognizer()
@@ -1095,7 +1095,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           ),
                                           TextSpan(
                                             text: 'Privacy Policy',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontFamily: 'Google Sans',
                                               decoration:
                                                   TextDecoration.underline,
@@ -1107,7 +1107,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                               },
                                           )
                                         ],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: 'Google Sans',
                                           color: Color(0xFF8B8B8B),
                                           fontWeight: FontWeight.normal,

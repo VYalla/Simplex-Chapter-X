@@ -6,8 +6,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
 
-import 'create_sheet.dart';
-
 class CreatePacketWidget extends StatefulWidget {
   const CreatePacketWidget({super.key});
 

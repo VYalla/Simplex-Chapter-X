@@ -63,8 +63,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
             TextButton(
               child: const Text('Delete', style: TextStyle(color: Colors.red)),
               onPressed: () async {
-                TaskModel.removeTaskById(
-                    widget.task.id);
+                TaskModel.removeTaskById(widget.task.id);
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
@@ -212,7 +211,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    DateFormat('HH:mm')
+                                    DateFormat('h.mm a')
                                         .format(widget.task.dueDate),
                                     style: const TextStyle(
                                       fontFamily: 'Google Sans',

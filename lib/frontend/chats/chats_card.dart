@@ -135,7 +135,7 @@ class ChatsCard extends StatelessWidget {
                                       ),
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ],
                         ),
                       ),

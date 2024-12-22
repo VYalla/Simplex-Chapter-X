@@ -4,7 +4,6 @@ import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'create_sheet.dart';
 
 class CreateTaskSheet extends StatefulWidget {
   const CreateTaskSheet({super.key});
@@ -21,8 +20,6 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
   late TextEditingController desc;
   late TextEditingController loc;
 
-  DateTime _startDate = DateTime.now();
-  TimeOfDay _startTime = TimeOfDay.now();
   DateTime _endDate = DateTime.now().add(const Duration(hours: 1));
   TimeOfDay _endTime =
       TimeOfDay.now().replacing(hour: (TimeOfDay.now().hour + 1) % 24);
@@ -91,15 +88,13 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
       );
 
       try {
-      TaskModel.createTask(newTask);
-      Toasts.toast("Event Created!", false);
-      TaskModel.updateTasks();
-      Navigator.pop(context);
-    } catch (e) {
-      Toasts.toast("Error", true);
-    }
-
-      Navigator.pop(context);
+        TaskModel.createTask(newTask);
+        Toasts.toast("Task Created!", false);
+        TaskModel.updateTasks();
+        Navigator.pop(context);
+      } catch (e) {
+        Toasts.toast("Error", true);
+      }
     }
   }
 

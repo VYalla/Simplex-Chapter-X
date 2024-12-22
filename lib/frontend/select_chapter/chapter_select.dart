@@ -46,7 +46,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
       });
       AppInfo.currentUser.currentChapter = chapterId;
 
-      AppInfo.loadData();
+      await AppInfo.loadData();
     } else {
       print("No user is currently logged in.");
     }

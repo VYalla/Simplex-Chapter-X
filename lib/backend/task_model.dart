@@ -133,7 +133,11 @@ class TaskModel {
   //   });
   // }
   static Future<void> createTask(TaskModel task) async {
-    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').add(task.toMap());
+    AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .add(task.toMap());
   }
 
   static Future<void> updateTasks() async {
@@ -152,7 +156,8 @@ class TaskModel {
     final chapterRef = AppInfo.database.collection('chapters').doc(chapterId);
 
     final chapterDoc = await chapterRef.get();
-    final tasks = List<Map<String, dynamic>>.from(chapterDoc.get('timedObjects'));
+    final tasks =
+        List<Map<String, dynamic>>.from(chapterDoc.get('timedObjects'));
 
     final taskIndex = tasks.indexWhere((task) => task['id'] == taskId);
     if (taskIndex != -1) {
@@ -165,15 +170,24 @@ class TaskModel {
   ///
   ///
   static void removeTaskById(String id) {
-    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').doc(id).delete();
+    AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .doc(id)
+        .delete();
   }
 
   /// Gets the specified task via [id] as a [TaskModel] object
   ///
   ///
   static Future<TaskModel> getTaskById(String id) async {
-    DocumentSnapshot taskInfo =
-        await AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').doc(id).get();
+    DocumentSnapshot taskInfo = await AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .doc(id)
+        .get();
     return TaskModel.fromDocumentSnapshot(taskInfo);
   }
 
@@ -182,23 +196,27 @@ class TaskModel {
   ///
   static Future<List<TaskModel>> getCurrentTasks() async {
     final currentDate = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    String formattedDate = DateFormat('MMMM d, yyyy').format(currentDate);
     String currentChapter = AppInfo.currentUser.currentChapter;
 
     QuerySnapshot taskQuery = await AppInfo.database
         .collection("chapters")
         .doc(currentChapter)
         .collection('timedObjects')
-        .where('dueDate', isGreaterThan: formattedDate)
+        .where('type', isEqualTo: "task")
+        .where('dueDate', isLessThanOrEqualTo: formattedDate)
         .orderBy('dueDate')
         .get();
+    dv.log(taskQuery.docs.length.toString());
 
     return (taskQuery.docs as List<dynamic>?)
-                ?.where((task) =>
-                    (task.data() as Map<String, dynamic>).containsKey("description") && (task.data() as Map<String, dynamic>)['type'] == 'task')
-                .map((event) => TaskModel.fromDocumentSnapshot(event))
-                .toList() ??
-            [];
+            // ?.where((task) =>
+            //     (task.data() as Map<String, dynamic>)
+            //         .containsKey("description") &&
+            //     (task.data() as Map<String, dynamic>)['type'] == 'task')
+            ?.map((event) => TaskModel.fromDocumentSnapshot(event))
+            .toList() ??
+        [];
 
     // List<TaskModel> currentTasks = [];
 
@@ -219,23 +237,25 @@ class TaskModel {
   ///
   static Future<List<TaskModel>> getPastTasks() async {
     final currentDate = DateTime.now().subtract(const Duration(days: 1));
-    String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    String formattedDate = DateFormat('MMMM d, yyyy').format(currentDate);
     String currentChapter = AppInfo.currentUser.currentChapter;
 
     QuerySnapshot taskQuery = await AppInfo.database
         .collection("chapters")
         .doc(currentChapter)
         .collection('timedObjects')
-        .where('dueDate', isLessThan: formattedDate)
+        .where('dueDate', isGreaterThan: formattedDate)
         .orderBy('dueDate')
         .get();
-
+    dv.log(taskQuery.docs.length.toString());
     return (taskQuery.docs as List<dynamic>?)
-                ?.where((task) =>
-                    (task.data() as Map<String, dynamic>).containsKey("description") && (task.data() as Map<String, dynamic>)['type'] == 'task')
-                .map((event) => TaskModel.fromDocumentSnapshot(event))
-                .toList() ??
-            [];
+            // ?.where((task) =>
+            //     (task.data() as Map<String, dynamic>)
+            //         .containsKey("description") &&
+            //     (task.data() as Map<String, dynamic>)['type'] == 'task')
+            ?.map((event) => TaskModel.fromDocumentSnapshot(event))
+            .toList() ??
+        [];
   }
 
   /// Updates the provided [task] with the provided submission details

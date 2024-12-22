@@ -36,18 +36,17 @@ class EventModel {
 
   final bool allDay;
 
-  EventModel({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.startDate,
-    required this.endDate,
-    required this.location,
-    required this.usersAttended,
-    required this.image,
-    required this.allDay,
-    required this.eventType
-  });
+  EventModel(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.startDate,
+      required this.endDate,
+      required this.location,
+      required this.usersAttended,
+      required this.image,
+      required this.allDay,
+      required this.eventType});
 
   /// Utility constructor to easily make an [EventModel] from a [DocumentSnapshot]
   ///
@@ -100,11 +99,20 @@ class EventModel {
   ///
   /// Every field will be overwritten!
   static Future<void> writeEvent(EventModel event) async {
-    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').doc(event.id).set(event.toMap());
+    AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .doc(event.id)
+        .set(event.toMap());
   }
 
   static Future<void> createEvent(EventModel event) async {
-    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').add(event.toMap());
+    AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .add(event.toMap());
   }
 
   /// Updates the event specified by the provided [id] with [updates]
@@ -112,21 +120,35 @@ class EventModel {
   /// Firebase will merge the target data with the provided data
   static Future<void> updateEventById(
       String id, Map<String, dynamic> updates) async {
-    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').doc(id).update(updates);
+    AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .doc(id)
+        .update(updates);
   }
 
   /// Deletes the event specified by the provided [id]
   ///
   static void removeEventById(String id) {
-    AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').doc(id).delete();
+    AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .doc(id)
+        .delete();
   }
 
   /// Gets an event with the given [id]
   ///
   ///
   static Future<EventModel> getEventById(String id) async {
-    DocumentSnapshot eventInfo =
-        await AppInfo.database.collection("chapters").doc(AppInfo.currentUser.currentChapter).collection('timedObjects').doc(id).get();
+    DocumentSnapshot eventInfo = await AppInfo.database
+        .collection("chapters")
+        .doc(AppInfo.currentUser.currentChapter)
+        .collection('timedObjects')
+        .doc(id)
+        .get();
     return EventModel.fromDocumentSnapshot(eventInfo);
   }
 
@@ -135,23 +157,27 @@ class EventModel {
   ///
   static Future<List<EventModel>> getCurrentEvents() async {
     DateTime currentDate = DateTime.now().subtract(const Duration(days: 1));
-    String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    String formattedDate = DateFormat('MMMM d, yyyy').format(currentDate);
     String currentChapter = AppInfo.currentUser.currentChapter;
 
     QuerySnapshot eventQuery = await AppInfo.database
         .collection("chapters")
         .doc(currentChapter)
         .collection('timedObjects')
-        .where('endDate', isGreaterThan: formattedDate)
+        .where("type", isEqualTo: "event")
+        .where('startDate', isGreaterThanOrEqualTo: formattedDate)
+        .where('endDate', isLessThanOrEqualTo: formattedDate)
         .orderBy('endDate')
         .get();
-
+    dv.log(eventQuery.docs.length.toString());
     return (eventQuery.docs as List<dynamic>?)
-                ?.where((event) =>
-                    (event.data() as Map<String, dynamic>).containsKey("description") && (event.data() as Map<String, dynamic>)['type'] == 'event')
-                .map((event) => EventModel.fromDocumentSnapshot(event))
-                .toList() ??
-            [];
+            // ?.where((event) =>
+            //     (event.data() as Map<String, dynamic>)
+            //         .containsKey("description") &&
+            //     (event.data() as Map<String, dynamic>)['type'] == 'event')
+            ?.map((event) => EventModel.fromDocumentSnapshot(event))
+            .toList() ??
+        [];
 
     // return eventQuery.docs
     //     .map((snapshot) => EventModel.fromDocumentSnapshot(snapshot))
@@ -171,20 +197,27 @@ class EventModel {
   ///
   static Future<List<EventModel>> getPastEvents() async {
     DateTime currentDate = DateTime.now().subtract(const Duration(days: 1));
-    String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    String formattedDate = DateFormat('MMMM d, yyyy').format(currentDate);
     String currentChapter = AppInfo.currentUser.currentChapter;
 
     QuerySnapshot eventQuery = await AppInfo.database
         .collection("chapters")
         .doc(currentChapter)
-        .collection('events')
-        .where('date', isLessThanOrEqualTo: formattedDate)
-        .orderBy('date')
+        .collection('timedObjects')
+        .where("type", isEqualTo: "event")
+        .where('endDate', isGreaterThan: formattedDate)
+        .orderBy('endDate')
         .get();
 
-    return eventQuery.docs
-        .map((snapshot) => EventModel.fromDocumentSnapshot(snapshot))
-        .toList();
+    dv.log(eventQuery.docs.length.toString());
+    return (eventQuery.docs as List<dynamic>?)
+            // ?.where((event) =>
+            //     (event.data() as Map<String, dynamic>)
+            //         .containsKey("description") &&
+            //     (event.data() as Map<String, dynamic>)['type'] == 'event')
+            ?.map((event) => EventModel.fromDocumentSnapshot(event))
+            .toList() ??
+        [];
   }
 
   /// adds user by [name] to the provided [event] document in Firebase

@@ -386,7 +386,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   InkWell(
-                                    child: Text(
+                                    child: const Text(
                                       'Forgot Password?',
                                       style: TextStyle(
                                         fontFamily: 'Google Sans',

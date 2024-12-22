@@ -11,7 +11,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../nav/navigation.dart';
-import 'chatroom_page.dart';
 
 class JoinChatsWidget extends StatefulWidget {
   const JoinChatsWidget({super.key});

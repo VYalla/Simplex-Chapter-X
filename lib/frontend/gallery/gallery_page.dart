@@ -1,6 +1,6 @@
 import 'package:simplex_chapter_x/frontend/gallery/task_page.dart';
 import 'package:simplex_chapter_x/frontend/gallery/packets_page.dart';
-import 'package:simplex_chapter_x/frontend/gallery/calander_page.dart';
+import 'package:simplex_chapter_x/frontend/gallery/calendar_page.dart';
 
 import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -314,7 +314,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const CalanderPage(),
+                                                const CalendarPage(),
                                           ),
                                         );
                                       },
@@ -449,7 +449,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) {
-                                              return TaskPage();
+                                              return const TaskPage();
                                             },
                                           ),
                                         );

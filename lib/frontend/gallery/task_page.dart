@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
+import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -29,15 +31,27 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   Future<void> _loadTasks() async {
-    final currentTasks = await TaskModel.getCurrentTasks();
-    final pastTasks = await TaskModel.getPastTasks();
+    String currentChapter = AppInfo.currentUser.currentChapter;
+
+    QuerySnapshot eventQuery = await AppInfo.database
+        .collection("chapters")
+        .doc(currentChapter)
+        .collection('timedObjects')
+        .get();
+
+    List<TaskModel> tasks2 = [];
+    for (QueryDocumentSnapshot d in eventQuery.docs) {
+      if (d.get('type') == 'task') {
+        tasks2.add(TaskModel.fromDocumentSnapshot(d));
+      }
+    }
 
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
-    final filteredTasks = [...currentTasks, ...pastTasks]
-        .where(
-            (task) => task.dueDate.isAfter(today.subtract(Duration(days: 1))))
+    final filteredTasks = tasks2
+        .where((task) =>
+            task.dueDate.isAfter(today.subtract(const Duration(days: 1))))
         .toList();
 
     filteredTasks.sort((a, b) => a.dueDate.compareTo(b.dueDate));
@@ -83,7 +97,7 @@ class _TaskPageState extends State<TaskPage> {
         final now = DateTime.now();
         if (isSameDay(date, now)) {
           dateHeader = 'Today';
-        } else if (isSameDay(date, now.add(Duration(days: 1)))) {
+        } else if (isSameDay(date, now.add(const Duration(days: 1)))) {
           dateHeader = 'Tomorrow';
         } else {
           dateHeader = DateFormat('EEEE, MMMM d').format(date);
@@ -106,7 +120,7 @@ class _TaskPageState extends State<TaskPage> {
                     ),
               ),
             ),
-            ...tasksOnDate.map(_buildTaskItem).toList(),
+            ...tasksOnDate.map(_buildTaskItem),
           ],
         );
       }).toList(),

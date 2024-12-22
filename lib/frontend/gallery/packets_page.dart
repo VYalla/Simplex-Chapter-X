@@ -345,7 +345,7 @@ class _PacketsPageState extends State<PacketsPage> {
                         AppInfo.isExec
                             ? IconButton(
                                 padding: EdgeInsets.zero,
-                                constraints: BoxConstraints(),
+                                constraints: const BoxConstraints(),
                                 icon: Icon(
                                   Icons.delete_forever_sharp,
                                   color: textColor,
@@ -356,18 +356,18 @@ class _PacketsPageState extends State<PacketsPage> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Delete Packet'),
-                                        content: Text(
+                                        title: const Text('Delete Packet'),
+                                        content: const Text(
                                             'Are you sure you want to delete this packet?'),
                                         actions: <Widget>[
                                           TextButton(
-                                            child: Text('Cancel'),
+                                            child: const Text('Cancel'),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
                                           ),
                                           TextButton(
-                                            child: Text('Delete',
+                                            child: const Text('Delete',
                                                 style: TextStyle(
                                                     color: Colors.red)),
                                             onPressed: () {
@@ -385,7 +385,7 @@ class _PacketsPageState extends State<PacketsPage> {
                             : const SizedBox(),
                       ],
                     ),
-                    SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     Text(
                       packet.title,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -397,7 +397,7 @@ class _PacketsPageState extends State<PacketsPage> {
                             useGoogleFonts: false,
                           ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       packet.description,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
