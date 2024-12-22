@@ -1,7 +1,9 @@
+import 'dart:developer' as dv;
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -19,16 +21,6 @@ class AuthService {
       'email',
     ],
   );
-
-  Future<void> _addUserToFirestore(User user) async {
-    await _firestore.collection('users').doc(user.uid).set({
-      'email': user.email,
-      'name': user.displayName,
-      'profilePic': user.photoURL,
-      'createdAt': FieldValue.serverTimestamp(),
-      'chapters': [],
-    });
-  }
 
   Future<UserCredential?> signInWithGoogle(BuildContext context) async {
     try {
@@ -101,12 +93,14 @@ class AuthService {
           }
         } catch (signInError) {
           print('Error signing in with existing account: $signInError');
+          dv.log(signInError.toString());
         }
       }
 
       return null;
     } catch (e) {
       print('Unexpected error signing in with Google: $e');
+      dv.log(e.toString());
       return null;
     }
   }
@@ -175,12 +169,16 @@ class AuthService {
     );
   }
 
-  Future<UserCredential?> signInWithApple() async {
+  Future<UserCredential?> signInWithApple(BuildContext context) async {
     try {
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
 
       final appleCredential = await SignInWithApple.getAppleIDCredential(
+        webAuthenticationOptions: WebAuthenticationOptions(
+            clientId: "com.wesimplex.madx-33e96",
+            redirectUri: Uri.parse(
+                "https://madx-33e96.firebaseapp.com/__/auth/handler")),
         scopes: [
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
@@ -189,12 +187,39 @@ class AuthService {
       );
 
       final oauthCredential = OAuthProvider("apple.com").credential(
-        idToken: appleCredential.identityToken,
-        rawNonce: rawNonce,
-      );
+          idToken: appleCredential.identityToken,
+          rawNonce: rawNonce,
+          accessToken: appleCredential.authorizationCode);
 
       final userCredential = await _auth.signInWithCredential(oauthCredential);
-      await _addUserToFirestore(userCredential.user!);
+      DocumentSnapshot userDoc = await _firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+      String fullName;
+      if (userDoc.exists) {
+        fullName = userDoc.get('name') ?? '';
+      } else {
+        fullName =
+            await _getFullNameSafely(context, userCredential.user!) ?? '';
+        UserModel newUser = UserModel(
+          id: userCredential.user!.uid,
+          email: userCredential.user!.email ?? '',
+          profilePic: userCredential.user!.photoURL ?? '',
+          name: fullName,
+          pastEvents: [],
+          compEvents: [],
+          grade: 12,
+          isExec: false,
+          approved: true,
+          openedAppSinceApproved: false,
+          currentChapter: '',
+          chapters: [],
+          topicsSubscribed: [],
+        );
+
+        await UserModel.writeUser(newUser);
+      }
       return userCredential;
     } on SignInWithAppleAuthorizationException catch (e) {
       print('Apple Sign-In Authorization Error:');

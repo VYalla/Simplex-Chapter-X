@@ -469,31 +469,33 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                               ),
                             ),
                           ),
-                          !AppInfo.currentUser.topicsSubscribed.contains(a.id)
-                              ? InkWell(
-                                  onTap: () {
-                                    AppInfo.currentUser
-                                        .addSubscribedTopic(a.id);
-                                    a.subscribeNotif();
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    width: 36,
-                                    height: 36,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0x4C000000),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 24,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox(),
+                          // !AppInfo.currentUser.topicsSubscribed
+                          //             .contains(a.id) &&
+                          //         AppInfo.currentUser.currentChapter != a.id
+                          //     ? InkWell(
+                          //         onTap: () {
+                          //           AppInfo.currentUser
+                          //               .addSubscribedTopic(a.id);
+                          //           a.subscribeNotif();
+                          //           setState(() {});
+                          //         },
+                          //         child: Container(
+                          //           width: 36,
+                          //           height: 36,
+                          //           decoration: const BoxDecoration(
+                          //             color: Color(0x4C000000),
+                          //             shape: BoxShape.circle,
+                          //           ),
+                          //           child: const Center(
+                          //             child: Icon(
+                          //               Icons.add,
+                          //               color: Colors.white,
+                          //               size: 24,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       )
+                          //     : const SizedBox(),
                         ],
                       ),
                     ),

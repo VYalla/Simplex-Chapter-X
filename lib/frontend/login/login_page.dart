@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
+import 'dart:developer' as dv;
 
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
@@ -53,12 +54,13 @@ class _LoginWidgetState extends State<LoginWidget> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error signing in with Google: $e')),
         );
+        dv.log(e.toString());
       }
     }
   }
 
   Future<void> _signInWithApple() async {
-    final userCredential = await _authService.signInWithApple();
+    final userCredential = await _authService.signInWithApple(context);
     if (userCredential != null) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) {
@@ -377,8 +379,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(24, 18, 24, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  24, 18, 24, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -399,14 +401,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         context: context,
                                         builder: (BuildContext context) {
                                           return AlertDialog(
-                                            contentPadding: const EdgeInsets.only(
+                                            contentPadding:
+                                                const EdgeInsets.only(
                                               top: 8,
                                               bottom: 4,
                                               left: 24,
                                               right: 24,
                                             ),
                                             title: const Text('Reset Password'),
-                                            content: const Text('To reset your password, please send an email regarding your problem to hello@wesimplex.com'),
+                                            content: const Text(
+                                                'To reset your password, please send an email regarding your problem to hello@wesimplex.com'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () {
@@ -458,6 +462,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   "-------------------------------------------\n" +
                                                       "Error: " +
                                                       e.toString());
+                                              dv.log(e.toString());
                                               Fluttertoast.showToast(
                                                 msg: "Error",
                                                 toastLength: Toast.LENGTH_SHORT,

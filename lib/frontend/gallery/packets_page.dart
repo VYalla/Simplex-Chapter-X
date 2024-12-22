@@ -419,9 +419,9 @@ class _PacketsPageState extends State<PacketsPage> {
   }
 
   Color _getTextColor(Color backgroundColor) {
-    double luminance = (0.299 * backgroundColor.r +
-            0.587 * backgroundColor.g +
-            0.114 * backgroundColor.b) /
+    double luminance = (0.299 * backgroundColor.red +
+            0.587 * backgroundColor.green +
+            0.114 * backgroundColor.blue) /
         255;
 
     return luminance > 0.5 ? Colors.black : Colors.white;

@@ -91,17 +91,20 @@ class _JoinChatsWidgetState extends State<JoinChatsWidget> {
   Widget build(BuildContext context) {
     unsubscribedChats = [];
     for (AnnouncementModel a in groups) {
-      if (!AppInfo.currentUser.topicsSubscribed.contains(a.id)) {
+      if (!AppInfo.currentUser.topicsSubscribed.contains(a.id) &&
+          AppInfo.currentUser.currentChapter != a.id) {
         unsubscribedChats.add(ChatsCard(
           a: a,
           onPress: updateCards,
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ChatroomWidget(a: a),
-              ),
-            );
+            if (AppInfo.currentUser.topicsSubscribed.contains(a.id)) {
+              AppInfo.currentUser.removeSubscribedTopic(a.id);
+              a.unsubscribeNotif();
+            } else {
+              AppInfo.currentUser.addSubscribedTopic(a.id);
+              a.subscribeNotif();
+            }
+            updateCards();
           },
         ));
       }

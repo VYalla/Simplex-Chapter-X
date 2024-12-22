@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simplex_chapter_x/frontend/chats/chats_card.dart';
@@ -93,7 +94,8 @@ class _ChatsWidgetState extends State<ChatsWidget> {
     subscribedChats = [];
     unsubscribedChats = [];
     for (AnnouncementModel a in groups) {
-      if (AppInfo.currentUser.topicsSubscribed.contains(a.id)) {
+      if (AppInfo.currentUser.topicsSubscribed.contains(a.id) ||
+          a.id == AppInfo.currentUser.currentChapter) {
         subscribedChats.add(ChatsCard(
           a: a,
           onPress: updateCards,
@@ -143,6 +145,24 @@ class _ChatsWidgetState extends State<ChatsWidget> {
     }
     // List<Widget> otherItems = showUnsubscribed ? unsubscribedChats : [];
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: Platform.isIOS ? 90 : 80),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const JoinChatsWidget()),
+            );
+          },
+          backgroundColor: const Color(0xFF3B58F4),
+          elevation: 8,
+          child: const Icon(
+            Icons.add_rounded,
+            color: Colors.white,
+            size: 32,
+          ),
+        ),
+      ),
       key: scaffoldKey,
       backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
@@ -256,43 +276,6 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                       decoration: const BoxDecoration(
                         color: Color(0xFFD90000),
                         shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: InkWell(
-                          onTap: () {
-                            print("pressed");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const JoinChatsWidget()),
-                            );
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                                left: 12, right: 12, top: 4, bottom: 4),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Join a Channel',
-                                  style: TextStyle(
-                                    color: Color(0xFF3B58F4),
-                                    fontFamily: 'Google Sans',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ),

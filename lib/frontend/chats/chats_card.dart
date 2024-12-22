@@ -94,44 +94,48 @@ class ChatsCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 10, 0, 0),
-                              child: InkWell(
-                                onTap: () {
-                                  if (AppInfo.currentUser.topicsSubscribed
-                                      .contains(a.id)) {
-                                    AppInfo.currentUser
-                                        .removeSubscribedTopic(a.id);
-                                    a.unsubscribeNotif();
-                                  } else {
-                                    AppInfo.currentUser
-                                        .addSubscribedTopic(a.id);
-                                    a.subscribeNotif();
-                                  }
-                                  onPress();
-                                },
-                                child: Container(
-                                  width: 29,
-                                  height: 29,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0x4C000000),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0, 0),
-                                    child: Icon(
-                                      AppInfo.currentUser.topicsSubscribed
-                                              .contains(a.id)
-                                          ? Icons.remove
-                                          : Icons.add,
-                                      color: Colors.white,
-                                      size: 20,
+                            a.id != AppInfo.currentUser.currentChapter
+                                ? Padding(
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        if (AppInfo.currentUser.topicsSubscribed
+                                            .contains(a.id)) {
+                                          AppInfo.currentUser
+                                              .removeSubscribedTopic(a.id);
+                                          a.unsubscribeNotif();
+                                        } else {
+                                          AppInfo.currentUser
+                                              .addSubscribedTopic(a.id);
+                                          a.subscribeNotif();
+                                        }
+                                        onPress();
+                                      },
+                                      child: Container(
+                                        width: 29,
+                                        height: 29,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0x4C000000),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Align(
+                                          alignment:
+                                              const AlignmentDirectional(0, 0),
+                                          child: Icon(
+                                            AppInfo.currentUser.topicsSubscribed
+                                                    .contains(a.id)
+                                                ? Icons.remove
+                                                : Icons.add,
+                                            color: Colors.white,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                                  )
+                                : SizedBox(),
                           ],
                         ),
                       ),

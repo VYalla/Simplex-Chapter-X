@@ -805,7 +805,6 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
         description: desc.text,
         startDate: startDateTime,
         endDate: endDateTime,
-        qrCode: "",
         location: loc.text,
         usersAttended: [],
         image: "",

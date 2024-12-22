@@ -79,11 +79,11 @@ class AppInfo {
       AppInfo.isExec = exec.contains(currentUser.id);
     }
 
-    await TaskModel.getCurrentTasks().then(
-      (value) {
-        AppInfo.currentTasks = value;
-      },
-    );
+    // await TaskModel.getCurrentTasks().then(
+    //   (value) {
+    //     AppInfo.currentTasks = value;
+    //   },
+    // );
     await PacketModel.getPackets().then(
       (value) {
         AppInfo.currentPackets = value;

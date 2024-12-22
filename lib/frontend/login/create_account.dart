@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
+import 'dart:developer' as dv;
 
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
@@ -73,13 +74,14 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Failed to sign in with Google')),
       );
+      dv.log(e.toString());
       print('Error signing in with Google: $e');
     }
   }
 
   Future<void> _signInWithApple() async {
     try {
-      final userCredential = await _authService.signInWithApple();
+      final userCredential = await _authService.signInWithApple(context);
       if (userCredential != null) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const ChapterSelectWidget(),
@@ -997,7 +999,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                             style: TextStyle(
                                               fontFamily: 'Google Sans',
                                             ),
-                                            recognizer: TapGestureRecognizer() 
+                                            recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 setState(() {
                                                   agreedTOS = !agreedTOS;
@@ -1011,9 +1013,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                               decoration:
                                                   TextDecoration.underline,
                                             ),
-                                            recognizer: TapGestureRecognizer() 
+                                            recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                _launchURL('https://github.com/MahirEmran/Sielify/blob/main/Sielify_Terms_and_Conditions.md');
+                                                _launchURL(
+                                                    'https://github.com/MahirEmran/Sielify/blob/main/Sielify_Terms_and_Conditions.md');
                                               },
                                           )
                                         ],
@@ -1082,10 +1085,11 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                             style: TextStyle(
                                               fontFamily: 'Google Sans',
                                             ),
-                                            recognizer: TapGestureRecognizer() 
+                                            recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 setState(() {
-                                                  agreedPrivacy = !agreedPrivacy;
+                                                  agreedPrivacy =
+                                                      !agreedPrivacy;
                                                 });
                                               },
                                           ),
@@ -1096,9 +1100,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                               decoration:
                                                   TextDecoration.underline,
                                             ),
-                                            recognizer: TapGestureRecognizer() 
+                                            recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                _launchURL('https://github.com/MahirEmran/Sielify/blob/main/Sielify_Privacy_Policy.md');
+                                                _launchURL(
+                                                    'https://github.com/MahirEmran/Sielify/blob/main/Sielify_Privacy_Policy.md');
                                               },
                                           )
                                         ],

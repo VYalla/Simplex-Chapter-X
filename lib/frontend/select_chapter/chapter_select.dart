@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
@@ -37,6 +38,8 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String userId = user.uid;
+
+      FirebaseMessaging.instance.subscribeToTopic(chapterId);
 
       await _firestore.collection('users').doc(userId).update({
         'currentChapter': chapterId,
@@ -145,27 +148,33 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                             children: [
                               Align(
                                 alignment: const AlignmentDirectional(-1, -1),
-                                child: Container(
-                                  width: 43,
-                                  height: 43,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF526BF4),
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: const Color(0xFF051989),
-                                      width: 1,
+                                child: InkWell(
+                                  onTap: () {
+                                    Profile.showProfilePage(context);
+                                  },
+                                  child: Container(
+                                    width: 43,
+                                    height: 43,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF526BF4),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: const Color(0xFF051989),
+                                        width: 1,
+                                      ),
                                     ),
-                                  ),
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0, 0),
-                                    child: Text(
-                                      firstLast[0][0] + firstLast[1][0],
-                                      style: const TextStyle(
-                                        fontFamily: 'Google Sans',
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
+                                    child: Align(
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        firstLast[0][0] + firstLast[1][0],
+                                        style: const TextStyle(
+                                          fontFamily: 'Google Sans',
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
