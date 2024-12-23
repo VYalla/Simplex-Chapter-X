@@ -443,7 +443,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                                     },
                                     child: const Icon(
                                       Icons.arrow_back_ios_rounded,
-                                      color: Color(0x3B080404),
+                                      color: Color(0xafffffff),
                                       size: 24,
                                     ),
                                   ),

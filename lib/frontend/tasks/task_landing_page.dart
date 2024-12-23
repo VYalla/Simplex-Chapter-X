@@ -98,7 +98,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 22, top: 50),
+                    padding: const EdgeInsets.only(left: 22, top: 50),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
