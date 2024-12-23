@@ -81,9 +81,9 @@ class AuthService {
 
           UserModel.writeUser(newUser);
           AppInfo.currentUser = newUser;
-          Toasts.toast(
-              "Account created! Tap \"Sign in with Google\" again to be signed in.",
-              false);
+          // Toasts.toast(
+          //     "Account created! Tap \"Sign in with Google\" again to be signed in.",
+          //     false);
         }
       }
 
