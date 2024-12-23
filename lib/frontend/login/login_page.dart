@@ -435,14 +435,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               );
                                             }
 
-                                            if (AppInfo.currentUser.email ==
-                                                    "mahiremran1@gmail.com" ||
-                                                AppInfo.currentUser.email ==
-                                                    "ibarnes@nsd.org" ||
-                                                AppInfo.currentUser.email ==
-                                                    "thuesch@nsd.org") {
-                                              AppInfo.isAdmin = true;
-                                            }
+                                            // if (AppInfo.currentUser.email ==
+                                            //         "mahiremran1@gmail.com" ||
+                                            //     AppInfo.currentUser.email ==
+                                            //         "ibarnes@nsd.org" ||
+                                            //     AppInfo.currentUser.email ==
+                                            //         "thuesch@nsd.org") {
+                                            //   AppInfo.isAdmin = true;
+                                            // }
 
                                             if (AppInfo.currentUser.approved &&
                                                 AppInfo.currentUser
