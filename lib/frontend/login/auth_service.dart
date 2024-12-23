@@ -78,10 +78,11 @@ class AuthService {
           dv.log('here');
           relog = true;
 
-          await UserModel.writeUser(newUser);
+          UserModel.writeUser(newUser);
+          AppInfo.currentUser = newUser;
         }
       }
-      await AppInfo.loadData();
+
       return relog;
     } on FirebaseAuthException catch (e) {
       print('FirebaseAuthException: ${e.code} - ${e.message}');
@@ -234,9 +235,10 @@ class AuthService {
           topicsSubscribed: [],
         );
         relog = true;
-        await UserModel.writeUser(newUser);
+        UserModel.writeUser(newUser);
+        AppInfo.currentUser = newUser;
       }
-      await AppInfo.loadData();
+
       return relog;
     } on SignInWithAppleAuthorizationException catch (e) {
       print('Apple Sign-In Authorization Error:');

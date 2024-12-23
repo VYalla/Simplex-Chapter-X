@@ -319,10 +319,13 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: () async {
-                                        await _authService
+                                        bool? relog = await _authService
                                             .signInWithGoogle(context);
                                         if (AuthService.userCredential !=
                                             null) {
+                                          if (!relog!) {
+                                            await AppInfo.getCurrentUserData();
+                                          }
                                           Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
@@ -401,10 +404,13 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: () async {
-                                        await _authService
+                                        bool? relog = await _authService
                                             .signInWithApple(context);
                                         if (AuthService.userCredential !=
                                             null) {
+                                          if (!relog!) {
+                                            await AppInfo.getCurrentUserData();
+                                          }
                                           Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(

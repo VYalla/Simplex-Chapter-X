@@ -645,9 +645,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   child: InkWell(
                                     onTap: () async {
                                       // SIGN IN WITH GOOGLE
-                                      await _authService
+                                      bool? relog = await _authService
                                           .signInWithGoogle(context);
                                       if (AuthService.userCredential != null) {
+                                        if (!relog!) {
+                                          await AppInfo.getCurrentUserData();
+                                        }
                                         Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
@@ -689,8 +692,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 InkWell(
                                   onTap: () async {
                                     // SIGN IN WITH APPLE
-                                    await _authService.signInWithApple(context);
+                                    bool? relog = await _authService
+                                        .signInWithApple(context);
                                     if (AuthService.userCredential != null) {
+                                      if (!relog!) {
+                                        await AppInfo.getCurrentUserData();
+                                      }
                                       Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
