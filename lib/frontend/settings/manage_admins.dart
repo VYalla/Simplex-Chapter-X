@@ -5,7 +5,6 @@ import 'package:simplex_chapter_x/frontend/toast.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 
-import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +90,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
       String initials = firstLast[0][0] + firstLast[1][0];
       items.addAll([
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,16 +100,16 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 7, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 7, 0),
                       child: Container(
                         width: 26,
                         height: 26,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           shape: BoxShape.circle,
                         ),
                         child: Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Text(
                             initials,
                             style: FlutterFlowTheme.of(context)
@@ -165,11 +164,11 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                       child: Container(
                         width: 28,
                         height: 28,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0x78710101),
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.remove,
                           color: Colors.white,
                           size: 20,
@@ -190,11 +189,11 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                       child: Container(
                         width: 28,
                         height: 28,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0x78017106),
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.add,
                           color: Colors.white,
                           size: 20,
@@ -203,7 +202,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
             ],
           ),
         ),
-        Divider(
+        const Divider(
           thickness: 1.5,
           color: Color(0x5BA7A7A7),
         ),
@@ -212,7 +211,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
 
     if (items.isEmpty) {
       items.add(Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
+        padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -224,7 +223,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                 children: [
                   Flexible(
                     child: Align(
-                      alignment: AlignmentDirectional(0, 0),
+                      alignment: const AlignmentDirectional(0, 0),
                       child: AutoSizeText(
                         'No users found with the inputted search query.',
                         textAlign: TextAlign.center,
@@ -253,12 +252,12 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         constraints: BoxConstraints(
           minHeight: MediaQuery.sizeOf(context).height,
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFF5F6F7),
         ),
         child: SingleChildScrollView(
@@ -266,20 +265,21 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 6, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -309,11 +309,11 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                             child: Container(
                               width: 30,
                               height: 30,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0x5F000000),
                                 shape: BoxShape.circle,
                               ),
-                              child: Align(
+                              child: const Align(
                                 alignment: AlignmentDirectional(0, 0),
                                 child: Icon(
                                   Icons.close,
@@ -327,7 +327,8 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                       child: dataLoaded
                           ? Row(
                               mainAxisSize: MainAxisSize.max,
@@ -335,19 +336,19 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                 Expanded(
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFF1F1F1),
+                                      color: const Color(0xFFF1F1F1),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 15, 0, 12),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 15, 0, 12),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    15, 0, 0, 8),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(15, 0, 0, 8),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -371,9 +372,8 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    15, 0, 15, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(15, 0, 15, 0),
                                             child: TextFormField(
                                               onChanged: (val) {
                                                 setState(() {});
@@ -396,7 +396,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 1,
                                                   ),
@@ -405,7 +405,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 1,
                                                   ),
@@ -434,8 +434,9 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                                       BorderRadius.circular(12),
                                                 ),
                                                 filled: true,
-                                                fillColor: Color(0xFFE7E7E7),
-                                                prefixIcon: Icon(
+                                                fillColor:
+                                                    const Color(0xFFE7E7E7),
+                                                prefixIcon: const Icon(
                                                   Icons.search_sharp,
                                                 ),
                                               ),
@@ -453,7 +454,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                                       .primaryText,
                                             ),
                                           ),
-                                          Divider(
+                                          const Divider(
                                             thickness: 1.5,
                                             color: Color(0x5BA7A7A7),
                                           ),
@@ -467,7 +468,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                 ),
                               ],
                             )
-                          : Row(
+                          : const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -477,7 +478,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                   ],
                 ),
               ),
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
             ],
           ),
         ),

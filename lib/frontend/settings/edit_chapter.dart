@@ -259,66 +259,64 @@ class _EditChapterWidgetState extends State<EditChapterWidget> {
                             ],
                           ),
                         ),
-                        Container(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                15, 8, 15, 0),
-                            child: TextFormField(
-                              controller: name,
-                              focusNode: f,
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                hintText: 'Chapter Name',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Google Sans',
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                filled: true,
-                                fillColor: const Color(0xFFE7E7E7),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              15, 8, 15, 0),
+                          child: TextFormField(
+                            controller: name,
+                            focusNode: f,
+                            autofocus: false,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              hintText: 'Chapter Name',
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
                                   .override(
                                     fontFamily: 'Google Sans',
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              filled: true,
+                              fillColor: const Color(0xFFE7E7E7),
                             ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Google Sans',
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                            cursorColor:
+                                FlutterFlowTheme.of(context).primaryText,
                           ),
                         ),
                         Padding(
@@ -508,9 +506,9 @@ class _EditChapterWidgetState extends State<EditChapterWidget> {
                             ],
                           ),
                         ),
-                        Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                15, 12, 0, 0),
+                        const Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(15, 12, 0, 0),
                             child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,

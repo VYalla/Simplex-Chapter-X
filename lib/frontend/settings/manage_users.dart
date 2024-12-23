@@ -5,7 +5,6 @@ import 'package:simplex_chapter_x/frontend/toast.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 
-import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +88,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
       String initials = firstLast[0][0] + firstLast[1][0];
       items.addAll([
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,16 +98,16 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 7, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 7, 0),
                       child: Container(
                         width: 26,
                         height: 26,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           shape: BoxShape.circle,
                         ),
                         child: Align(
-                          alignment: AlignmentDirectional(0, 0),
+                          alignment: const AlignmentDirectional(0, 0),
                           child: Text(
                             initials,
                             style: FlutterFlowTheme.of(context)
@@ -169,7 +168,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                     setState(() {});
                   }
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.delete_forever_sharp,
                   color: Color(0xFFA10202),
                   size: 24,
@@ -178,7 +177,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
             ],
           ),
         ),
-        Divider(
+        const Divider(
           thickness: 1.5,
           color: Color(0x5BA7A7A7),
         ),
@@ -187,7 +186,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
 
     if (items.isEmpty) {
       items.add(Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
+        padding: const EdgeInsetsDirectional.fromSTEB(15, 0, 18, 0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,7 +198,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                 children: [
                   Flexible(
                     child: Align(
-                      alignment: AlignmentDirectional(0, 0),
+                      alignment: const AlignmentDirectional(0, 0),
                       child: AutoSizeText(
                         'No users found with the inputted search query.',
                         textAlign: TextAlign.center,
@@ -228,12 +227,12 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F6F7),
+      backgroundColor: const Color(0xFFF5F6F7),
       body: Container(
         constraints: BoxConstraints(
           minHeight: MediaQuery.sizeOf(context).height,
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFFF5F6F7),
         ),
         child: SingleChildScrollView(
@@ -241,20 +240,21 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24, 65, 24, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 6, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -284,11 +284,11 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                             child: Container(
                               width: 30,
                               height: 30,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0x5F000000),
                                 shape: BoxShape.circle,
                               ),
-                              child: Align(
+                              child: const Align(
                                 alignment: AlignmentDirectional(0, 0),
                                 child: Icon(
                                   Icons.close,
@@ -302,7 +302,8 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                       child: dataLoaded
                           ? Row(
                               mainAxisSize: MainAxisSize.max,
@@ -310,19 +311,19 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                                 Expanded(
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFF1F1F1),
+                                      color: const Color(0xFFF1F1F1),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 15, 0, 12),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0, 15, 0, 12),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    15, 0, 0, 8),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(15, 0, 0, 8),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -346,9 +347,8 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    15, 0, 15, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(15, 0, 15, 0),
                                             child: TextFormField(
                                               onChanged: (val) {
                                                 setState(() {});
@@ -371,7 +371,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                                                         ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 1,
                                                   ),
@@ -380,7 +380,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 1,
                                                   ),
@@ -409,8 +409,9 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                                                       BorderRadius.circular(12),
                                                 ),
                                                 filled: true,
-                                                fillColor: Color(0xFFE7E7E7),
-                                                prefixIcon: Icon(
+                                                fillColor:
+                                                    const Color(0xFFE7E7E7),
+                                                prefixIcon: const Icon(
                                                   Icons.search_sharp,
                                                 ),
                                               ),
@@ -428,7 +429,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                                                       .primaryText,
                                             ),
                                           ),
-                                          Divider(
+                                          const Divider(
                                             thickness: 1.5,
                                             color: Color(0x5BA7A7A7),
                                           ),
@@ -442,7 +443,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                                 ),
                               ],
                             )
-                          : Row(
+                          : const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -452,7 +453,7 @@ class _ManageUsersWidgetState extends State<ManageUsersWidget> {
                   ],
                 ),
               ),
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
             ],
           ),
         ),
