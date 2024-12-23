@@ -25,7 +25,7 @@ class AuthService {
 
   static UserCredential? userCredential;
 
-  Future<bool?> signInWithGoogle(BuildContext context) async {
+  Future<void> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
@@ -52,9 +52,10 @@ class AuthService {
       print(userCredential);
 
       String fullName;
-      bool relog = false;
+
       if (userDoc.exists) {
         fullName = userDoc.get('name') ?? '';
+        await AppInfo.getCurrentUserData();
       } else {
         fullName =
             await _getFullNameSafely(context, userCredential!.user!) ?? '';
@@ -76,14 +77,13 @@ class AuthService {
             topicsSubscribed: [],
           );
           dv.log('here');
-          relog = true;
 
           UserModel.writeUser(newUser);
           AppInfo.currentUser = newUser;
         }
       }
 
-      return relog;
+      return;
     } on FirebaseAuthException catch (e) {
       print('FirebaseAuthException: ${e.code} - ${e.message}');
 
@@ -97,7 +97,7 @@ class AuthService {
               accessToken: await currentUser.getIdToken(),
               idToken: await currentUser.getIdToken(),
             ));
-            return false;
+            return;
           }
         } catch (signInError) {
           print('Error signing in with existing account: $signInError');
@@ -177,7 +177,7 @@ class AuthService {
     );
   }
 
-  Future<bool?> signInWithApple(BuildContext context) async {
+  Future<void> signInWithApple(BuildContext context) async {
     try {
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
@@ -195,7 +195,7 @@ class AuthService {
       );
 
       if (appleCredential == null) {
-        return null;
+        return;
       }
 
       final oauthCredential = OAuthProvider("apple.com").credential(
@@ -204,7 +204,7 @@ class AuthService {
           accessToken: appleCredential.authorizationCode);
 
       if (oauthCredential == null) {
-        return null;
+        return;
       }
 
       userCredential = await _auth.signInWithCredential(oauthCredential);
@@ -213,9 +213,10 @@ class AuthService {
           .doc(userCredential!.user!.uid)
           .get();
       String fullName;
-      bool relog = false;
+
       if (userDoc.exists) {
         fullName = userDoc.get('name') ?? '';
+        await AppInfo.getCurrentUserData();
       } else {
         fullName =
             await _getFullNameSafely(context, userCredential!.user!) ?? '';
@@ -234,12 +235,12 @@ class AuthService {
           chapters: [],
           topicsSubscribed: [],
         );
-        relog = true;
+
         UserModel.writeUser(newUser);
         AppInfo.currentUser = newUser;
       }
 
-      return relog;
+      return;
     } on SignInWithAppleAuthorizationException catch (e) {
       print('Apple Sign-In Authorization Error:');
       print('Error code: ${e.code}');

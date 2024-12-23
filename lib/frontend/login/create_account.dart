@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -319,21 +321,22 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: () async {
-                                        bool? relog = await _authService
+                                        await _authService
                                             .signInWithGoogle(context);
                                         if (AuthService.userCredential !=
                                             null) {
-                                          if (!relog!) {
-                                            await AppInfo.getCurrentUserData();
+                                          try {
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ChapterSelectWidget()),
+                                              (route) =>
+                                                  false, // This condition removes all previous routes
+                                            );
+                                          } catch (e) {
+                                            log(e.toString());
                                           }
-                                          Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ChapterSelectWidget()),
-                                            (route) =>
-                                                false, // This condition removes all previous routes
-                                          );
                                         }
                                       },
                                       child: Container(
@@ -404,13 +407,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: () async {
-                                        bool? relog = await _authService
+                                        await _authService
                                             .signInWithApple(context);
                                         if (AuthService.userCredential !=
                                             null) {
-                                          if (!relog!) {
-                                            await AppInfo.getCurrentUserData();
-                                          }
                                           Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
