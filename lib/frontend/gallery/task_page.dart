@@ -46,13 +46,11 @@ class _TaskPageState extends State<TaskPage> {
       }
     }
 
-    final now = DateTime.now();
+    final now = DateTime.now().toLocal();
     final today = DateTime(now.year, now.month, now.day);
 
-    final filteredTasks = tasks2
-        .where((task) =>
-            task.dueDate.isAfter(today.subtract(const Duration(days: 1))))
-        .toList();
+    final filteredTasks =
+        tasks2.where((task) => task.dueDate.isAfter(today)).toList();
 
     filteredTasks.sort((a, b) => a.dueDate.compareTo(b.dueDate));
 
@@ -181,7 +179,9 @@ class _TaskPageState extends State<TaskPage> {
                                   ),
                         ),
                         Text(
-                          DateFormat('HH:mm').format(task.dueDate),
+                          DateFormat('h.mma')
+                              .format(task.dueDate.toLocal())
+                              .toLowerCase(),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Google Sans',

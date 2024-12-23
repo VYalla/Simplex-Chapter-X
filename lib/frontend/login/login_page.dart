@@ -34,43 +34,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> _signInWithGoogle() async {
-    try {
-      final userCredential = await _authService.signInWithGoogle(context);
-      if (userCredential != null && mounted) {
-        await AppInfo.loadData();
-        if (mounted) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const ChapterSelectWidget(),
-          ));
-        }
-      } else if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to sign in with Google')),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error signing in with Google: $e')),
-        );
-        dv.log(e.toString());
-      }
-    }
-  }
-
-  Future<void> _signInWithApple() async {
-    final userCredential = await _authService.signInWithApple(context);
-    if (userCredential != null) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) {
-          return const ChapterSelectWidget();
-        },
-      ));
-      print('Signed in with Apple: ${userCredential.user!.email}');
-    }
-  }
-
   @override
   void initState() {
     emailController = TextEditingController();
@@ -671,6 +634,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 10),
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -679,9 +643,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 20, 0),
                                   child: InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       // SIGN IN WITH GOOGLE
-                                      _signInWithGoogle();
+                                      await _authService
+                                          .signInWithGoogle(context);
+                                      if (AuthService.userCredential != null) {
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ChapterSelectWidget()),
+                                          (route) =>
+                                              false, // This condition removes all previous routes
+                                        );
+                                      }
                                     },
                                     child: Container(
                                       width: 144,
@@ -712,9 +687,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     // SIGN IN WITH APPLE
-                                    _signInWithApple();
+                                    await _authService.signInWithApple(context);
+                                    if (AuthService.userCredential != null) {
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ChapterSelectWidget()),
+                                        (route) =>
+                                            false, // This condition removes all previous routes
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     width: 144,

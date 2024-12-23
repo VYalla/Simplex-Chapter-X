@@ -33,7 +33,7 @@ class _CalendarPageState extends State<CalendarPage> {
     super.initState();
     _loadCurrentChapter();
 
-    selectedDate = DateTime.now();
+    selectedDate = DateTime.now().toLocal();
     currentMonth = DateTime(selectedDate.year, selectedDate.month);
     currentWeekStart = _findFirstDayOfWeek(selectedDate);
     _loadAllTimedObjects();
@@ -124,9 +124,9 @@ class _CalendarPageState extends State<CalendarPage> {
       final isSelected = selectedDate.year == currentDate.year &&
           selectedDate.month == currentDate.month &&
           selectedDate.day == currentDate.day;
-      final isToday = DateTime.now().year == currentDate.year &&
-          DateTime.now().month == currentDate.month &&
-          DateTime.now().day == currentDate.day;
+      final isToday = DateTime.now().toLocal().year == currentDate.year &&
+          DateTime.now().toLocal().month == currentDate.month &&
+          DateTime.now().toLocal().day == currentDate.day;
 
       currentRow.add(
         Expanded(
@@ -230,9 +230,9 @@ class _CalendarPageState extends State<CalendarPage> {
             final isSelected = selectedDate.year == currentDate.year &&
                 selectedDate.month == currentDate.month &&
                 selectedDate.day == currentDate.day;
-            final isToday = DateTime.now().year == currentDate.year &&
-                DateTime.now().month == currentDate.month &&
-                DateTime.now().day == currentDate.day;
+            final isToday = DateTime.now().toLocal().year == currentDate.year &&
+                DateTime.now().toLocal().month == currentDate.month &&
+                DateTime.now().toLocal().day == currentDate.day;
 
             return Expanded(
               child: GestureDetector(
@@ -310,8 +310,9 @@ class _CalendarPageState extends State<CalendarPage> {
 
   Future<void> _loadAllTimedObjects() async {
     String currentChapter = AppInfo.currentUser.currentChapter;
-    DateTime currentDate = DateTime.now().subtract(const Duration(days: 1));
-    String formattedDate = DateFormat('MMMM d, yyyy').format(currentDate);
+    DateTime currentDate = DateTime.now().toLocal();
+    String formattedDate =
+        DateFormat('MMMM d, yyyy').format(currentDate.toLocal());
     log(formattedDate);
     QuerySnapshot eventQuery = await AppInfo.database
         .collection("chapters")
@@ -324,6 +325,9 @@ class _CalendarPageState extends State<CalendarPage> {
       if (d.get('type') == 'event') {
         events.add(EventModel.fromDocumentSnapshot(d));
       } else if (d.get('type') == 'task') {
+        if (currentDate.isAfter(TaskModel.fromDocumentSnapshot(d).dueDate)) {
+          continue;
+        }
         tasks.add(TaskModel.fromDocumentSnapshot(d));
       }
     }
@@ -1041,7 +1045,15 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   String _formatTime(DateTime startDate, DateTime endDate) {
-    return '${startDate.hour.toString().padLeft(2, '0')}:${startDate.minute.toString().padLeft(2, '0')} - ${endDate.hour.toString().padLeft(2, '0')}:${endDate.minute.toString().padLeft(2, '0')}';
+    final DateFormat formatter =
+        DateFormat('h.mma'); // 12-hour format with AM/PM
+    String startTime = formatter
+        .format(startDate.toLocal())
+        .toLowerCase(); // Format start time
+    String endTime =
+        formatter.format(endDate.toLocal()).toLowerCase(); // Format end time
+
+    return '$startTime - $endTime';
   }
 
   String _formatDate(DateTime startDate) {

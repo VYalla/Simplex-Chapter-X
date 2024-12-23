@@ -98,7 +98,8 @@ class _ShowEventsState extends State<ShowEvents> {
 
   bool checkDate(dynamic object, startDate, endDate) {
     if (object is TaskModel) {
-      return object.dueDate.compareTo(startDate) >= 0;
+      return object.dueDate.isBefore(endDate) &&
+          object.dueDate.isAfter(startDate);
     } else {
       return dateRangesOverlap(
           object.startDate, object.endDate, startDate, endDate);
@@ -480,15 +481,17 @@ class _ShowEventsState extends State<ShowEvents> {
   String _formatTime(DateTime startDate, DateTime endDate) {
     final DateFormat formatter =
         DateFormat('h.mma'); // 12-hour format with AM/PM
-    String startTime =
-        formatter.format(startDate).toLowerCase(); // Format start time
-    String endTime = formatter.format(endDate).toLowerCase(); // Format end time
+    String startTime = formatter
+        .format(startDate.toLocal())
+        .toLowerCase(); // Format start time
+    String endTime =
+        formatter.format(endDate.toLocal()).toLowerCase(); // Format end time
 
     return '$startTime - $endTime';
   }
 
   String _formatDate(DateTime startDate) {
     DateFormat formatter = DateFormat('MMM dd ');
-    return formatter.format(startDate);
+    return formatter.format(startDate.toLocal());
   }
 }

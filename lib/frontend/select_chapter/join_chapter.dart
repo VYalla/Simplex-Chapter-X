@@ -1,6 +1,7 @@
 // import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:simplex_chapter_x/create_chapter.dart';
@@ -15,6 +16,8 @@ import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
 import 'package:simplex_chapter_x/frontend/toast.dart';
+
+import '../nav/navigation.dart';
 
 class JoinChapterWidget extends StatefulWidget {
   const JoinChapterWidget({super.key});
@@ -254,6 +257,15 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
           Toasts.toast("Already Member of Chapter", true);
         } else {
           ChapterModel.joinChapter(chapterID);
+          AppInfo.currentUser.currentChapter = chapterID;
+          FirebaseMessaging.instance.subscribeToTopic(chapterID);
+
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(AppInfo.currentUser.id)
+              .update({
+            'currentChapter': chapterID,
+          });
 
           await AppInfo.loadData();
 
@@ -263,6 +275,13 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
             backgroundColor: Colors.green,
             textColor: Colors.white,
             fontSize: 16.0,
+          );
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Navigation(pIndex: 0),
+            ),
           );
 
           joined = true;

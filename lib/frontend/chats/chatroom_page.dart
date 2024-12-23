@@ -354,13 +354,25 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const Navigation(
-                    pIndex: 1,
-                  )),
-          (route) => false,
+        Navigator.of(context).pushReplacement(
+          PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 200),
+            reverseTransitionDuration: const Duration(milliseconds: 200),
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const Navigation(pIndex: 1),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              const begin = Offset(-1.0, 0.0);
+              const end = Offset.zero;
+              final tween = Tween(begin: begin, end: end);
+              final offsetAnimation = animation.drive(tween);
+
+              return SlideTransition(
+                position: offsetAnimation,
+                child: child,
+              );
+            },
+          ),
         );
       },
       child: Scaffold(
@@ -401,14 +413,32 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Navigation(
-                                                  pIndex: 1,
-                                                )),
-                                        (route) => false,
+                                      Navigator.of(context).pushReplacement(
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              const Duration(milliseconds: 200),
+                                          reverseTransitionDuration:
+                                              const Duration(milliseconds: 200),
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              const Navigation(pIndex: 1),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            const begin = Offset(-1.0, 0.0);
+                                            const end = Offset.zero;
+                                            final tween =
+                                                Tween(begin: begin, end: end);
+                                            final offsetAnimation =
+                                                animation.drive(tween);
+
+                                            return SlideTransition(
+                                              position: offsetAnimation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
                                       );
                                     },
                                     child: const Icon(

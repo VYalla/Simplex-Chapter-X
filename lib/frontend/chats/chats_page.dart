@@ -12,6 +12,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
 
+import '../profile/profile_page.dart';
 import 'chatroom_page.dart';
 
 class ChatsWidget extends StatefulWidget {
@@ -100,7 +101,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
           a: a,
           onPress: updateCards,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => ChatroomWidget(a: a),
@@ -113,7 +114,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
           a: a,
           onPress: updateCards,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => ChatroomWidget(a: a),
@@ -149,7 +150,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
         padding: EdgeInsets.only(bottom: Platform.isIOS ? 90 : 80),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const JoinChatsWidget()),
             );
@@ -223,31 +224,36 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                               ],
                             ),
                           ),
-                          Container(
-                            width: 33,
-                            height: 33,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF526BF4),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF051989),
-                                width: 1,
+                          InkWell(
+                            onTap: () {
+                              Profile.showProfilePage(context);
+                            },
+                            child: Container(
+                              width: 33,
+                              height: 33,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF526BF4),
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: const Color(0xFF051989),
+                                  width: 1,
+                                ),
                               ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Text(
-                                firstLast[0][0] + firstLast[1][0],
-                                style: const TextStyle(
-                                  fontFamily: 'Google Sans',
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
+                              child: Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Text(
+                                  firstLast[0][0] + firstLast[1][0],
+                                  style: const TextStyle(
+                                    fontFamily: 'Google Sans',
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -276,43 +282,6 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                       decoration: const BoxDecoration(
                         color: Color(0xFFD90000),
                         shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: InkWell(
-                          onTap: () {
-                            print("pressed");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const JoinChatsWidget()),
-                            );
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                                left: 12, right: 12, top: 4, bottom: 4),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Join Chat',
-                                  style: TextStyle(
-                                    color: Color(0xFF3B58F4),
-                                    fontFamily: 'Google Sans',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ),

@@ -11,6 +11,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../nav/navigation.dart';
+import '../toast.dart';
 
 class JoinChatsWidget extends StatefulWidget {
   const JoinChatsWidget({super.key});
@@ -103,6 +104,8 @@ class _JoinChatsWidgetState extends State<JoinChatsWidget> {
               AppInfo.currentUser.addSubscribedTopic(a.id);
               a.subscribeNotif();
             }
+
+            Toasts.toast('Joined Channel!', false);
             updateCards();
           },
         ));
@@ -171,11 +174,29 @@ class _JoinChatsWidgetState extends State<JoinChatsWidget> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Navigation(pIndex: 1)),
+                              Navigator.of(context).pushReplacement(
+                                PageRouteBuilder(
+                                  transitionDuration:
+                                      const Duration(milliseconds: 200),
+                                  reverseTransitionDuration:
+                                      const Duration(milliseconds: 200),
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
+                                      const Navigation(pIndex: 1),
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    const begin = Offset(-1.0, 0.0);
+                                    const end = Offset.zero;
+                                    final tween = Tween(begin: begin, end: end);
+                                    final offsetAnimation =
+                                        animation.drive(tween);
+
+                                    return SlideTransition(
+                                      position: offsetAnimation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
                               );
                             },
                             child: Container(

@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/frontend/events/show_events.dart';
+import 'package:simplex_chapter_x/frontend/profile/profile_page.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../select_chapter/chapter_select.dart';
@@ -18,8 +20,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   List<String> firstLast = AppInfo.currentUser.name.split(' ');
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now();
+  DateTime startDate = DateTime.now().toLocal();
+  DateTime endDate = DateTime.now().toLocal();
   String logo = "";
 
   @override
@@ -29,7 +31,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     setState(() {
       startDate = DateTime(startDate.year, startDate.month, startDate.day);
 
-      endDate = startDate.add(const Duration(days: 3));
+      endDate = startDate.add(const Duration(days: 7));
 
       endDate =
           DateTime(endDate.year, endDate.month, endDate.day + 1, 23, 59, 59);
@@ -92,14 +94,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                               children: [
                                 GestureDetector(
                                   onTap: () async {
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ChapterSelectWidget()),
-                                      (route) =>
-                                          false, // This condition removes all previous routes
-                                    );
+                                    // Navigator.pushAndRemoveUntil(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           const ChapterSelectWidget()),
+                                    //   (route) =>
+                                    //       false, // This condition removes all previous routes
+                                    // );
                                     await _firestore
                                         .collection('users')
                                         .doc(AppInfo.currentUser.id)
@@ -109,6 +111,33 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     AppInfo.currentUser.currentChapter = "";
 
                                     AppInfo.isExec = false;
+
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                      PageRouteBuilder(
+                                        transitionDuration:
+                                            const Duration(milliseconds: 200),
+                                        reverseTransitionDuration:
+                                            const Duration(milliseconds: 200),
+                                        pageBuilder: (context, animation,
+                                                secondaryAnimation) =>
+                                            const ChapterSelectWidget(),
+                                        transitionsBuilder: (context, animation,
+                                            secondaryAnimation, child) {
+                                          const begin = Offset(-1.0, 0.0);
+                                          const end = Offset.zero;
+                                          final tween =
+                                              Tween(begin: begin, end: end);
+                                          final offsetAnimation =
+                                              animation.drive(tween);
+
+                                          return SlideTransition(
+                                            position: offsetAnimation,
+                                            child: child,
+                                          );
+                                        },
+                                      ),
+                                      (route) => false,
+                                    );
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -152,31 +181,37 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  width: 33,
-                                  height: 33,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF526BF4),
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: const Color(0xFF051989),
-                                      width: 1,
+                                InkWell(
+                                  onTap: () {
+                                    Profile.showProfilePage(context);
+                                  },
+                                  child: Container(
+                                    width: 33,
+                                    height: 33,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF526BF4),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: const Color(0xFF051989),
+                                        width: 1,
+                                      ),
                                     ),
-                                  ),
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0, 0),
-                                    child: Text(
-                                      firstLast[0][0] + firstLast[1][0],
-                                      style: const TextStyle(
-                                        fontFamily: 'Google Sans',
-                                        color: Colors.white,
-                                        fontSize: 13,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
+                                    child: Align(
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        firstLast[0][0] + firstLast[1][0],
+                                        style: const TextStyle(
+                                          fontFamily: 'Google Sans',
+                                          color: Colors.white,
+                                          fontSize: 13,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ),
@@ -191,8 +226,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         color: Colors.transparent, height: 22)
                                     : ClipRRect(
                                         borderRadius: BorderRadius.circular(0),
-                                        child: Image.network(
-                                          logo,
+                                        child: CachedNetworkImage(
+                                          imageUrl: logo,
                                           height: 22,
                                           fit: BoxFit.cover,
                                         ),

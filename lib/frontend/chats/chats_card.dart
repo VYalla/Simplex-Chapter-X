@@ -3,6 +3,7 @@ import 'package:simplex_chapter_x/app_info.dart';
 
 import '../../backend/models.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../toast.dart';
 
 class ChatsCard extends StatelessWidget {
   final AnnouncementModel a;
@@ -110,6 +111,8 @@ class ChatsCard extends StatelessWidget {
                                           AppInfo.currentUser
                                               .addSubscribedTopic(a.id);
                                           a.subscribeNotif();
+                                          Toasts.toast(
+                                              'Joined Channel!', false);
                                         }
                                         onPress();
                                       },

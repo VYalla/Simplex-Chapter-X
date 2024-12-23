@@ -303,13 +303,12 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                               child: card,
                             ))
                       else if (cardsLoaded && chapterCards.isEmpty)
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        const Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              const Text(
+                              Text(
                                 'You haven\'t joined any chapters yet.',
                                 style: TextStyle(
                                   fontFamily: 'Google Sans',
@@ -318,21 +317,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                                   letterSpacing: 0.0,
                                 ),
                               ),
-                              const SizedBox(height: 10),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: Colors.black),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const JoinChapterWidget()),
-                                  );
-                                },
-                                child: const Text('Join a Chapter'),
-                              ),
+                              SizedBox(height: 10),
                             ],
                           ),
                         )

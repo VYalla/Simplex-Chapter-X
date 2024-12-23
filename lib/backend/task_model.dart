@@ -68,7 +68,7 @@ class TaskModel {
       : id = doc.id,
         title = doc.get('title') as String,
         description = doc.get('description') as String,
-        dueDate = (doc.get('dueDate') as Timestamp).toDate(),
+        dueDate = (doc.get('dueDate') as Timestamp).toDate().toLocal(),
         chapterId = doc.get('chapterId') as String,
         isCompleted = doc.get('isCompleted') as bool,
         submissions = (doc.get('submissions') as List<dynamic>)

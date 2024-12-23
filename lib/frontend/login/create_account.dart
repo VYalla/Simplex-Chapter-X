@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/gestures.dart';
-import 'dart:developer' as dv;
-
 import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
@@ -59,41 +57,6 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
     password.dispose();
     confirmPassword.dispose();
     super.dispose();
-  }
-
-  Future<void> _signInWithGoogle() async {
-    try {
-      final userCredential = await _authService.signInWithGoogle(context);
-      if (userCredential != null) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const ChapterSelectWidget(),
-        ));
-        print('Signed in with Google: ${userCredential.user?.displayName}');
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign in with Google')),
-      );
-      dv.log(e.toString());
-      print('Error signing in with Google: $e');
-    }
-  }
-
-  Future<void> _signInWithApple() async {
-    try {
-      final userCredential = await _authService.signInWithApple(context);
-      if (userCredential != null) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const ChapterSelectWidget(),
-        ));
-        print('Signed in with Apple: ${userCredential.user?.displayName}');
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign in with Google')),
-      );
-      print('Error signing in with Apple: $e');
-    }
   }
 
   @override
@@ -213,7 +176,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                         icon: const Icon(
                                             Icons.chevron_left_sharp,
                                             color: Color(0xFF454545),
-                                            size: 22),
+                                            size: 24),
                                         onPressed: () {
                                           Navigator.pushAndRemoveUntil(
                                             context,
@@ -227,16 +190,48 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       ),
                                     ),
                                   ),
-                                  const Opacity(
-                                    opacity: 0.4,
-                                    child: Text(
-                                      'Back',
-                                      style: TextStyle(
-                                        fontFamily: 'Google Sans',
-                                        color: Color(0xFF454545),
-                                        fontSize: 15,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        PageRouteBuilder(
+                                          transitionDuration:
+                                              const Duration(milliseconds: 200),
+                                          reverseTransitionDuration:
+                                              const Duration(milliseconds: 200),
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              const LoginWidget(),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            const begin = Offset(-1.0, 0.0);
+                                            const end = Offset.zero;
+                                            final tween =
+                                                Tween(begin: begin, end: end);
+                                            final offsetAnimation =
+                                                animation.drive(tween);
+
+                                            return SlideTransition(
+                                              position: offsetAnimation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                        (route) => false,
+                                      );
+                                    },
+                                    child: const Opacity(
+                                      opacity: 0.4,
+                                      child: Text(
+                                        'Back',
+                                        style: TextStyle(
+                                          fontFamily: 'Google Sans',
+                                          color: Color(0xFF454545),
+                                          fontSize: 18,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -323,7 +318,21 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 children: [
                                   Expanded(
                                     child: GestureDetector(
-                                      onTap: _signInWithGoogle,
+                                      onTap: () async {
+                                        await _authService
+                                            .signInWithGoogle(context);
+                                        if (AuthService.userCredential !=
+                                            null) {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ChapterSelectWidget()),
+                                            (route) =>
+                                                false, // This condition removes all previous routes
+                                          );
+                                        }
+                                      },
                                       child: Container(
                                         width: 100,
                                         height: 54,
@@ -391,7 +400,21 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 children: [
                                   Expanded(
                                     child: GestureDetector(
-                                      onTap: _signInWithApple,
+                                      onTap: () async {
+                                        await _authService
+                                            .signInWithApple(context);
+                                        if (AuthService.userCredential !=
+                                            null) {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ChapterSelectWidget()),
+                                            (route) =>
+                                                false, // This condition removes all previous routes
+                                          );
+                                        }
+                                      },
                                       child: Container(
                                         width: 100,
                                         height: 54,

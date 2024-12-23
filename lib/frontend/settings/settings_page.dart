@@ -3,6 +3,8 @@ import '../flutter_flow/flutter_flow_theme.dart';
 
 import 'package:flutter/material.dart';
 
+import '../profile/profile_page.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
@@ -87,31 +89,36 @@ class _SettingsPageState extends State<SettingsPage> {
                               ],
                             ),
                           ),
-                          Container(
-                            width: 33,
-                            height: 33,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF526BF4),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF051989),
-                                width: 1,
+                          InkWell(
+                            onTap: () {
+                              Profile.showProfilePage(context);
+                            },
+                            child: Container(
+                              width: 33,
+                              height: 33,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF526BF4),
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: const Color(0xFF051989),
+                                  width: 1,
+                                ),
                               ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0, 0),
-                              child: Text(
-                                firstLast[0][0] + firstLast[1][0],
-                                style: const TextStyle(
-                                  fontFamily: 'Google Sans',
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
+                              child: Align(
+                                alignment: const AlignmentDirectional(0, 0),
+                                child: Text(
+                                  firstLast[0][0] + firstLast[1][0],
+                                  style: const TextStyle(
+                                    fontFamily: 'Google Sans',
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

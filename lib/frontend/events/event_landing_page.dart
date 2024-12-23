@@ -105,7 +105,27 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                                   Navigator.pop(context);
                                 },
                               )
-                            : const SizedBox(),
+                            : InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Container(
+                                  width: 24,
+                                  height: 24,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.black54,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Icon(
+                                      Icons.close,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                   ),
@@ -122,7 +142,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                                 .override(
                                   fontFamily: 'Google Sans',
                                   color: const Color(0xFF333333),
-                                  fontSize: 20,
+                                  fontSize: 28,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),

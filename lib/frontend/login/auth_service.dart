@@ -11,6 +11,7 @@ import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
 // import '../../app_info.dart';
+import '../../app_info.dart';
 import '../../backend/models.dart';
 
 class AuthService {
@@ -22,7 +23,9 @@ class AuthService {
     ],
   );
 
-  Future<UserCredential?> signInWithGoogle(BuildContext context) async {
+  static UserCredential? userCredential;
+
+  Future<bool?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
@@ -39,27 +42,28 @@ class AuthService {
       // final scaffoldContext = ScaffoldMessenger.of(context);
       // final navigatorState = Navigator.of(context);
 
-      final userCredential = await _auth.signInWithCredential(credential);
+      userCredential = await _auth.signInWithCredential(credential);
 
       DocumentSnapshot userDoc = await _firestore
           .collection('users')
-          .doc(userCredential.user!.uid)
+          .doc(userCredential!.user!.uid)
           .get();
 
       print(userCredential);
 
       String fullName;
+      bool relog = false;
       if (userDoc.exists) {
         fullName = userDoc.get('name') ?? '';
       } else {
         fullName =
-            await _getFullNameSafely(context, userCredential.user!) ?? '';
+            await _getFullNameSafely(context, userCredential!.user!) ?? '';
 
         if (fullName.isNotEmpty) {
           UserModel newUser = UserModel(
-            id: userCredential.user!.uid,
-            email: userCredential.user!.email ?? '',
-            profilePic: userCredential.user!.photoURL ?? '',
+            id: userCredential!.user!.uid,
+            email: userCredential!.user!.email ?? '',
+            profilePic: userCredential!.user!.photoURL ?? '',
             name: fullName,
             pastEvents: [],
             compEvents: [],
@@ -71,12 +75,14 @@ class AuthService {
             chapters: [],
             topicsSubscribed: [],
           );
+          dv.log('here');
+          relog = true;
 
           await UserModel.writeUser(newUser);
         }
       }
-
-      return userCredential;
+      await AppInfo.loadData();
+      return relog;
     } on FirebaseAuthException catch (e) {
       print('FirebaseAuthException: ${e.code} - ${e.message}');
 
@@ -85,11 +91,12 @@ class AuthService {
         try {
           final currentUser = _auth.currentUser;
           if (currentUser != null) {
-            return await _auth
-                .signInWithCredential(GoogleAuthProvider.credential(
+            userCredential =
+                await _auth.signInWithCredential(GoogleAuthProvider.credential(
               accessToken: await currentUser.getIdToken(),
               idToken: await currentUser.getIdToken(),
             ));
+            return false;
           }
         } catch (signInError) {
           print('Error signing in with existing account: $signInError');
@@ -169,7 +176,7 @@ class AuthService {
     );
   }
 
-  Future<UserCredential?> signInWithApple(BuildContext context) async {
+  Future<bool?> signInWithApple(BuildContext context) async {
     try {
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
@@ -186,26 +193,35 @@ class AuthService {
         nonce: nonce,
       );
 
+      if (appleCredential == null) {
+        return null;
+      }
+
       final oauthCredential = OAuthProvider("apple.com").credential(
           idToken: appleCredential.identityToken,
           rawNonce: rawNonce,
           accessToken: appleCredential.authorizationCode);
 
-      final userCredential = await _auth.signInWithCredential(oauthCredential);
+      if (oauthCredential == null) {
+        return null;
+      }
+
+      userCredential = await _auth.signInWithCredential(oauthCredential);
       DocumentSnapshot userDoc = await _firestore
           .collection('users')
-          .doc(userCredential.user!.uid)
+          .doc(userCredential!.user!.uid)
           .get();
       String fullName;
+      bool relog = false;
       if (userDoc.exists) {
         fullName = userDoc.get('name') ?? '';
       } else {
         fullName =
-            await _getFullNameSafely(context, userCredential.user!) ?? '';
+            await _getFullNameSafely(context, userCredential!.user!) ?? '';
         UserModel newUser = UserModel(
-          id: userCredential.user!.uid,
-          email: userCredential.user!.email ?? '',
-          profilePic: userCredential.user!.photoURL ?? '',
+          id: userCredential!.user!.uid,
+          email: userCredential!.user!.email ?? '',
+          profilePic: userCredential!.user!.photoURL ?? '',
           name: fullName,
           pastEvents: [],
           compEvents: [],
@@ -217,10 +233,11 @@ class AuthService {
           chapters: [],
           topicsSubscribed: [],
         );
-
+        relog = true;
         await UserModel.writeUser(newUser);
       }
-      return userCredential;
+      await AppInfo.loadData();
+      return relog;
     } on SignInWithAppleAuthorizationException catch (e) {
       print('Apple Sign-In Authorization Error:');
       print('Error code: ${e.code}');
