@@ -137,15 +137,21 @@ class _TaskPageState extends State<TaskPage> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => TaskLandingPageWidget(
+              //       task: task,
+              //       chapterId: task.chapterId,
+              //     ),
+              //   ),
+              // );
+
+              showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
                   builder: (context) => TaskLandingPageWidget(
-                    task: task,
-                    chapterId: task.chapterId,
-                  ),
-                ),
-              );
+                      task: task, chapterId: task.chapterId));
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.905,

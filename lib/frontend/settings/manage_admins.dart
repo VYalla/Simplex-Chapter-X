@@ -117,7 +117,7 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                 .override(
                                   fontFamily: 'Google Sans',
                                   color: Colors.white,
-                                  fontSize: 12,
+                                  fontSize: 11,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),

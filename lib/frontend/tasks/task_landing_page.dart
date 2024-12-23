@@ -98,8 +98,34 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
+                    padding: EdgeInsets.only(left: 22, top: 50),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Google Sans',
+                                  color: const Color(0xFF3B58F4),
+                                  fontSize: 15,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
+                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,27 +157,37 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                             ),
                           ],
                         ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Container(
-                            width: 24,
-                            height: 24,
-                            decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Icon(
-                                Icons.close,
-                                color: Colors.white,
-                                size: 16,
-                              ),
-                            ),
-                          ),
-                        ),
+                        AppInfo.isAdmin
+                            ? IconButton(
+                                icon: const Icon(
+                                  Icons.delete_forever_sharp,
+                                  color: Color(0xFFD3D3D3),
+                                  size: 26,
+                                ),
+                                onPressed: _showDeleteConfirmationDialog,
+                              )
+                            : const SizedBox(),
+                        // InkWell(
+                        //   onTap: () {
+                        //     Navigator.of(context).pop();
+                        //   },
+                        //   child: Container(
+                        //     width: 24,
+                        //     height: 24,
+                        //     decoration: const BoxDecoration(
+                        //       color: Colors.black54,
+                        //       shape: BoxShape.circle,
+                        //     ),
+                        //     child: const Align(
+                        //       alignment: AlignmentDirectional(0, 0),
+                        //       child: Icon(
+                        //         Icons.close,
+                        //         color: Colors.white,
+                        //         size: 16,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -234,16 +270,6 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                             ),
                           ],
                         ),
-                        AppInfo.isAdmin
-                            ? IconButton(
-                                icon: const Icon(
-                                  Icons.delete_forever_sharp,
-                                  color: Color(0xFFD3D3D3),
-                                  size: 26,
-                                ),
-                                onPressed: _showDeleteConfirmationDialog,
-                              )
-                            : const SizedBox(),
                       ],
                     ),
                   ),

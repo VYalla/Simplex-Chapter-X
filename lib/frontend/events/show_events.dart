@@ -210,13 +210,11 @@ class _ShowEventsState extends State<ShowEvents> {
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            //TODO Fix Event Landing Page Widget
-            builder: (context) => EventLandingPageWidget(
-              event: event,
-              chapterId: _currentChapter!,
-            ),
-          ));
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => EventLandingPageWidget(
+                  event: event, chapterId: _currentChapter!));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -335,7 +333,7 @@ class _ShowEventsState extends State<ShowEvents> {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Google Sans',
                         color: const Color.fromARGB(255, 107, 107, 107),
-                        fontSize: 20,
+                        fontSize: 16,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
                         useGoogleFonts: false,
@@ -410,7 +408,7 @@ class _ShowEventsState extends State<ShowEvents> {
                               ? Icons.check
                               : isOverdue
                                   ? Icons.warning
-                                  : Icons.access_time,
+                                  : Icons.checklist,
                           color: Colors.white,
                           size: 24,
                         ),
@@ -428,7 +426,7 @@ class _ShowEventsState extends State<ShowEvents> {
                                     ? 'COMPLETED'
                                     : isOverdue
                                         ? 'OVERDUE'
-                                        : 'PENDING',
+                                        : 'TASK',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -464,6 +462,17 @@ class _ShowEventsState extends State<ShowEvents> {
                       ),
                     ],
                   ),
+                ),
+                Text(
+                  _formatDate(task.dueDate),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Google Sans',
+                        color: const Color.fromARGB(255, 107, 107, 107),
+                        fontSize: 16,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        useGoogleFonts: false,
+                      ),
                 ),
                 const Icon(
                   Icons.arrow_forward_ios,

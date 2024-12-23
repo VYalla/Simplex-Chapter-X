@@ -32,7 +32,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     setState(() {
       startDate = DateTime(startDate.year, startDate.month, startDate.day);
 
-      endDate = startDate.add(const Duration(days: 7));
+      endDate = startDate.add(const Duration(days: 365));
 
       endDate =
           DateTime(endDate.year, endDate.month, endDate.day + 1, 23, 59, 59);

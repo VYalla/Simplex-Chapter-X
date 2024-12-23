@@ -59,8 +59,34 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
+                    padding: EdgeInsets.only(left: 22, top: 50),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Google Sans',
+                                  color: const Color(0xFF3B58F4),
+                                  fontSize: 15,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(22, 65, 22, 0),
+                        const EdgeInsetsDirectional.fromSTEB(22, 15, 22, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
