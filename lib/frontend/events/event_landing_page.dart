@@ -92,7 +92,7 @@ class _EventLandingPageWidgetState extends State<EventLandingPageWidget> {
                             ),
                           ],
                         ),
-                        AppInfo.isExec
+                        AppInfo.isAdmin
                             ? IconButton(
                                 icon: const Icon(
                                   Icons.delete_forever_sharp,

@@ -128,7 +128,7 @@ class _NavigationState extends State<Navigation> {
           for (Widget item in pages) (item),
         ],
       ),
-      bottomNavigationBar: !AppInfo.isExec
+      bottomNavigationBar: !AppInfo.isAdmin
           ? Container(
               width: MediaQuery.sizeOf(context).width,
               height: 100 + addHeight,
@@ -158,7 +158,7 @@ class _NavigationState extends State<Navigation> {
                       ),
                     ),
                   ),
-                  AppInfo.isExec
+                  AppInfo.isAdmin
                       ? Align(
                           alignment: const AlignmentDirectional(0, 1),
                           child: Padding(
@@ -182,7 +182,7 @@ class _NavigationState extends State<Navigation> {
                           ),
                         )
                       : const SizedBox(),
-                  AppInfo.isExec
+                  AppInfo.isAdmin
                       ? Align(
                           alignment: const AlignmentDirectional(0, 1),
                           child: Padding(
@@ -271,7 +271,7 @@ class _NavigationState extends State<Navigation> {
                       ),
                     ),
                   ),
-                  AppInfo.isExec
+                  AppInfo.isAdmin
                       ? Align(
                           alignment: const AlignmentDirectional(0, 1),
                           child: Padding(
@@ -295,7 +295,7 @@ class _NavigationState extends State<Navigation> {
                           ),
                         )
                       : const SizedBox(),
-                  AppInfo.isExec
+                  AppInfo.isAdmin
                       ? Align(
                           alignment: const AlignmentDirectional(0, 1),
                           child: Padding(

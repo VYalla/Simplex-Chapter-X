@@ -234,7 +234,7 @@ class _TaskLandingPageWidgetState extends State<TaskLandingPageWidget> {
                             ),
                           ],
                         ),
-                        AppInfo.isExec
+                        AppInfo.isAdmin
                             ? IconButton(
                                 icon: const Icon(
                                   Icons.delete_forever_sharp,

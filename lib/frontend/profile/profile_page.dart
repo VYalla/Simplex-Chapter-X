@@ -134,7 +134,7 @@ class Profile {
   static _signOut(BuildContext context) async {
     if (!isSigningOut) {
       isSigningOut = true;
-      AppInfo.isExec = false;
+      AppInfo.isAdmin = false;
       AuthService.userCredential = null;
       try {
         await FirebaseAuth.instance.signOut();

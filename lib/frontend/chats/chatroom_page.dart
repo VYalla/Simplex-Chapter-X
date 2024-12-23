@@ -550,7 +550,7 @@ class _ChatroomWidgetState extends State<ChatroomWidget> {
                                     ]
                                   : items,
                             ))),
-                    AppInfo.isExec
+                    AppInfo.isAdmin
                         ? Align(
                             alignment: const AlignmentDirectional(0, 1),
                             child: Padding(
