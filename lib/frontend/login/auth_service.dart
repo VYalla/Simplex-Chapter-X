@@ -13,6 +13,7 @@ import 'dart:convert';
 // import '../../app_info.dart';
 import '../../app_info.dart';
 import '../../backend/models.dart';
+import '../toast.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -80,6 +81,9 @@ class AuthService {
 
           UserModel.writeUser(newUser);
           AppInfo.currentUser = newUser;
+          Toasts.toast(
+              "Account created! Tap \"Sign in with Google\" again to be signed in.",
+              false);
         }
       }
 

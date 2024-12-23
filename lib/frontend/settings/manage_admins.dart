@@ -270,6 +270,50 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Opacity(
+                            opacity: 0.6,
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
+                              child: Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Color(0xFF333333),
+                                size: 14,
+                              ),
+                            ),
+                          ),
+                          Opacity(
+                            opacity: 0.6,
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  4, 0, 0, 0),
+                              child: Text(
+                                'Back',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Google Sans',
+                                      color: Color(0xFF333333),
+                                      fontSize: 17,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                       child: Row(
@@ -300,27 +344,6 @@ class _ManageAdminsWidgetState extends State<ManageAdminsWidget> {
                                       ),
                                 ),
                               ],
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: const BoxDecoration(
-                                color: Color(0x5F000000),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
                             ),
                           ),
                         ],
