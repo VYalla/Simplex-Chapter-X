@@ -170,10 +170,10 @@ class _JoinChapterWidgetState extends State<JoinChapterWidget> {
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 40),
+              padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 30, 40),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Material(
                     color: Colors.transparent,
