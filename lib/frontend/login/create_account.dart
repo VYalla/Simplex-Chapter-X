@@ -379,74 +379,74 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  24, 12, 24, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: _signInWithApple,
-                                      child: Container(
-                                        width: 100,
-                                        height: 54,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          border: Border.all(
-                                            color: const Color(0xFFE0E0E0),
-                                            width: 0,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Align(
-                                              alignment:
-                                                  const AlignmentDirectional(
-                                                      0, 0),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(0, 0, 10, 3),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(0),
-                                                  child: Image.asset(
-                                                    'assets/images/apple_logo.png',
-                                                    width: 23,
-                                                    height: 23,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            const Align(
-                                              alignment:
-                                                  AlignmentDirectional(0, 0),
-                                              child: Text(
-                                                'Sign in with Apple',
-                                                style: TextStyle(
-                                                  fontFamily: 'Google Sans',
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsetsDirectional.fromSTEB(
+                            //       24, 12, 24, 0),
+                            //   child: Row(
+                            //     mainAxisSize: MainAxisSize.max,
+                            //     children: [
+                            //       Expanded(
+                            //         child: GestureDetector(
+                            //           onTap: _signInWithApple,
+                            //           child: Container(
+                            //             width: 100,
+                            //             height: 54,
+                            //             decoration: BoxDecoration(
+                            //               color: Colors.black,
+                            //               borderRadius:
+                            //                   BorderRadius.circular(12),
+                            //               border: Border.all(
+                            //                 color: const Color(0xFFE0E0E0),
+                            //                 width: 0,
+                            //               ),
+                            //             ),
+                            //             child: Row(
+                            //               mainAxisSize: MainAxisSize.max,
+                            //               mainAxisAlignment:
+                            //                   MainAxisAlignment.center,
+                            //               children: [
+                            //                 Align(
+                            //                   alignment:
+                            //                       const AlignmentDirectional(
+                            //                           0, 0),
+                            //                   child: Padding(
+                            //                     padding:
+                            //                         const EdgeInsetsDirectional
+                            //                             .fromSTEB(0, 0, 10, 3),
+                            //                     child: ClipRRect(
+                            //                       borderRadius:
+                            //                           BorderRadius.circular(0),
+                            //                       child: Image.asset(
+                            //                         'assets/images/apple_logo.png',
+                            //                         width: 23,
+                            //                         height: 23,
+                            //                         fit: BoxFit.cover,
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //                 const Align(
+                            //                   alignment:
+                            //                       AlignmentDirectional(0, 0),
+                            //                   child: Text(
+                            //                     'Sign in with Apple',
+                            //                     style: TextStyle(
+                            //                       fontFamily: 'Google Sans',
+                            //                       color: Colors.white,
+                            //                       fontSize: 18,
+                            //                       letterSpacing: 0.0,
+                            //                       fontWeight: FontWeight.w500,
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ],
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0, 30, 0, 0),

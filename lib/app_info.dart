@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
+
 // import 'package:mad3/frontend/pages/pages.dart'
 //     show firebaseMessagingBackgroundHandler;
 
@@ -16,9 +14,6 @@ import 'backend/models.dart';
 class AppInfo {
   ///
   static late FirebaseFirestore database;
-
-  ///
-  static late FirebaseMessaging messenger;
 
   ///
   static late UserModel currentUser;
@@ -89,35 +84,6 @@ class AppInfo {
         AppInfo.currentPackets = value;
       },
     );
-  }
-
-  static Future<void> configureFirebaseMessaging() async {
-    if (kIsWeb) {
-      return;
-    }
-
-    NotificationSettings settings =
-        await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-    // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      FlutterAppBadger.removeBadge();
-    });
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      await messenger.subscribeToTopic('announcements');
-    }
-
-    //print('Subscribed to topic successfully');
-
-    // Request permission to receive push notifications (required for iOS)
   }
 
   /// Fetches the current user's data and returns a [UserModel] for easy reading

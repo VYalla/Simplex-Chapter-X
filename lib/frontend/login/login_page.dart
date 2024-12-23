@@ -645,7 +645,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 20, 0),
+                                      0, 0, 0, 0),
                                   child: InkWell(
                                     onTap: () {
                                       // SIGN IN WITH GOOGLE
@@ -679,37 +679,37 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     ),
                                   ),
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    // SIGN IN WITH APPLE
-                                    _signInWithApple();
-                                  },
-                                  child: Container(
-                                    width: 144,
-                                    height: 54,
-                                    decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: const Color(0xFFE0E0E0),
-                                        width: 0,
-                                      ),
-                                    ),
-                                    child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0, 0),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(0),
-                                        child: Image.asset(
-                                          'assets/images/apple_logo.png',
-                                          width: 23,
-                                          height: 23,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // InkWell(
+                                //   onTap: () {
+                                //     // SIGN IN WITH APPLE
+                                //     _signInWithApple();
+                                //   },
+                                //   child: Container(
+                                //     width: 144,
+                                //     height: 54,
+                                //     decoration: BoxDecoration(
+                                //       color: Colors.black,
+                                //       borderRadius: BorderRadius.circular(12),
+                                //       border: Border.all(
+                                //         color: const Color(0xFFE0E0E0),
+                                //         width: 0,
+                                //       ),
+                                //     ),
+                                //     child: Align(
+                                //       alignment:
+                                //           const AlignmentDirectional(0, 0),
+                                //       child: ClipRRect(
+                                //         borderRadius: BorderRadius.circular(0),
+                                //         child: Image.asset(
+                                //           'assets/images/apple_logo.png',
+                                //           width: 23,
+                                //           height: 23,
+                                //           fit: BoxFit.cover,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                             Padding(
