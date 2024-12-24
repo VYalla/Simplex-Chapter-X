@@ -342,7 +342,7 @@ class _PacketsPageState extends State<PacketsPage> {
                                     useGoogleFonts: false,
                                   ),
                         ),
-                        AppInfo.isExec
+                        AppInfo.isAdmin
                             ? IconButton(
                                 padding: EdgeInsets.zero,
                                 constraints: const BoxConstraints(),

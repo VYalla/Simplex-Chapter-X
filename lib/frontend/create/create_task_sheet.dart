@@ -109,7 +109,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(22, 35, 22, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(22, 50, 22, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

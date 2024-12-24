@@ -39,8 +39,8 @@ class AppInfo {
   static List<UserModel> userList = [];
 
   ///
+  static bool isOwner = false;
   static bool isAdmin = false;
-  static bool isExec = false;
 
   ///
   static bool darkMode = false;
@@ -65,7 +65,7 @@ class AppInfo {
       },
     );
 
-    if (currentUser.currentChapter != "") {
+    if (AppInfo.currentUser.currentChapter != "") {
       await EventModel.getCurrentEvents().then(
         (value) {
           AppInfo.currentEvents = value;
@@ -76,7 +76,8 @@ class AppInfo {
           .doc(currentUser.currentChapter)
           .get();
       List<String> exec = (d.get('exec') as List).cast<String>();
-      AppInfo.isExec = exec.contains(currentUser.id);
+      AppInfo.isAdmin = exec.contains(AppInfo.currentUser.id);
+      AppInfo.isOwner = (d.get('owner') as String) == AppInfo.currentUser.id;
     }
 
     // await TaskModel.getCurrentTasks().then(

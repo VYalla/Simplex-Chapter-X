@@ -23,6 +23,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   DateTime startDate = DateTime.now().toLocal();
   DateTime endDate = DateTime.now().toLocal();
   String logo = "";
+  String name = "";
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     setState(() {
       startDate = DateTime(startDate.year, startDate.month, startDate.day);
 
-      endDate = startDate.add(const Duration(days: 7));
+      endDate = startDate.add(const Duration(days: 365));
 
       endDate =
           DateTime(endDate.year, endDate.month, endDate.day + 1, 23, 59, 59);
@@ -45,6 +46,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       (value) {
         setState(() {
           logo = value.get('logo') as String;
+          name = value.get('name') as String;
         });
       },
     );
@@ -110,7 +112,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     });
                                     AppInfo.currentUser.currentChapter = "";
 
-                                    AppInfo.isExec = false;
+                                    AppInfo.isAdmin = false;
+                                    AppInfo.isOwner = false;
 
                                     Navigator.of(context).pushAndRemoveUntil(
                                       PageRouteBuilder(
@@ -242,7 +245,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'North Creek High School',
+                                  name,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

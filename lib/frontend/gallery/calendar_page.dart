@@ -325,9 +325,9 @@ class _CalendarPageState extends State<CalendarPage> {
       if (d.get('type') == 'event') {
         events.add(EventModel.fromDocumentSnapshot(d));
       } else if (d.get('type') == 'task') {
-        if (currentDate.isAfter(TaskModel.fromDocumentSnapshot(d).dueDate)) {
-          continue;
-        }
+        // if (currentDate.isAfter(TaskModel.fromDocumentSnapshot(d).dueDate)) {
+        //   continue;
+        // }
         tasks.add(TaskModel.fromDocumentSnapshot(d));
       }
     }
@@ -776,13 +776,11 @@ class _CalendarPageState extends State<CalendarPage> {
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            //TODO Fix Event Landing Page Widget
-            builder: (context) => EventLandingPageWidget(
-              event: event,
-              chapterId: _currentChapter!,
-            ),
-          ));
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => EventLandingPageWidget(
+                  event: event, chapterId: _currentChapter!));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -896,17 +894,17 @@ class _CalendarPageState extends State<CalendarPage> {
                     ],
                   ),
                 ),
-                Text(
-                  _formatDate(event.startDate),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Google Sans',
-                        color: const Color.fromARGB(255, 107, 107, 107),
-                        fontSize: 20,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
-                        useGoogleFonts: false,
-                      ),
-                ),
+                // Text(
+                //   _formatDate(event.startDate),
+                //   style: FlutterFlowTheme.of(context).bodyMedium.override(
+                //         fontFamily: 'Google Sans',
+                //         color: const Color.fromARGB(255, 107, 107, 107),
+                //         fontSize: 20,
+                //         letterSpacing: 0.0,
+                //         fontWeight: FontWeight.bold,
+                //         useGoogleFonts: false,
+                //       ),
+                // ),
                 const Icon(
                   Icons.arrow_forward_ios,
                   color: Color(0xFFC8C8C8),
@@ -923,7 +921,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget _buildTaskItem(TaskModel task) {
     final isCompleted =
         task.usersSubmitted.contains(FirebaseAuth.instance.currentUser?.uid);
-    final isOverdue = task.dueDate.isBefore(DateTime.now()) && !isCompleted;
+    // final isOverdue = task.dueDate.isBefore(DateTime.now()) && !isCompleted;
 
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
@@ -945,9 +943,9 @@ class _CalendarPageState extends State<CalendarPage> {
           decoration: BoxDecoration(
             color: isCompleted
                 ? const Color(0xFFDEF3DD)
-                : isOverdue
-                    ? const Color(0xFFFFE5E5)
-                    : const Color(0xFFEEEFEF),
+                // : isOverdue
+                //     ? const Color(0xFFFFE5E5)
+                : const Color(0xFFEEEFEF),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
@@ -966,17 +964,17 @@ class _CalendarPageState extends State<CalendarPage> {
                         decoration: BoxDecoration(
                           color: isCompleted
                               ? const Color(0xFF8CBC89)
-                              : isOverdue
-                                  ? const Color(0xFFFF6B6B)
-                                  : const Color(0xFFC1AD83),
+                              // : isOverdue
+                              //     ? const Color(0xFFFF6B6B)
+                              : const Color(0xFFC1AD83),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           isCompleted
                               ? Icons.check
-                              : isOverdue
-                                  ? Icons.warning
-                                  : Icons.access_time,
+                              // : isOverdue
+                              //     ? Icons.warning
+                              : Icons.checklist,
                           color: Colors.white,
                           size: 24,
                         ),
@@ -992,18 +990,18 @@ class _CalendarPageState extends State<CalendarPage> {
                               Text(
                                 isCompleted
                                     ? 'COMPLETED'
-                                    : isOverdue
-                                        ? 'OVERDUE'
-                                        : 'PENDING',
+                                    // : isOverdue
+                                    //     ? 'OVERDUE'
+                                    : 'TASK',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Google Sans',
                                       color: isCompleted
                                           ? const Color(0xFF8CBC89)
-                                          : isOverdue
-                                              ? const Color(0xFFFF6B6B)
-                                              : const Color(0xFFC1AD83),
+                                          // : isOverdue
+                                          //     ? const Color(0xFFFF6B6B)
+                                          : const Color(0xFFC1AD83),
                                       fontSize: 12,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,

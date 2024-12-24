@@ -19,4 +19,7 @@ import GoogleSignIn
   ) -> Bool {
     return GIDSignIn.sharedInstance.handle(url)
   }
+  override func applicationDidBecomeActive(_ application: UIApplication) {
+    application.applicationIconBadgeNumber = 0;
+  }
 }
