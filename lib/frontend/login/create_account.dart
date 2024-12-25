@@ -1045,7 +1045,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 _launchURL(
-                                                    'https://github.com/MahirEmran/Sielify/blob/main/Sielify_Terms_and_Conditions.md');
+                                                    'https://sites.google.com/wesimplex.com/hello/terms-of-service?authuser=1');
                                               },
                                           )
                                         ],
@@ -1132,7 +1132,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 _launchURL(
-                                                    'https://github.com/MahirEmran/Sielify/blob/main/Sielify_Privacy_Policy.md');
+                                                    'https://sites.google.com/wesimplex.com/hello/privacy-policy?authuser=1');
                                               },
                                           )
                                         ],

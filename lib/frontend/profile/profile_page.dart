@@ -30,7 +30,7 @@ class Profile {
                         children: [
                           InkWell(
                               onTap: () => _openUrl(
-                                  'https://github.com/MahirEmran/Sielify/blob/main/Sielify_Terms_and_Conditions.md'),
+                                  'https://sites.google.com/wesimplex.com/hello/terms-of-service?authuser=1'),
                               child: Text(
                                 'Terms and Conditions',
                                 style: FlutterFlowTheme.of(context)
@@ -48,7 +48,7 @@ class Profile {
                         children: [
                           InkWell(
                               onTap: () => _openUrl(
-                                  'https://github.com/MahirEmran/Sielify/blob/main/Sielify_Privacy_Policy.md'),
+                                  'https://sites.google.com/wesimplex.com/hello/privacy-policy?authuser=1'),
                               child: Text(
                                 'Privacy Policy',
                                 style: FlutterFlowTheme.of(context)
