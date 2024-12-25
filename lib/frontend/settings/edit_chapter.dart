@@ -150,7 +150,7 @@ class _EditChapterWidgetState extends State<EditChapterWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Google Sans',
-                                      color: Color(0xFF333333),
+                                      color: const Color(0xFF333333),
                                       fontSize: 17,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,

@@ -13,7 +13,6 @@ import 'dart:convert';
 // import '../../app_info.dart';
 import '../../app_info.dart';
 import '../../backend/models.dart';
-import '../toast.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,7 +29,7 @@ class AuthService {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        return null;
+        return;
       }
 
       final GoogleSignInAuthentication googleAuth =
@@ -109,11 +108,11 @@ class AuthService {
         }
       }
 
-      return null;
+      return;
     } catch (e) {
       print('Unexpected error signing in with Google: $e');
       dv.log(e.toString());
-      return null;
+      return;
     }
   }
 
@@ -256,7 +255,7 @@ class AuthService {
     } catch (e) {
       print('Unexpected error during Apple Sign-In: $e');
     }
-    return null;
+    return;
   }
 
   String _generateNonce([int length = 32]) {
