@@ -221,13 +221,13 @@ class AuthService {
         fullName = userDoc.get('name') ?? '';
         await AppInfo.getCurrentUserData();
       } else {
-        fullName =
-            await _getFullNameSafely(context, userCredential!.user!) ?? '';
+        // fullName =
+        //     await _getFullNameSafely(context, userCredential!.user!) ?? '';
         UserModel newUser = UserModel(
           id: userCredential!.user!.uid,
           email: userCredential!.user!.email ?? '',
           profilePic: userCredential!.user!.photoURL ?? '',
-          name: fullName,
+          name: userDoc.get('name') ?? 'User',
           pastEvents: [],
           compEvents: [],
           grade: 12,
