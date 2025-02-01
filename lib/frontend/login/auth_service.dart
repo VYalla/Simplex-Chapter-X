@@ -227,7 +227,9 @@ class AuthService {
           id: userCredential!.user!.uid,
           email: userCredential!.user!.email ?? '',
           profilePic: userCredential!.user!.photoURL ?? '',
-          name: userDoc.get('name') ?? 'User',
+          // name: userDoc.get('name') ?? 'User',
+          // name should be "User " and then the first 5 characters of the ID
+          name: 'User ' + userCredential!.user!.uid.substring(0, 5),
           pastEvents: [],
           compEvents: [],
           grade: 12,

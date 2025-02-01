@@ -237,7 +237,7 @@ class _ChapterSelectWidgetState extends State<ChapterSelectWidget> {
                               style: TextStyle(
                                 fontFamily: 'Google Sans',
                                 color: Colors.black,
-                                fontSize: 15,
+                                fontSize: 13,
                                 letterSpacing: 0.0,
                               ),
                             ),
