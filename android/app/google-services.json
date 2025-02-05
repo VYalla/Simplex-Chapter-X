@@ -43,6 +43,50 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:766507839697:android:a2efb6c8e02aaddae295f0",
+        "android_client_info": {
+          "package_name": "com.wesimplex.chapter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766507839697-o287tjlnrdrmsbd9npplpg4p7iis453h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wesimplex.chapter",
+            "certificate_hash": "647109c28e6f8e958714f9b49770ac3baf2961e0"
+          }
+        },
+        {
+          "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh-ScRBuzjyoxo6wlydizByk2UCxvYXzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "766507839697-2d68md69l279c0rbocimrg9d2km0elea.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wesimplex.chapter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:766507839697:android:131aab77cb403422e295f0",
         "android_client_info": {
           "package_name": "com.wesimplex.simplex"
@@ -54,6 +98,50 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.wesimplex.simplex",
+            "certificate_hash": "647109c28e6f8e958714f9b49770ac3baf2961e0"
+          }
+        },
+        {
+          "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh-ScRBuzjyoxo6wlydizByk2UCxvYXzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766507839697-l0a987r8426scqr8ahoncltftvms0ecr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "766507839697-2d68md69l279c0rbocimrg9d2km0elea.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wesimplex.chapter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766507839697:android:c1b0f029c13e0838e295f0",
+        "android_client_info": {
+          "package_name": "com.wesimplex.simplexchapter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766507839697-m1ulda8sqk3mjc348vj6v40l58a1k316.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wesimplex.simplexchapter",
             "certificate_hash": "647109c28e6f8e958714f9b49770ac3baf2961e0"
           }
         },

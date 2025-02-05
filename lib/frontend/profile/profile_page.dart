@@ -10,9 +10,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../app_info.dart';
+import '../../backend/models.dart';
 
 class Profile {
   static bool isSigningOut = false;
+  static bool isDeleting = false;
 
   static void showProfilePage(BuildContext context) {
     showModalBottomSheet(
@@ -124,10 +126,185 @@ class Profile {
                                         fontWeight: FontWeight.bold),
                               ))
                         ],
+                      )),
+                  Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                              onTap: () async {
+                                await _deleteDialog(context);
+                                if (isDeleting) {
+                                  await UserModel.deleteUserById(
+                                      AppInfo.currentUser.id);
+                                  AppInfo.currentUser.currentChapter = "";
+
+                                  AppInfo.isAdmin = false;
+                                  AppInfo.isOwner = false;
+                                  _signOut(context);
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    PageRouteBuilder(
+                                      transitionDuration:
+                                          const Duration(milliseconds: 200),
+                                      reverseTransitionDuration:
+                                          const Duration(milliseconds: 200),
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          const LoginWidget(),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        const begin = Offset(-1.0, 0.0);
+                                        const end = Offset.zero;
+                                        final tween =
+                                            Tween(begin: begin, end: end);
+                                        final offsetAnimation =
+                                            animation.drive(tween);
+
+                                        return SlideTransition(
+                                          position: offsetAnimation,
+                                          child: child,
+                                        );
+                                      },
+                                    ),
+                                    (route) => false,
+                                  );
+                                  isDeleting = false;
+                                }
+                              },
+                              child: Text(
+                                'Delete Account',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                                        color: const Color(0xFFDA0000),
+                                        // decoration: TextDecoration.underline,
+                                        fontWeight: FontWeight.bold),
+                              ))
+                        ],
                       ))
                 ],
               ));
         });
+  }
+
+  static Future<bool> _deleteDialog(BuildContext context) async {
+    bool okPressed = false;
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: const Color(0xFFFFFFFF),
+            // title: const Text(
+            //   'New Account',
+            //   style: TextStyle(
+            //     fontSize: 20,
+            //     color: Color.fromARGB(255, 0, 0, 0),
+            //     fontFamily: 'ClashGrotesk',
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
+            content: SizedBox(
+              width: MediaQuery.of(context).size.width * .9,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: Text(
+                        "Are you sure you want to delete your account? This action cannot be reversed.",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Google Sans',
+                          fontSize: 21,
+                          fontWeight: FontWeight.w400,
+                        )),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Color(0xFF92190C),
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          // side: BorderSide(
+                          //   color: Color(0xFFEFEFEF), // Border color
+                          //   width: 2, // Border width
+                          // ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(25, 12, 25, 12),
+                        child: Text(
+                          "Yes, delete my account.",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Google Sans',
+                            fontSize: 21,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        isDeleting = true;
+                        Navigator.pop(context);
+                      },
+                    ),
+                    SizedBox(height: 15),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.white,
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color: Color(0xFFEFEFEF), // Border color
+                            width: 2, // Border width
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(25, 12, 25, 12),
+                        child: Text(
+                          "No, go back.",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Google Sans',
+                            fontSize: 21,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        okPressed = true;
+                        isDeleting = false;
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        }).then((val) async {
+      if (!okPressed) {
+        return false;
+      }
+      isDeleting = false;
+
+      return true;
+    });
   }
 
   // Maybe make this public in the future if needed
@@ -135,6 +312,7 @@ class Profile {
     if (!isSigningOut) {
       isSigningOut = true;
       AppInfo.isAdmin = false;
+      AppInfo.isOwner = false;
       AuthService.userCredential = null;
       try {
         await FirebaseAuth.instance.signOut();

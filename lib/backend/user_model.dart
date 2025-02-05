@@ -156,16 +156,16 @@ class UserModel {
   ///
   /// Currently, this has the collections hard-coded. Needs
   /// to be generalized for multi-chapter usage
-  static void deleteUserById(String userId) {
+  static Future<void> deleteUserById(String userId) async {
     AppInfo.database.collection('users').doc(userId).delete();
-    AppInfo.database
-        .collection('chatrooms')
-        .doc("${userId}1HPfOe8jKzRX6Z4R8EgtQ5OTrCy1")
-        .delete();
-    AppInfo.database
-        .collection('chatrooms')
-        .doc("${userId}45XDSFj7bLO5b622cwHxUegCQ973")
-        .delete();
+    CollectionReference chapters = AppInfo.database.collection('chapters');
+    QuerySnapshot querySnapshot = await chapters.get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await chapters.doc(doc.id).update({
+        'users': FieldValue.arrayRemove([userId])
+      });
+    }
   }
 
   /// Fetches a user's data by [id] and returns a [UserModel] for easy reading

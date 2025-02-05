@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCh-ScRBuzjyoxo6wlydizByk2UCxvYXzI',
-    appId: '1:766507839697:android:131aab77cb403422e295f0',
+    appId: '1:766507839697:android:a2efb6c8e02aaddae295f0',
     messagingSenderId: '766507839697',
     projectId: 'madx-33e96',
     storageBucket: 'madx-33e96.firebasestorage.app',
@@ -63,10 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '766507839697',
     projectId: 'madx-33e96',
     storageBucket: 'madx-33e96.firebasestorage.app',
-    androidClientId:
-        '766507839697-9nts4eh9icecerbr95u85k9stggrmt8v.apps.googleusercontent.com',
-    iosClientId:
-        '766507839697-2d68md69l279c0rbocimrg9d2km0elea.apps.googleusercontent.com',
+    androidClientId: '766507839697-9nts4eh9icecerbr95u85k9stggrmt8v.apps.googleusercontent.com',
+    iosClientId: '766507839697-2d68md69l279c0rbocimrg9d2km0elea.apps.googleusercontent.com',
     iosBundleId: 'com.wesimplex.chapter',
   );
+
 }
