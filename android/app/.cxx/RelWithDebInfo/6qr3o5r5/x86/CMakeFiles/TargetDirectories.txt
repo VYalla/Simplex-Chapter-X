@@ -1,0 +1,2 @@
+/Users/mahiremran/Desktop/GitHub/Simplex-Chapter-X/android/app/.cxx/RelWithDebInfo/6qr3o5r5/x86/CMakeFiles/edit_cache.dir
+/Users/mahiremran/Desktop/GitHub/Simplex-Chapter-X/android/app/.cxx/RelWithDebInfo/6qr3o5r5/x86/CMakeFiles/rebuild_cache.dir

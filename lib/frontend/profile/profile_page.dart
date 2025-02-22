@@ -32,7 +32,7 @@ class Profile {
                         children: [
                           InkWell(
                               onTap: () => _openUrl(
-                                  'https://sites.google.com/wesimplex.com/hello/terms-of-service?authuser=1'),
+                                  'https://sites.google.com/wesimplex.com/home/terms-of-service'),
                               child: Text(
                                 'Terms and Conditions',
                                 style: FlutterFlowTheme.of(context)
@@ -50,7 +50,7 @@ class Profile {
                         children: [
                           InkWell(
                               onTap: () => _openUrl(
-                                  'https://sites.google.com/wesimplex.com/hello/privacy-policy?authuser=1'),
+                                  'https://sites.google.com/wesimplex.com/home/privacy-policy'),
                               child: Text(
                                 'Privacy Policy',
                                 style: FlutterFlowTheme.of(context)
@@ -96,7 +96,7 @@ class Profile {
                                     },
                                 ),
                                 const TextSpan(
-                                  text: ' to request account deletion.',
+                                  text: ' if you have any questions or issues with this application.',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontFamily: 'Google Sans',
@@ -188,7 +188,9 @@ class Profile {
         });
   }
 
-  static Future<bool> _deleteDialog(BuildContext context) async {
+
+
+    static Future<bool> _deleteDialog(BuildContext context) async {
     bool okPressed = false;
     return showDialog(
         context: context,
@@ -207,6 +209,7 @@ class Profile {
             content: SizedBox(
               width: MediaQuery.of(context).size.width * .9,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -216,8 +219,8 @@ class Profile {
                         "Are you sure you want to delete your account? This action cannot be reversed.",
                         style: TextStyle(
                           color: Colors.black,
-                          fontFamily: 'Google Sans',
-                          fontSize: 21,
+                          fontFamily: 'ClashGrotesk',
+                          fontSize: 16,
                           fontWeight: FontWeight.w400,
                         )),
                   ),
@@ -228,6 +231,7 @@ class Profile {
             actions: <Widget>[
               Center(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
@@ -244,13 +248,13 @@ class Profile {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(25, 12, 25, 12),
+                        padding: EdgeInsets.fromLTRB(16, 6, 16, 6),
                         child: Text(
                           "Yes, delete my account.",
                           style: TextStyle(
                             color: Colors.white,
-                            fontFamily: 'Google Sans',
-                            fontSize: 21,
+                            fontFamily: 'ClashGrotesk',
+                            fontSize: 16,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -275,13 +279,13 @@ class Profile {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(25, 12, 25, 12),
+                        padding: EdgeInsets.fromLTRB(16, 6, 16, 6),
                         child: Text(
                           "No, go back.",
                           style: TextStyle(
                             color: Colors.black,
-                            fontFamily: 'Google Sans',
-                            fontSize: 21,
+                            fontFamily: 'ClashGrotesk',
+                            fontSize: 16,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
