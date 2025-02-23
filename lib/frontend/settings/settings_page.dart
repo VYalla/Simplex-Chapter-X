@@ -1,6 +1,6 @@
-import 'package:simplex_chapter_x/frontend/settings/edit_chapter.dart';
-import 'package:simplex_chapter_x/frontend/settings/manage_admins.dart';
-import 'package:simplex_chapter_x/frontend/settings/manage_users.dart';
+import 'edit_chapter.dart';
+import 'manage_admins.dart';
+import 'manage_users.dart';
 
 import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';

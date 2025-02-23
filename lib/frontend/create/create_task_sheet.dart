@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:simplex_chapter_x/backend/models.dart';
-import 'package:simplex_chapter_x/frontend/toast.dart';
+import '../../backend/models.dart';
+import '../toast.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 

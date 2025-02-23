@@ -8,10 +8,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badge_control/flutter_app_badge_control.dart';
-import 'package:simplex_chapter_x/frontend/login/login_page.dart';
-import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
-import 'package:simplex_chapter_x/firebase_options.dart';
-import 'package:simplex_chapter_x/app_info.dart';
+import 'frontend/login/login_page.dart';
+import 'frontend/select_chapter/chapter_select.dart';
+import 'firebase_options.dart';
+import 'app_info.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {

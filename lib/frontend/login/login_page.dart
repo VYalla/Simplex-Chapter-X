@@ -3,14 +3,14 @@ import 'package:flutter/gestures.dart';
 import 'dart:developer' as dv;
 
 import 'package:flutter/material.dart';
-import 'package:simplex_chapter_x/frontend/login/auth_service.dart';
-import 'package:simplex_chapter_x/frontend/login/create_account.dart';
-import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';
+import 'auth_service.dart';
+import 'create_account.dart';
+import '../select_chapter/chapter_select.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:simplex_chapter_x/app_info.dart';
+import '../../app_info.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -545,13 +545,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   break;
                                               }
                                             } else {
-                                              Fluttertoast.showToast(
-                                                  msg: "other error",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  textColor: Colors.white,
-                                                  backgroundColor: Colors.red,
-                                                  fontSize: 16);
+                                              // Fluttertoast.showToast(
+                                              //     msg: "other error",
+                                              //     toastLength:
+                                              //         Toast.LENGTH_SHORT,
+                                              //     textColor: Colors.white,
+                                              //     backgroundColor: Colors.red,
+                                              //     fontSize: 16);
                                               // Handle other non-authentication related errors
                                             }
                                           }

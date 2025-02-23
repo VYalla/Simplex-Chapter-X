@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:simplex_chapter_x/backend/models.dart';
-import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
-import 'package:simplex_chapter_x/frontend/profile/profile_page.dart';
-import 'package:simplex_chapter_x/frontend/select_chapter/chapter_card.dart';
-import 'package:simplex_chapter_x/frontend/select_chapter/join_chapter.dart';
-import 'package:simplex_chapter_x/app_info.dart';
+import '../../backend/models.dart';
+import '../nav/navigation.dart';
+import '../profile/profile_page.dart';
+import 'chapter_card.dart';
+import 'join_chapter.dart';
+import '../../app_info.dart';
 
 // import '../../backend/models.dart';
 

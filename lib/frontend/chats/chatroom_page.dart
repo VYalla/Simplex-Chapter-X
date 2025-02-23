@@ -1,21 +1,20 @@
 // ignore_for_file: must_be_immutable, no_logic_in_create_state
 
 import 'dart:async';
+
 // import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'package:simplex_chapter_x/frontend/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app_info.dart';
 import '../../backend/models.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:flutter/material.dart';
-
 import '../nav/navigation.dart';
 import '../select_chapter/chapter_card.dart';
 

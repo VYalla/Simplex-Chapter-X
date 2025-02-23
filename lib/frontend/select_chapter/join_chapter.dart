@@ -1,17 +1,16 @@
 // import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:simplex_chapter_x/create_chapter.dart';
 
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/select_chapter/chapter_select.dart';

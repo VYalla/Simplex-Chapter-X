@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:simplex_chapter_x/frontend/chats/chats_page.dart';
-import 'package:simplex_chapter_x/frontend/create/create_screen.dart';
-import 'package:simplex_chapter_x/frontend/gallery/gallery_page.dart';
-import 'package:simplex_chapter_x/frontend/home/home_page.dart';
-import 'package:simplex_chapter_x/frontend/create/create_sheet.dart';
-import 'package:simplex_chapter_x/frontend/settings/settings_page.dart';
+import '../chats/chats_page.dart';
+import '../create/create_screen.dart';
+import '../gallery/gallery_page.dart';
+import '../home/home_page.dart';
+import '../create/create_sheet.dart';
+import '../settings/settings_page.dart';
 
 import '../../app_info.dart';
 

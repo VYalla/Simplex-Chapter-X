@@ -1,6 +1,6 @@
-import 'package:simplex_chapter_x/frontend/gallery/task_page.dart';
-import 'package:simplex_chapter_x/frontend/gallery/packets_page.dart';
-import 'package:simplex_chapter_x/frontend/gallery/calendar_page.dart';
+import 'task_page.dart';
+import 'packets_page.dart';
+import 'calendar_page.dart';
 
 import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:simplex_chapter_x/frontend/nav/navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:simplex_chapter_x/app_info.dart';
 
 class ChapterCard extends StatelessWidget {

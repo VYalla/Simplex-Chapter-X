@@ -1,5 +1,5 @@
-import 'package:simplex_chapter_x/app_info.dart';
-import 'package:simplex_chapter_x/backend/models.dart';
+import '../../app_info.dart';
+import '../../backend/models.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 

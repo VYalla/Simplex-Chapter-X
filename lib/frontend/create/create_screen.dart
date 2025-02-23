@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:simplex_chapter_x/app_info.dart';
-import 'package:simplex_chapter_x/frontend/create/create_chat_sheet.dart';
-import 'package:simplex_chapter_x/frontend/create/create_event_sheet.dart';
-import 'package:simplex_chapter_x/frontend/create/create_packet.dart';
-import 'package:simplex_chapter_x/frontend/create/create_task_sheet.dart';
-import 'package:simplex_chapter_x/frontend/flutter_flow/flutter_flow_theme.dart';
+import '../../app_info.dart';
+import 'create_chat_sheet.dart';
+import 'create_event_sheet.dart';
+import 'create_packet.dart';
+import 'create_task_sheet.dart';
+import '../flutter_flow/flutter_flow_theme.dart';
 
 class CreateScreen extends StatelessWidget {
   List<String> firstLast = AppInfo.currentUser.name.split(' ');

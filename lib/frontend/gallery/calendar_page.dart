@@ -4,13 +4,14 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:simplex_chapter_x/backend/models.dart';
 import 'package:simplex_chapter_x/frontend/events/event_landing_page.dart';
 import 'package:simplex_chapter_x/frontend/tasks/task_landing_page.dart';
+
 import '../../app_info.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:flutter/material.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
