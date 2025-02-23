@@ -221,6 +221,14 @@ class AuthService {
         fullName = userDoc.get('name') ?? '';
         await AppInfo.getCurrentUserData();
       } else {
+        String name = "";
+        if (appleCredential.givenName != null && appleCredential.familyName != null) {
+          name = appleCredential.givenName! + " " + appleCredential.familyName!;
+          await userCredential!.user!.updateDisplayName(
+            appleCredential.givenName! + " " + appleCredential.familyName!);
+        } else {
+          throw Exception("Name is null despite first apple login");
+        }
         // fullName =
         //     await _getFullNameSafely(context, userCredential!.user!) ?? '';
         UserModel newUser = UserModel(
@@ -229,7 +237,7 @@ class AuthService {
           profilePic: userCredential!.user!.photoURL ?? '',
           // name: userDoc.get('name') ?? 'User',
           // name should be "User " and then the first 5 characters of the ID
-          name: 'User ' + userCredential!.user!.uid.substring(0, 5),
+          name: name,
           pastEvents: [],
           compEvents: [],
           grade: 12,
